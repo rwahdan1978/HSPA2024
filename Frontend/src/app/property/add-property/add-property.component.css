@@ -1,0 +1,17 @@
+.photo-control{
+    min-height: 50px;
+    vertical-align: middle;
+    text-align: center;
+    border: 1px dashed blue;
+    margin: 5px;
+    padding-bottom: 40px;
+}
+
+.custom-today-class{ background-color:blue; }
+
+.upload{
+    font-weight: bold;
+    color: green;
+    margin-left: 15px;
+    line-height: 36px;
+}

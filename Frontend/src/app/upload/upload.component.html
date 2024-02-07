@@ -1,0 +1,26 @@
+
+   <input id="input1" (change)="onImagePicked1($event)" placeholder="Upload Image" type="file"/>
+   <button id="button1" type="button" (click)="onImageUpload1()">Prop Image1</button><br>
+   
+   <input id="input2" disabled (change)="onImagePicked2($event)" placeholder="Upload Image" type="file" multiple/>
+   <button id="button2" disabled type="button" (click)="onImageUpload2()">Prop Image2</button><br>
+   
+   <input id="input3" disabled (change)="onImagePicked3($event)" placeholder="Upload Image" type="file" multiple/>
+   <button id="button3" disabled type="button" (click)="onImageUpload3()">Prop Image3</button><br>
+   
+   <input id="input4" disabled (change)="onImagePicked4($event)" placeholder="Upload Image" type="file" multiple/>
+   <button id="button4" disabled type="button" (click)="onImageUpload4()">Prop Image4</button><br>
+   
+   <input id="input5" disabled (change)="onImagePicked5($event)" placeholder="Upload Image" type="file" multiple/>
+   <button id="button5" disabled type="button" (click)="onImageUpload5()">Prop Image5</button><br>
+   
+   <input id="input6" disabled (change)="onImagePicked6($event)" placeholder="Upload Image" type="file" multiple/>
+   <button id="button6" disabled type="button" (click)="onImageUpload6()">Prop Company Image</button><br><br>
+
+   <strong class="anim" *ngIf="theFlag">All images were uploaded successfully!</strong>
+
+    <!-- <div *ngIf="imageUrl">
+     Preview Image from AWS
+     <br />
+     <img width="200px" src="https://angular-upload-files-2023.s3.amazonaws.com/{{ imageUrl }}" >
+    </div> -->

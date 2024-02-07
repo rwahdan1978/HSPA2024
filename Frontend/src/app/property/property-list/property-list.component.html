@@ -1,0 +1,87 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+<div *ngIf="deviveInfo.deviceType=== 'mobile' && deviveInfo.orientation=== 'landscape'">
+  <br>
+  <label>Choose Filter:</label>&nbsp;
+  <select [(ngModel)] = 'SearchCar' (change)="ClearList()">
+    <option value="ProjectName">Project Name</option>
+    <option value="Name">City</option>
+    <option value="PType">Property Type</option>
+  </select>
+  &nbsp;
+  <label>Sort by &nbsp;</label>
+  <select [(ngModel)] = 'SortbyParam'>
+    <option value="ProjectName">Project Name</option>
+    <option value="Name">City</option>
+    <option value="SellRent">Sell/Rent</option>
+    <option value="Price">Price</option>
+    <option value="PType">Property Type</option>
+  </select>
+  &nbsp;
+  <button type="button" (click) = "onSortDirection()">
+    <i *ngIf="SortDirection==='asc'" class="fas fa-sort-alpha-down"></i>
+    <i *ngIf="SortDirection==='desc'" class="fas fa-sort-alpha-up"></i>
+  </button>
+
+  <br><br>
+  <label>Type your search:</label>&nbsp;
+    <input [(ngModel)]='City'>&nbsp;
+    <button type="button" (click)="onCityFilter()">Search</button>&nbsp;
+    <button type="button" (click)="onCityFilterClear()">Clear</button>
+
+  <br><br>
+</div>
+
+<h4 *ngIf="deviveInfo.deviceType=== 'mobile' && deviveInfo.orientation=== 'portrait'"> 
+  Please switch to landscape mode to show the content of the page. 
+</h4>
+
+<div *ngIf="deviveInfo.deviceType != 'mobile'">
+  <br> &nbsp;
+  <label>Choose Filter:</label>&nbsp;
+  <select [(ngModel)] = 'SearchCar' (change)="ClearList()">
+    <option value="ProjectName">Project Name</option>
+    <option value="Name">City</option>
+    <option value="PType">Property Type</option>
+  </select>
+  &nbsp;
+  <label>Sort by &nbsp;</label>
+  <select [(ngModel)] = 'SortbyParam'>
+    <option value="ProjectName">Project Name</option>
+    <option value="Name">City</option>
+    <option value="SellRent">Sell/Rent</option>
+    <option value="Price">Price</option>
+    <option value="PType">Property Type</option>
+  </select>
+  &nbsp;
+  <button type="button" (click) = "onSortDirection()">
+    <i *ngIf="SortDirection==='asc'" class="fas fa-sort-alpha-down"></i>
+    <i *ngIf="SortDirection==='desc'" class="fas fa-sort-alpha-up"></i>
+  </button>
+  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+  
+  <label>Type your search:</label>&nbsp;
+    <input [(ngModel)]='City'>&nbsp;
+    <button type="button" (click)="onCityFilter()">Search</button>&nbsp;
+    <button type="button" (click)="onCityFilterClear()">Clear</button>
+
+  <br><br>
+</div>
+
+<div class="row" *ngIf="(deviveInfo.deviceType=== 'mobile' && deviveInfo.orientation=== 'landscape') || deviveInfo.deviceType != 'mobile'">
+    <div *ngFor="let property of properties|filter:SearchCity:SearchCar|sort:[SortbyParam,SortDirection]| paginate:{ itemsPerPage: 4,
+      currentPage: p}"class="col-sm-6">
+      <div class="shadow-lg p-3 mb-4">
+        <app-property-card [property]="property"></app-property-card>
+      </div>
+    </div>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+
+</body>
+</html>

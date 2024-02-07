@@ -1,0 +1,395 @@
+<h5 *ngIf="deviveInfo.deviceType=== 'mobile' && deviveInfo.orientation=== 'portrait'">Rotate your mobile to view the page!</h5>
+
+<div *ngIf="(deviveInfo.deviceType=== 'mobile' 
+    && deviveInfo.orientation=== 'landscape') || deviveInfo.deviceType != 'mobile'" class="row shadow">
+    
+  <div class="col-sm-4 p-0">
+    <div class="card">
+      <div class="card-img-wrapper">
+        <img *ngIf="property.Image1" class="card-img-top" src="https://angular-upload-files-2023-2024.s3.amazonaws.com/properties2023/{{property.Image1}}">
+        <img *ngIf="!property.Image1" class="card-img-top" src="https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/default_house.png">
+      </div>
+      <div class="card-body">
+        
+        <h2 class="card-title" *ngIf="property.SellRent == 1">{{property.Name}} - For Sale</h2>
+        <h2 class="card-title" *ngIf="property.SellRent == 2">{{property.Name}} - For Rent</h2>
+        <div>
+            <h6 *ngIf="property.SellRent == 1"> AED{{property.Price}} / 3-6 year Plans Available</h6>
+            <h6 *ngIf="property.SellRent == 1">{{property.BHK}} bedroom {{property.PType}}</h6>
+            <h6 *ngIf="property.SellRent == 2"> AED{{property.Price}} / 4 cheques payments</h6>
+            <h6 *ngIf="property.SellRent == 2">{{property.BHK}} bedroom {{property.PType}}</h6> 
+        </div>
+        <div>
+           <strong *ngIf="property.building_flat !=null">{{property.Address}}, Near {{property.Address2}} - Building # {{property.building_flat}}<br> {{property.Name}}, {{property.City}}</strong>
+           <strong *ngIf="property.villa !=null">{{property.Address}}, Near {{property.Address2}} - Villa # {{property.villa}}<br> {{property.Name}}, {{property.City}}</strong>
+        </div> <hr>
+        <div>
+            <strong>Build Area: </strong> 
+            {{property.BuiltArea}} Sqft
+        </div>
+
+        <div>
+            <strong>Carpet Area: </strong>
+            {{property.CarpetArea}} Sqft
+        </div>
+        <div>
+            <strong>Furnishing Type: </strong>
+            {{property.FType}}
+        </div>
+        <div>
+          <strong>Posted on: </strong>
+          {{property.PostedOn | date: 'mediumDate' }}
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="btn-group d-flex">
+          <button class="btn btn-primary" (click)="addLike($event.target)">{{likes}} Likes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-8 p-0">
+    <div class="tab-panel">
+      <mat-tab-group #tabGroup [selectedIndex]="selectedIndex" (selectedTabChange)="tabChanged($event)">
+        <mat-tab label="Overview">
+          <h1>Overview</h1>
+          <div class="row">
+              <div class="col-sm-6">
+                  <div class="heading">
+                      <strong>Project Name</strong>
+                      <p>{{property.ProjectName}}</p>
+                  </div>
+
+                  <div class="heading">
+                      <strong *ngIf="property.FloorNo !='NA'">Floor Number</strong>
+                      <p *ngIf="property.FloorNo !='NA'">Floor number {{property.FloorNo}}</p>
+                  </div>
+
+                  <div class="heading">
+                    <strong *ngIf="property.TotalFloor !='NA'">Total Number of Floors</strong>
+                    <p *ngIf="property.TotalFloor !='NA'">{{property.TotalFloor}} floors</p>
+                </div>
+
+                  <div class="heading">
+                      <strong>Age of Property</strong>
+                      <p>{{property.AOP}} yaers</p>
+                  </div>
+
+                  <div class="heading">
+                      <strong>Available moving date</strong>
+                      <p style="color: red;  font-size: 1.5rem">{{property.PA | date: 'mediumDate' }}</p>
+                  </div>
+              </div>
+
+              <div class="col-sm-6">
+                  <div class="heading">
+                      <strong>Main Entrance</strong>
+                      <p>{{property.MainEntrance}}</p>
+                  </div>
+
+                  <div class="heading">
+                      <strong>Gated Community</strong>
+                      <p>{{property.Gated}}</p>
+                  </div>
+
+                  <div class="heading">
+                      <strong>Security Deposit</strong>
+                      <p>{{property.Security}}AED/Once</p>
+                  </div>
+                  <div class="heading">
+                      <strong>Maintenance</strong>
+                      <p>{{property.Maintenance}}AED/Yearly</p>
+                  </div>
+              </div>
+              <div class="col-sm-12">
+                  <div class="heading">
+
+                      <strong>Building amenities include:</strong><br><br>
+                        
+                        <i class="fas fa-chart-area"aria-hidden="true" 
+                          style="font-size: 30px;" >
+                        </i>
+                        &nbsp; &nbsp;
+                        <strong>{{property.BuiltArea}} Sqft</strong>&nbsp; &nbsp;
+
+                        <i class="fas fa-bed" aria-hidden="true" 
+                          style="font-size: 30px;" >
+                        </i> 
+                        &nbsp; &nbsp;  
+                        <strong>{{property.BHK}} Beds</strong>&nbsp; &nbsp; 
+                        
+                        <i class="fa fa-bath" aria-hidden="true" 
+                          style="font-size: 30px;" >
+                        </i>
+                        &nbsp; &nbsp;  
+                        <strong>{{property.bathroom}} Baths</strong><br> 
+                        
+                        <i class="fa-solid fa-square-parking" 
+                          style="font-size: 30px;" >
+                        </i> 
+                        &nbsp; &nbsp; 
+                        <strong>{{property.parking}} Parking</strong>&nbsp; &nbsp; 
+                        
+                        <i class="fas fa-swimming-pool" 
+                          style="font-size: 30px;" >
+                        </i> 
+                        &nbsp; &nbsp; 
+                        <strong>{{property.swimmingPool}} Swimming Pool</strong>
+                        &nbsp; &nbsp;
+                        
+                        <br><br>
+                        <strong>Places to visit around:</strong><br>
+
+                        <i class="fa-solid fa-store" aria-hidden="true" 
+                            style="font-size: 30px; padding-top: 15px;">
+                        </i>
+                        
+                        <strong>Shopping Mall</strong>  
+                        &nbsp;&nbsp; &nbsp;
+                        <strong *ngIf="property.mall"> 5 minutes walk</strong> 
+                        <strong *ngIf="!property.mall" style="color: red;"> Not Available </strong> 
+                        &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+
+                        <i class="fa-solid fa-hippo" aria-hidden="true" 
+                            style="font-size: 30px; padding-top: 15px;" >
+                        </i>
+                        &nbsp;
+                        <strong>Zoo</strong> 
+                        &nbsp; &nbsp; &nbsp;
+                        <strong *ngIf="property.zoo"> 25 minutes drive</strong> 
+                        <strong *ngIf="!property.zoo" style="color: red;"> Not Available </strong> <br>
+                        
+                        <i class="fas fa-hotdog" 
+                            style="font-size: 30px; padding-top: 15px;" >
+                        </i> 
+                        &nbsp; &nbsp;
+                        <strong>Fast Food</strong>
+                        &nbsp; &nbsp; &nbsp;
+                        <strong *ngIf="property.fastFood"> 5-15 minutes walk</strong> 
+                        <strong *ngIf="!property.fastFood" style="color: red;"> Not Available </strong> 
+
+                        &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+                        &nbsp;&nbsp; &nbsp; 
+                      
+
+                        <i  class="fa-solid fa-umbrella-beach" 
+                            style="font-size: 30px; padding-top: 15px;" >
+                        </i>
+                        
+                        &nbsp; &nbsp;&nbsp; 
+                        <strong>Beach</strong>
+                        &nbsp; &nbsp; &nbsp;
+                        <strong *ngIf="property.beach"> 10 minutes drive</strong> 
+                        <strong *ngIf="!property.beach" style="color: red;"> Not Available </strong> 
+
+                        &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        <br>
+                        <i  class="fa-solid fa-solid fa-school" 
+                            style="font-size: 30px; padding-top: 15px;" >
+                        </i>
+                       
+                        &nbsp; &nbsp;&nbsp; 
+                        <strong>Schools</strong>
+                        &nbsp; &nbsp; &nbsp;
+                        <strong *ngIf="property.school"> 5 minutes walk</strong> 
+                        <strong *ngIf="!property.school" style="color: red;"> Not Available </strong> 
+
+                        &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+
+                        <i  class="fa-solid fa-mosque" 
+                            style="font-size: 30px; padding-top: 15px;" >
+                        </i>
+                        
+                        &nbsp; &nbsp;&nbsp; 
+                        <strong>Mosque</strong>
+                        &nbsp; &nbsp; &nbsp;
+                        <strong *ngIf="property.mosque"> 10 minutes walk</strong> 
+                        <strong *ngIf="!property.mosque" style="color: red;"> Not Available </strong> 
+                        
+                  </div>
+              </div>
+            </div>
+        </mat-tab>
+
+        <mat-tab label="Address">
+
+          <h5 *ngIf="property.theaddress != null">
+                    For directions, click on <strong 
+                    style="color: red;">Directions.</strong><br>
+                    For contact details, click on <strong 
+                    style="color: red;">View large map.</strong>
+          </h5><br>
+         
+          <div>
+            <iframe *ngIf="deviveInfo.deviceType != 'mobile'"
+              [src]= urlPath
+              width="800" height="450" style="border:0;" loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+
+          <div>
+            <iframe *ngIf="deviveInfo.deviceType=== 'mobile' && deviveInfo.orientation=== 'landscape'"
+              [src]= urlPath
+              width="300" height="450" style="border:0;" loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+          
+        </mat-tab>
+
+        <mat-tab  id="photosTab" label="Photos"> 
+
+          <section class="home">
+
+            <div *ngIf="visable2" id="carousel" class="carousel slide" data-ride="carousel" loading="lazy">
+              <div class="carousel-controls">
+
+                <ol class="carousel-indicators">
+                  <li data-target="#carousel" data-slide-to="0" class="active" 
+                      style="background-image:url('https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image1}}')"></li>
+
+                  <li data-target="#carousel" data-slide-to="1" style="background-image:url('https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image2}}')"></li>
+                  <li data-target="#carousel" data-slide-to="2" style="background-image:url('https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image3}}')"></li>
+                  <li data-target="#carousel" data-slide-to="3" style="background-image:url('https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image4}}')"></li>
+                  <li data-target="#carousel" data-slide-to="4" style="background-image:url('https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image5}}')"></li>
+            
+                </ol>
+
+                <a class="carousel-control-prev" style="width: 100px;" href="#carousel" role="button" data-slide="prev">
+                  <img src="https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/left-arrow.svg" alt="Prev"> 
+                </a>
+                <a class="carousel-control-next" style="width: 100px;" href="#carousel" role="button" data-slide="next">
+                  <img src="https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/right-arrow.svg" alt="Next">
+                </a>
+
+              </div>
+
+              <div *ngIf="visable2 === true" class="carousel-inner">
+
+                <!-- here we need to make to show original photo-->
+                <div id="image1" class="carousel-item active" (click)="showImage()"
+                   style="background-image:url('https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image1}}')">
+                  <div class="container">
+                  
+                  <p *ngIf="property.SellRent ==1">For Sale / Price:{{property.Price}}AED</p>
+                  <p *ngIf="property.SellRent ==2">For Rent / Price:{{property.Price}}AED</p>
+                  </div>
+                </div>
+
+                <div id="image2" class="carousel-item" (click)="showImage()"
+                style="background-image:url('https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image2}}')">
+                  <div class="container">
+                  
+                  <p *ngIf="property.SellRent ==1">For Sale / Price:{{property.Price}}AED</p>
+                  <p *ngIf="property.SellRent ==2">For Rent / Price:{{property.Price}}AED</p>
+                  </div>
+                </div>
+
+                <div id="image3" class="carousel-item" (click)="showImage()"
+                style="background-image:url('https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image3}}')">
+                  <div class="container">
+                  
+                  <p *ngIf="property.SellRent ==1">For Sale / Price:{{property.Price}}AED</p>
+                  <p *ngIf="property.SellRent ==2">For Rent / Price:{{property.Price}}AED</p>
+                  </div>
+                </div>
+
+                <div id="image4" class="carousel-item " (click)="showImage()"
+                style="background-image:url('https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image4}}')">
+                  <div class="container">
+                  
+                  <p *ngIf="property.SellRent ==1">For Sale / Price:{{property.Price}}AED</p>
+                  <p *ngIf="property.SellRent ==2">For Rent / Price:{{property.Price}}AED</p>
+                  </div>
+                </div>
+
+                <div id="image5" class="carousel-item " (click)="showImage()"
+                style="background-image:url('https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image5}}')">
+                  <div class="container">
+                  
+                  <p *ngIf="property.SellRent ==1">For Sale / Price:{{property.Price}}AED</p>
+                  <p *ngIf="property.SellRent ==2">For Rent / Price:{{property.Price}}AED</p>
+                  </div>
+                </div>
+                
+              </div>
+
+            </div>
+
+          </section>
+          
+        </mat-tab>
+
+        <mat-tab label="Contact">
+
+          <div class="card text-center" style="max-width: 100vw; min-height: 10vw;">
+            <div class="card-header">
+              <strong> Commission: {{property.contactCommission}} AED </strong>
+            </div>
+            <img src="https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.companyImage}}" class="card-img-top" style= "max-height: 20%;">
+            <div class="card-body">
+                <p> Seller Name: {{property.contactCompany}}</p>
+                <p> Seller Name: {{property.contactName}}</p>
+                <p> Seller Contact: {{property.contactNumber}}</p>
+                <p> Seller WhatsApp: {{property.contactNumber2}}</p>
+                <p> Seller Contact: {{property.contactEmail}}</p>
+            </div>
+          </div>
+
+          <br>
+          <strong>You can fill out the form otherwise<br><br></strong>
+          <div>
+            <form *ngIf="deviveInfo.deviceType != 'mobile'" [formGroup]="form" class="form" action="javascript:void(0)" (submit)="send()" method="POST">
+              <input formControlName="from_name" name="from_name" type="text"  placeholder="Full Name"/>
+              <input formControlName="from_email" name="from_email" type="text"  placeholder="Email Address"/>
+              <input formControlName="subject" name="subject" type="text" placeholder="{{property.ProjectName}} - {{this.property.Name}}, {{this.property.City}}"/>
+              <textarea formControlName="message" name="message" type="text" placeholder="Enter your message"></textarea>
+              <button id="clickit" class="button1" type="submit">Submit</button>
+            </form>
+          </div>
+
+          <div>
+            <form *ngIf="deviveInfo.deviceType=== 'mobile' && deviveInfo.orientation=== 'landscape'" class="form1" [formGroup]="form1" action="javascript:void(0)" (submit)="send()" method="POST">
+              <input style="size: 1px;" formControlName="from_name1" name="from_name" type="text"  placeholder="Full Name"/>
+              <input formControlName="from_email" name="from_email1" type="text"  placeholder="Email Address"/>
+              <input formControlName="subject1" name="subject" type="text" placeholder="{{property.ProjectName}} - {{this.property.Name}}"/>
+              <textarea formControlName="message1" name="message" type="text" placeholder="Enter your message"></textarea>
+              <button id="clickit2" class="button2" type="submit">Submit</button>
+            </form>
+          </div>
+          
+        </mat-tab>
+
+      </mat-tab-group>
+
+        <section *ngIf="visable1 === true" class="slider_container">
+          <section class="slider">
+              <div class="slide one">
+                  <img (click)="hideImage()" src="https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image1}}" alt="">
+                 
+              </div>
+              <div (click)="hideImage()" class="slide two">
+                  <img src="https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image2}}" alt="">
+                  
+              </div>
+              <div (click)="hideImage()" class="slide three">
+                  <img src="https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image3}}" alt="">
+                  
+              </div>
+              <div (click)="hideImage()" class="slide four">
+                  <img src="https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image4}}" alt="">
+                  
+              </div>
+              <div (click)="hideImage()" class="slide five">
+                  <img src="https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image5}}" alt="">
+                  
+              </div>
+          </section>
+      </section>
+
+    </div>
+  </div>
+</div>
