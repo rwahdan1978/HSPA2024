@@ -20,8 +20,6 @@ import { environment } from 'src/environments/environment.development';
 })
 export class AddPropertyComponent implements OnInit {
 
-  // myScriptElement: HTMLScriptElement;
-
   deviveInfo: DeviceInfo;
   mall: any;
   fastFood: any;
@@ -73,6 +71,10 @@ export class AddPropertyComponent implements OnInit {
     }
 
   ngOnInit() {
+
+    this.housingService.getAllCities().subscribe(data => {
+      this.cityList = data;
+    });
 
     const config = {
       bucketName: 'angular-upload-files-2023-2024',
