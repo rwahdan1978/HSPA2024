@@ -6,7 +6,7 @@ namespace WebAPI.Extensions
     public static class ExceptionMiddlewareExtensions
     {
         public static void ConfigureExceptionHandler(this IApplicationBuilder app,
-        IWebHostEnvironment env)
+                                                    IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
