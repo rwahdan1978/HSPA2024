@@ -1,8 +1,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.Data;
-using WebAPI.Data.Repo;
 using WebAPI.Dtos;
 using WebAPI.Interfaces;
 using WebAPI.Models;
@@ -29,17 +27,6 @@ namespace WebAPI.Controllers
             var citiesDto = mapper.Map<IEnumerable<CityDto>>(cities);
             return Ok(citiesDto);
         }
-
-        // [HttpPost("add")]
-        // [HttpPost("add/{cityName}")]
-        // public async Task<IActionResult> AddCity(string cityName)
-        // {
-        //     City city = new City();
-        //     city.Name = cityName;
-        //     await dc.cities.AddAsync(city);
-        //     await dc.SaveChangesAsync();
-        //     return Ok(city);
-        // }
 
         [HttpPost("post")]
         public async Task<IActionResult> AddCity(CityDto cityDto)
