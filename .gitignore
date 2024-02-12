@@ -1,3 +1,4 @@
 node_modules
 WebAPI/bin
 WebAPI/obj
+WebAPI/appsettings.json

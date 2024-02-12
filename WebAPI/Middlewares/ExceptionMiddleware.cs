@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using WebAPI.Errors;
 
 namespace WebAPI.Middlewares
@@ -43,7 +39,7 @@ namespace WebAPI.Middlewares
                 else
                 {
                     statusCode = HttpStatusCode.InternalServerError;
-                    message = "Some unknown error occured! Rami";
+                    message = "Rami, Some unknown error occured!";
                 }
 
                 if(env.IsDevelopment())
