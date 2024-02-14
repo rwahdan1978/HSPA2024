@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, ValidationErrors, AbstractControl, FormBuilder } from '@angular/forms';
-import { UserServiceService } from 'src/app/services/user-service.service';
-import { User } from 'src/app/model/user';
+import { UserForRegister } from 'src/app/model/user';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
 import {environment} from 'src/environments/environment.development'
+import { AuthService } from 'src/app/services/authService';
 
 @Component({
   selector: 'app-user-register',
@@ -16,10 +17,10 @@ export class UserRegisterComponent implements OnInit {
   deviveInfo: DeviceInfo;
   registerationForm: FormGroup;
   countrycode: string = "971";
-  user: User;
+  user: UserForRegister;
   userSubmitted: boolean;
 
-  constructor(private fb: FormBuilder, private UserServiceService: UserServiceService,
+  constructor(private fb: FormBuilder, private authService: AuthService,
             private alertify: AlertifyService, private DDS: DeviceDetectorService) { }
 
   ngOnInit() {
@@ -95,22 +96,21 @@ export class UserRegisterComponent implements OnInit {
     if (this.registerationForm.valid)
     {
       if (this.adminPass.value === environment.adminPass){
-      this.UserServiceService.addUser(this.userData());
-      this.registerationForm.reset();
-      this.userSubmitted = false;
-      this.alertify.success('You have registered successfully!');
+        this.authService.registerUser(this.userData()).subscribe(() =>{
+        this.registerationForm.reset();
+        this.userSubmitted = false;
+        this.alertify.success('You have registered successfully!');
+        }, error => {
+          this.alertify.error(error.error);
+        });
       }
       else{
         this.alertify.error('You need to be an admin! Enter the correct admin password!');
       }
     }
-    else{
-      this.alertify.error('Please fill all required fields!');
-    }
-  
   }
 
-  userData(): User{
+  userData(): UserForRegister{
     return this.user = {
       userName: this.userName.value,
       countrycode: this.countrycode.toString(),
