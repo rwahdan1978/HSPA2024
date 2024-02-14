@@ -20,7 +20,7 @@ namespace WebAPI.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("cities")]
         [AllowAnonymous]
         public async Task<IActionResult> GetCities()
         {
