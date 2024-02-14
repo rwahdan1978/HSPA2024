@@ -14,9 +14,9 @@ builder2.Password = builder.Configuration.GetSection("DBPassword").Value;
 var connectionString = builder2.ConnectionString;
 
 // Add services to the container.
-Host.CreateDefaultBuilder(args).ConfigureHostConfiguration(configHost => {
-        configHost.AddEnvironmentVariables(prefix: "HSPA_");
-});
+// Host.CreateDefaultBuilder(args).ConfigureHostConfiguration(configHost => {
+//         configHost.AddEnvironmentVariables(prefix: "HSPA_");
+// });
 
 builder.Services.AddControllers().AddNewtonsoftJson();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -49,6 +49,9 @@ var app = builder.Build();
 //app.ConfigureExceptionHandler(builder.Environment);
 
 app.UseMiddleware<ExceptionMiddleware>();
+
+app.UseHsts();
+app.UseHttpsRedirection();
 
 app.UseCors(m => m.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
