@@ -4,6 +4,7 @@ import { AlertifyService } from 'src/app/services/alertify.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
+import { UserForLogin } from 'src/app/model/user';
 
 @Component({
   selector: 'app-user-login',
@@ -34,16 +35,18 @@ export class UserLoginComponent implements OnInit {
   onlogin(loginForm: NgForm){
     
     console.log(loginForm.value);
-    const token = this.authServive.authUser(loginForm.value);
-    if(token)
-    {
-      localStorage.setItem('token', token.userName);
-      this.alertify.success("You have loged-in successfully!");
-      this.router.navigate(['/']);
-    }
-    else
-    {
-      this.alertify.error("Username and/or Password is not corrent!");
-    }
+    this.authServive.authUser(loginForm.value).subscribe(
+      (response:UserForLogin|any) => {
+        console.log(response);
+        const user = response;
+        localStorage.setItem('token', user.token);
+        localStorage.setItem('userName', user.userName);
+        this.alertify.success("You have loged-in successfully!");
+        this.router.navigate(['/']);
+      }, error => {
+        console.log(error);
+        this.alertify.error(error.error);
+      }
+    );
   }
 }
