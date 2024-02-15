@@ -102,7 +102,7 @@ export class AddPropertyComponent implements OnInit {
     });
 
     this.deviveInfo = this.DDS.getDeviceInfo();
-    this.loggedinUser = localStorage.getItem('token') || '';
+    this.loggedinUser = localStorage.getItem('userName') || '';
 
     this.myDateValue = new Date();
     let thesave = document.getElementById("saveIT");
