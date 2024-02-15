@@ -53,11 +53,13 @@ app.UseMiddleware<ExceptionMiddleware>();
 app.UseCors(m => m.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
 app.UseAuthentication();
-
 app.UseAuthorization();
 
+app.UseHsts();
 app.UseHttpsRedirection();
 
-app.MapControllers();
+app.UseDefaultFiles();
+app.UseStaticFiles();
 
+app.MapControllers();
 app.Run();

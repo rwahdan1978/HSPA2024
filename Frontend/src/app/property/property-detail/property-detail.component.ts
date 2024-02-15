@@ -9,8 +9,6 @@ import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { filter, first } from 'rxjs';
 
-
-
 @Component({
   selector: 'app-property-detail',
   templateUrl: './property-detail.component.html',
@@ -60,6 +58,7 @@ export class PropertyDetailComponent implements OnInit {
     dangerousUrl:any;
   _activatedRoute: any;
   transactionTabIndex: any;
+  loggedinUser: string;
    
   constructor(private route: ActivatedRoute, private alert: AlertifyService, 
               private fb: FormBuilder, private sanitizer: DomSanitizer, 
@@ -69,6 +68,8 @@ export class PropertyDetailComponent implements OnInit {
     
     const savedTabIndex = localStorage.getItem('lastTab');
     this.selectedIndex= savedTabIndex;
+
+    this.loggedinUser = localStorage.getItem('userName') || '';
 
     this.deviveInfo = this.DDS.getDeviceInfo();
     this.form.controls['subject'].disable();
