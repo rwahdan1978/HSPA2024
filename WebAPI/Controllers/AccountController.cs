@@ -27,7 +27,7 @@ namespace WebAPI.Controllers
 
             if (user == null)
             {
-                return Unauthorized("Wrong username or password!");
+                return Unauthorized("You provided wrong details!");
             }
 
             var loginRes = new LoginResDto();

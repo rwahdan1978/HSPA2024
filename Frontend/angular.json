@@ -43,11 +43,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "2mb",
-                  "maximumError": "2mb",
-
-                  "maximumWarning": "2mb",
                   "maximumError": "2mb"
-
                 },
                 {
                   "type": "anyComponentStyle",
@@ -107,13 +103,26 @@
             "styles": [
               "src/styles.css"
             ],
-
             "scripts": [
               "assets/bootstrap.bundle.min.js"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
             ]
           }
         }
       }
     }
+  },
+  "cli": {
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }

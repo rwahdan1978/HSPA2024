@@ -23,7 +23,7 @@ import { PropertyDetailComponent } from './property/property-detail/property-det
 import { UserRegisterComponent } from './user/user-register/user-register.component';
 import { UserLoginComponent } from './user/user-login/user-login.component';
 import { AlertifyService } from './services/alertify.service';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './services/authService';
 import { PropertyDetailResolverService } from './property/property-detail/property-detail-resolver.service';
 import { DemoDirective } from './demo.directive';
 import { UploadComponent } from './upload/upload.component';
