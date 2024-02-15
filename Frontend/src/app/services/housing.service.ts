@@ -11,6 +11,7 @@ import { environment } from '../../environments/environment';
 export class HousingService {
 
   baseUrl = environment.baseUrl;
+
   constructor(private http:HttpClient) { }
 
   getAllCities(): Observable<string[]>{

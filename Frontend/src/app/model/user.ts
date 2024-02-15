@@ -1,9 +1,9 @@
 export interface UserForRegister {
     //testa
     userName: string;
-    email: string;
+    email?: string;
     password: string;
-    mobile: number;
+    mobile?: number;
     countrycode: string;
 }
 
