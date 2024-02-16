@@ -43,20 +43,7 @@ export class UserLoginComponent implements OnInit {
         localStorage.setItem('userName', user.userName);
         this.alertify.success("You have loged-in successfully!");
         this.router.navigate(['/']);
-      }, error => {
-        console.log(error);
-        this.alertify.error(error.error);
       }
     );
-    // if(token)
-    // {
-    //   localStorage.setItem('token', token.userName);
-    //   this.alertify.success("You have loged-in successfully!");
-    //   this.router.navigate(['/']);
-    // }
-    // else
-    // {
-    //   this.alertify.error("Username and/or Password is not corrent!");
-    // }
   }
 }

@@ -1,33 +1,57 @@
 using System.Net;
-using Microsoft.AspNetCore.Diagnostics;
+using WebAPI.Errors;
 
-namespace WebAPI.Extensions
+namespace WebAPI.Middlewares
 {
-    public static class ExceptionMiddlewareExtensions
+    public class ExceptionMiddleware
     {
-        public static void ConfigureExceptionHandler(this IApplicationBuilder app,
-                                                    IWebHostEnvironment env)
+        private readonly RequestDelegate next;
+        private readonly ILogger<ExceptionMiddleware> logger;
+        private readonly IHostEnvironment env;
+
+        public ExceptionMiddleware(RequestDelegate next,
+                                    ILogger<ExceptionMiddleware> logger,
+                                    IHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            this.env = env;
+            this.next = next;
+            this.logger = logger;
+        }
+
+        public async Task Invoke(HttpContext context)
+        {
+            try
             {
-                app.UseDeveloperExceptionPage();
+                await next(context);
             }
-            else
+            catch (Exception ex)
             {
-                app.UseExceptionHandler(
-                    options => {
-                        options.Run(
-                            async context =>
-                            {
-                                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                                var ex = context.Features.Get<IExceptionHandlerFeature>();
-                                if (ex != null)
-                                {
-                                    await context.Response.WriteAsync(ex.Error.Message);
-                                }
-                            }
-                        );
-                    });
+                ApiError response;
+                HttpStatusCode statusCode = HttpStatusCode.InternalServerError;
+                String message;
+                var exceptionType = ex.GetType();
+
+                if(exceptionType == typeof(UnauthorizedAccessException))
+                {
+                    statusCode = HttpStatusCode.Forbidden;
+                    message = "You are not authorized";
+                } else
+                {
+                    statusCode = HttpStatusCode.InternalServerError;
+                    message = "Some unknown error occoured";
+                }
+
+                if(env.IsDevelopment())
+                {
+                    response = new ApiError((int)statusCode,ex.Message,ex.StackTrace.ToString());
+                } else {
+                    response = new ApiError((int)statusCode,message);
+                }
+
+                logger.LogError(ex, ex.Message);
+                context.Response.StatusCode = (int)statusCode;
+                context.Response.ContentType="application/json";
+                await context.Response.WriteAsync(response.ToString());
             }
         }
     }

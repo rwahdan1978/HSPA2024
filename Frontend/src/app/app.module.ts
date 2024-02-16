@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -33,6 +33,7 @@ import { SortPipe } from './Pipes/sort.pipe';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { NgxPaginationModule } from 'ngx-pagination'; 
 import {MatTabsModule} from '@angular/material/tabs';
+import { HttpErrorInterceptorService } from './services/httperror-interceptor.service';
 
 const appRoutes: Routes = [
   {path: '', component: PropertyListComponent},
@@ -79,7 +80,17 @@ const appRoutes: Routes = [
     MatTabsModule
   ],
   providers: [
-    {provide: LocationStrategy, useClass: HashLocationStrategy},
+
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptorService,
+      multi: true
+    },
+
+    {
+      provide: LocationStrategy, 
+      useClass: HashLocationStrategy
+    },
     HousingService,
     AlertifyService,
     AuthService,

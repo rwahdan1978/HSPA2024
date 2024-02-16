@@ -4,6 +4,8 @@ using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using WebAPI.Dtos;
+using WebAPI.Errors;
+using WebAPI.Extensions;
 using WebAPI.Interfaces;
 using WebAPI.Models;
 
@@ -24,10 +26,14 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> Login(LoginReqDto loginReq)
         {
             var user = await uow.userRepository.Authenticate(loginReq.UserName, loginReq.Password);
+            ApiError apiError = new ApiError();
 
             if (user == null)
             {
-                return Unauthorized("You provided wrong details!");
+                apiError.ErrorCode = Unauthorized().StatusCode;
+                apiError.ErrorMessage = "Invalid username or password!";
+                apiError.ErrorDetails = "This message appears when username or password is incorrent!";
+                return Unauthorized(apiError);
             }
 
             var loginRes = new LoginResDto();
@@ -39,9 +45,21 @@ namespace WebAPI.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(LoginReqDto loginReq)
         {
-            if (await uow.userRepository.UserAlreadyExists(loginReq.UserName))
-                return BadRequest("User already exists, please try other details!");
 
+            ApiError apiError = new ApiError();
+            if (loginReq.UserName.IsEmpty() || loginReq.Password.IsEmpty())
+            {
+                apiError.ErrorCode = BadRequest().StatusCode;
+                apiError.ErrorMessage = "Username or Password cannot be empty!";
+                return BadRequest(apiError);
+            }
+
+            if (await uow.userRepository.UserAlreadyExists(loginReq.UserName))
+            {
+                apiError.ErrorCode = BadRequest().StatusCode;
+                apiError.ErrorMessage = "User already exists try other details!";
+                return BadRequest(apiError);
+            }
             uow.userRepository.Register(loginReq.UserName, loginReq.Password);
             await uow.SaveAsync();
             return StatusCode(201);

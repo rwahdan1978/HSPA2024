@@ -100,8 +100,6 @@ export class UserRegisterComponent implements OnInit {
         this.registerationForm.reset();
         this.userSubmitted = false;
         this.alertify.success('You have registered successfully!');
-        }, error => {
-          this.alertify.error(error.error);
         });
       }
       else{
