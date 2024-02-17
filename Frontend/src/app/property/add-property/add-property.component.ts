@@ -72,6 +72,7 @@ export class AddPropertyComponent implements OnInit {
 
   ngOnInit() {
 
+    console.log("hi there!")
     this.housingService.getAllCities().subscribe(data => {
       this.cityList = data;
     });
