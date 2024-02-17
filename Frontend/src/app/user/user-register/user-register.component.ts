@@ -99,25 +99,19 @@ export class UserRegisterComponent implements OnInit
     {
       if (this.adminPass.value === environment.adminPass)
       {
-        this.authService.registerUser(this.userData()).subscribe(() => {
-        this.registerationForm.reset();
-        this.userSubmitted = false;
-        this.alertify.success('You have registered successfully!');
-        });    
-      if (this.adminPass.value === environment.adminPass){
         this.authService.registerUser(this.userData()).subscribe(() =>{
         this.registerationForm.reset();
         this.userSubmitted = false;
         this.alertify.success('You have registered successfully!');
         });
       }
-      else{
+      else
+      {
         this.alertify.error('You need to be an admin! Enter the correct admin password!');
       }
     }
-    }
   }
-
+  
   userData(): UserForRegister{
     return this.user = {
       userName: this.userName.value,
