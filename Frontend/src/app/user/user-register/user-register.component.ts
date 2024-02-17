@@ -5,18 +5,15 @@ import { UserForRegister } from 'src/app/model/user';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
 import {environment} from 'src/environments/environment.development'
-<<<<<<< HEAD
-import { AuthService } from 'src/app/services/auth.service';
-=======
 import { AuthService } from 'src/app/services/authService';
->>>>>>> a707ea6d1607b30b310e1a5d3ffac681ee5c66be
 
 @Component({
   selector: 'app-user-register',
   templateUrl: './user-register.component.html',
   styleUrls: ['./user-register.component.css']
 })
-export class UserRegisterComponent implements OnInit {
+export class UserRegisterComponent implements OnInit 
+{
 
   deviveInfo: DeviceInfo;
   registerationForm: FormGroup;
@@ -26,6 +23,7 @@ export class UserRegisterComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private authService: AuthService,
             private alertify: AlertifyService, private DDS: DeviceDetectorService) { }
+  
 
   ngOnInit() {
 
@@ -99,7 +97,6 @@ export class UserRegisterComponent implements OnInit {
     
     if (this.registerationForm.valid)
     {
-<<<<<<< HEAD
       if (this.adminPass.value === environment.adminPass)
       {
         this.authService.registerUser(this.userData()).subscribe(() => {
@@ -107,18 +104,17 @@ export class UserRegisterComponent implements OnInit {
         this.userSubmitted = false;
         this.alertify.success('You have registered successfully!');
         });    
-=======
       if (this.adminPass.value === environment.adminPass){
         this.authService.registerUser(this.userData()).subscribe(() =>{
         this.registerationForm.reset();
         this.userSubmitted = false;
         this.alertify.success('You have registered successfully!');
         });
->>>>>>> a707ea6d1607b30b310e1a5d3ffac681ee5c66be
       }
       else{
         this.alertify.error('You need to be an admin! Enter the correct admin password!');
       }
+    }
     }
   }
 

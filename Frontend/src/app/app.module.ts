@@ -33,11 +33,7 @@ import { SortPipe } from './Pipes/sort.pipe';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { NgxPaginationModule } from 'ngx-pagination'; 
 import {MatTabsModule} from '@angular/material/tabs';
-<<<<<<< HEAD
 import { HttpErrorInterceptorService } from './services/httperor-interceptor.service';
-=======
-import { HttpErrorInterceptorService } from './services/httperror-interceptor.service';
->>>>>>> a707ea6d1607b30b310e1a5d3ffac681ee5c66be
 
 const appRoutes: Routes = [
   {path: '', component: PropertyListComponent},
@@ -84,24 +80,17 @@ const appRoutes: Routes = [
     MatTabsModule
   ],
   providers: [
-<<<<<<< HEAD
-=======
-
->>>>>>> a707ea6d1607b30b310e1a5d3ffac681ee5c66be
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptorService,
       multi: true
     },
-<<<<<<< HEAD
     {provide: LocationStrategy, useClass: HashLocationStrategy},
-=======
 
     {
       provide: LocationStrategy, 
       useClass: HashLocationStrategy
     },
->>>>>>> a707ea6d1607b30b310e1a5d3ffac681ee5c66be
     HousingService,
     AlertifyService,
     AuthService,

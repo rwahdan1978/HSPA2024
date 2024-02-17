@@ -5,10 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using WebAPI.Dtos;
 using WebAPI.Errors;
-<<<<<<< HEAD
-=======
-using WebAPI.Extensions;
->>>>>>> a707ea6d1607b30b310e1a5d3ffac681ee5c66be
 using WebAPI.Interfaces;
 using WebAPI.Models;
 
@@ -48,29 +44,22 @@ namespace WebAPI.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(LoginReqDto loginReq)
         {
-<<<<<<< HEAD
-            ApiError apiError = new ApiError();
-            if (await uow.userRepository.UserAlreadyExists(loginReq.UserName))
-            {
-                apiError.ErrorCode = BadRequest().StatusCode;
-                apiError.ErrorMessage = "User already exists, please try other details!";
-=======
 
-            ApiError apiError = new ApiError();
-            if (loginReq.UserName.IsEmpty() || loginReq.Password.IsEmpty())
-            {
-                apiError.ErrorCode = BadRequest().StatusCode;
-                apiError.ErrorMessage = "Username or Password cannot be empty!";
-                return BadRequest(apiError);
-            }
+           ApiError apiError = new ApiError();
 
-            if (await uow.userRepository.UserAlreadyExists(loginReq.UserName))
-            {
-                apiError.ErrorCode = BadRequest().StatusCode;
-                apiError.ErrorMessage = "User already exists try other details!";
->>>>>>> a707ea6d1607b30b310e1a5d3ffac681ee5c66be
+            if(string.IsNullOrEmpty(loginReq.UserName.Trim()) || 
+                string.IsNullOrEmpty(loginReq.Password.Trim())) {
+                    apiError.ErrorCode=BadRequest().StatusCode;
+                    apiError.ErrorMessage="User name or password can not be blank";                    
+                    return BadRequest(apiError);
+            }                    
+
+            if (await uow.userRepository.UserAlreadyExists(loginReq.UserName)) {
+                apiError.ErrorCode=BadRequest().StatusCode;
+                apiError.ErrorMessage="User already exists, please try different user name";
                 return BadRequest(apiError);
-            }
+            }                
+
             uow.userRepository.Register(loginReq.UserName, loginReq.Password);
             await uow.SaveAsync();
             return StatusCode(201);

@@ -36,11 +36,8 @@ export class UserLoginComponent implements OnInit {
     
     console.log(loginForm.value);
     this.authServive.authUser(loginForm.value).subscribe(
-<<<<<<< HEAD
-      (response:UserForLogin|any) => {
-=======
-      (response: any) => {
->>>>>>> a707ea6d1607b30b310e1a5d3ffac681ee5c66be
+      
+      (response: UserForLogin|any) => {
         console.log(response);
         const user = response;
         localStorage.setItem('token', user.token);
@@ -48,6 +45,6 @@ export class UserLoginComponent implements OnInit {
         this.alertify.success("You have loged-in successfully!");
         this.router.navigate(['/']);
       }
-    );
+  );
   }
 }
