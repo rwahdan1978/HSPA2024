@@ -5,6 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using WebAPI.Dtos;
 using WebAPI.Errors;
+<<<<<<< HEAD
+=======
+using WebAPI.Extensions;
+>>>>>>> a707ea6d1607b30b310e1a5d3ffac681ee5c66be
 using WebAPI.Interfaces;
 using WebAPI.Models;
 
@@ -30,8 +34,13 @@ namespace WebAPI.Controllers
             if (user == null)
             {
                 apiError.ErrorCode = Unauthorized().StatusCode;
+<<<<<<< HEAD
                 apiError.ErrorMessage = "Wrong username or password!";
                 apiError.ErrorDetails = "this happened because username or password are not ok!";
+=======
+                apiError.ErrorMessage = "Invalid username or password!";
+                apiError.ErrorDetails = "This message appears when username or password is incorrent!";
+>>>>>>> a707ea6d1607b30b310e1a5d3ffac681ee5c66be
                 return Unauthorized(apiError);
             }
 
@@ -44,11 +53,27 @@ namespace WebAPI.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(LoginReqDto loginReq)
         {
+<<<<<<< HEAD
             ApiError apiError = new ApiError();
             if (await uow.userRepository.UserAlreadyExists(loginReq.UserName))
             {
                 apiError.ErrorCode = BadRequest().StatusCode;
                 apiError.ErrorMessage = "User already exists, please try other details!";
+=======
+
+            ApiError apiError = new ApiError();
+            if (loginReq.UserName.IsEmpty() || loginReq.Password.IsEmpty())
+            {
+                apiError.ErrorCode = BadRequest().StatusCode;
+                apiError.ErrorMessage = "Username or Password cannot be empty!";
+                return BadRequest(apiError);
+            }
+
+            if (await uow.userRepository.UserAlreadyExists(loginReq.UserName))
+            {
+                apiError.ErrorCode = BadRequest().StatusCode;
+                apiError.ErrorMessage = "User already exists try other details!";
+>>>>>>> a707ea6d1607b30b310e1a5d3ffac681ee5c66be
                 return BadRequest(apiError);
             }
             uow.userRepository.Register(loginReq.UserName, loginReq.Password);

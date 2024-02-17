@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AlertifyService } from 'src/app/services/alertify.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/authService';
 import { Router } from '@angular/router';
 import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
 import { UserForLogin } from 'src/app/model/user';
@@ -36,7 +36,11 @@ export class UserLoginComponent implements OnInit {
     
     console.log(loginForm.value);
     this.authServive.authUser(loginForm.value).subscribe(
+<<<<<<< HEAD
       (response:UserForLogin|any) => {
+=======
+      (response: any) => {
+>>>>>>> a707ea6d1607b30b310e1a5d3ffac681ee5c66be
         console.log(response);
         const user = response;
         localStorage.setItem('token', user.token);

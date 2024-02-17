@@ -3,13 +3,13 @@ using WebAPI.Errors;
 
 namespace WebAPI.Middlewares
 {
-    public class ExceptionMiddleware
+    public class ExceptionMiddlewares
     {
         private readonly RequestDelegate next;
         private readonly ILogger<ExceptionMiddleware> logger;
         private readonly IHostEnvironment env;
 
-        public ExceptionMiddleware(RequestDelegate next, 
+        public ExceptionMiddlewares(RequestDelegate next, 
                                     ILogger<ExceptionMiddleware> logger,
                                     IHostEnvironment env)
         {

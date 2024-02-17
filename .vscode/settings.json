@@ -1,3 +1,8 @@
 {
+<<<<<<< HEAD
     "appService.defaultWebAppToDeploy": "None"
+=======
+    "appService.defaultWebAppToDeploy": "/subscriptions/8f81f36c-17e9-4cda-82a2-47f83477c6c5/resourceGroups/HSPA/providers/Microsoft.Web/sites/HSPA2024",
+    "appService.deploySubpath": "WebAPI\\bin\\Release"
+>>>>>>> a707ea6d1607b30b310e1a5d3ffac681ee5c66be
 }
