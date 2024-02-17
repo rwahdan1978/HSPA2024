@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -22,7 +22,6 @@ import { AddPropertyComponent } from './property/add-property/add-property.compo
 import { PropertyDetailComponent } from './property/property-detail/property-detail.component';
 import { UserRegisterComponent } from './user/user-register/user-register.component';
 import { UserLoginComponent } from './user/user-login/user-login.component';
-import { UserServiceService } from './services/user-service.service';
 import { AlertifyService } from './services/alertify.service';
 import { AuthService } from './services/auth.service';
 import { PropertyDetailResolverService } from './property/property-detail/property-detail-resolver.service';
@@ -34,6 +33,7 @@ import { SortPipe } from './Pipes/sort.pipe';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { NgxPaginationModule } from 'ngx-pagination'; 
 import {MatTabsModule} from '@angular/material/tabs';
+import { HttpErrorInterceptorService } from './services/httperor-interceptor.service';
 
 const appRoutes: Routes = [
   {path: '', component: PropertyListComponent},
@@ -80,9 +80,13 @@ const appRoutes: Routes = [
     MatTabsModule
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptorService,
+      multi: true
+    },
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     HousingService,
-    UserServiceService,
     AlertifyService,
     AuthService,
     PropertyDetailResolverService,
