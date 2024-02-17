@@ -34,13 +34,8 @@ namespace WebAPI.Controllers
             if (user == null)
             {
                 apiError.ErrorCode = Unauthorized().StatusCode;
-<<<<<<< HEAD
-                apiError.ErrorMessage = "Wrong username or password!";
-                apiError.ErrorDetails = "this happened because username or password are not ok!";
-=======
                 apiError.ErrorMessage = "Invalid username or password!";
                 apiError.ErrorDetails = "This message appears when username or password is incorrent!";
->>>>>>> a707ea6d1607b30b310e1a5d3ffac681ee5c66be
                 return Unauthorized(apiError);
             }
 
