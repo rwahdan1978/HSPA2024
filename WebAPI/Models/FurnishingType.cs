@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace WebAPI.Models
 {
-    public class City: BaseEntity
+    public class FurnishingType:BaseEntity
     {
         [Required]
         public string Name { get; set; }
-        [Required]
-        public string Country { get; set; }
     }
 }

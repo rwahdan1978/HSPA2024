@@ -13,5 +13,9 @@ namespace WebAPI.Data
 
         public DbSet<City> cities { get; set; }
         public DbSet<User> users { get; set; }
+        public DbSet<Property> properties { get; set; }
+        public DbSet<PropertyType> propertyTypes { get; set; }
+        public DbSet<FurnishingType> FurnishingTypes { get; set; }
+
     }
 }
