@@ -12,8 +12,8 @@ using WebAPI.Data;
 namespace WebAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240218030539_AddingRelatedPropertyEntities")]
-    partial class AddingRelatedPropertyEntities
+    [Migration("20240218195418_init1")]
+    partial class init1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -90,12 +90,6 @@ namespace WebAPI.Migrations
                     b.Property<bool>("IsPrimary")
                         .HasColumnType("bit");
 
-                    b.Property<int>("LastUpdatedBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("LastUpdatedOn")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("PropertyId")
                         .HasColumnType("int");
 
@@ -149,12 +143,6 @@ namespace WebAPI.Migrations
 
                     b.Property<bool>("Gated")
                         .HasColumnType("bit");
-
-                    b.Property<int>("LastUpdatedBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("LastUpdatedOn")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("MainEntrance")
                         .HasColumnType("nvarchar(max)");

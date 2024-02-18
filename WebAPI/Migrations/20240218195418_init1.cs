@@ -6,11 +6,27 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class AddingRelatedPropertyEntities : Migration
+    public partial class init1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "cities",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastUpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastUpdatedBy = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_cities", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "FurnishingTypes",
                 columns: table => new
@@ -42,6 +58,21 @@ namespace WebAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    PasswordKey = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "properties",
                 columns: table => new
                 {
@@ -69,9 +100,7 @@ namespace WebAPI.Migrations
                     Age = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PostedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PostedBy = table.Column<int>(type: "int", nullable: false),
-                    LastUpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastUpdatedBy = table.Column<int>(type: "int", nullable: false)
+                    PostedBy = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -110,9 +139,7 @@ namespace WebAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsPrimary = table.Column<bool>(type: "bit", nullable: false),
-                    PropertyId = table.Column<int>(type: "int", nullable: false),
-                    LastUpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastUpdatedBy = table.Column<int>(type: "int", nullable: false)
+                    PropertyId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -164,7 +191,13 @@ namespace WebAPI.Migrations
                 name: "FurnishingTypes");
 
             migrationBuilder.DropTable(
+                name: "cities");
+
+            migrationBuilder.DropTable(
                 name: "propertyTypes");
+
+            migrationBuilder.DropTable(
+                name: "users");
         }
     }
 }
