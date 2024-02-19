@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WebAPI.Data.Repo;
 using WebAPI.Interfaces;
 
@@ -20,6 +16,9 @@ namespace WebAPI.Data
 
         public IUserRepository userRepository => 
             new UserRepository(dc);
+
+        public IPropertyRepository PropertyRepository => 
+            new PropertyRepository(dc);
 
         public async Task<bool> SaveAsync()
         {
