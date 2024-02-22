@@ -15,11 +15,13 @@
             <div class="card-body p-1">
 
                 <h5 class="mb-0" style="color: blue;" *ngIf="deviveInfo.deviceType !== 'mobile'"> 
-                    Project Name: {{property.projectName}}
+                    Project Name: {{property.projectName}} <br>
+                    Propert Name: {{property.name}}
                 </h5>
                 <h5 class="mb-0" style="color: blue;" 
                     *ngIf="deviveInfo.deviceType=== 'mobile' && deviveInfo.orientation=== 'landscape'"> 
-                    Project Name: <br>{{property.projectName}}
+                    Project Name: <br>{{property.projectName}} <br>
+                    Propert Name: {{property.name}}
                 </h5>
 
                 <h6 class="mb-0" *ngIf="property.sellRent === 1"> {{property.bhk}} BHK {{property.propertyType}} For Sale</h6>

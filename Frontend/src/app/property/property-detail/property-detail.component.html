@@ -15,8 +15,9 @@
       </div>
       <div class="card-body">
         
-        <!-- <h2 class="card-title" *ngIf="property.sellRent == 1">{{property.name}} - For Sale</h2>
-        <h2 class="card-title" *ngIf="property.sellRent == 2">{{property.name}} - For Rent</h2> -->
+        <div>
+          <h2>{{property.name}}</h2>
+        </div>
         <div>
             <h5 *ngIf="property.sellRent == 1">
               {{property.bhk}} bedroom {{property.propertyType}} @  AED{{property.price}}
