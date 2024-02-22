@@ -88,7 +88,10 @@
 
                   <div class="heading">
                       <strong>Age of Property</strong>
-                      <p>{{property.age}} years</p>
+                      <p *ngIf="property.age == 'Less than a year'">{{property.age}}</p>
+                      <p *ngIf="property.age > 0">{{property.age}} yaers</p>
+                      <p *ngIf="property.age == 'property is not available yet'" style="color: red;">Available on {{property.estPossessionOn | date: 'mediumDate' }}</p>
+
                   </div>
 
                   <div class="heading">
@@ -105,7 +108,8 @@
 
                   <div class="heading">
                       <strong>Gated Community</strong>
-                      <p>{{property.gated}}</p>
+                      <p *ngIf="property.gated">Yes</p>
+                      <p *ngIf="!property.gated">No</p>
                   </div>
 
                   <div class="heading">

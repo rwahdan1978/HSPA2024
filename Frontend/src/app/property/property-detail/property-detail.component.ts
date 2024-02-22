@@ -10,6 +10,7 @@ import { DomSanitizer} from '@angular/platform-browser';
 import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { filter, first } from 'rxjs';
+import { HousingService } from 'src/app/services/housing.service';
 
 @Component({
   selector: 'app-property-detail',
@@ -64,9 +65,11 @@ export class PropertyDetailComponent implements OnInit {
    
   constructor(private route: ActivatedRoute, private alert: AlertifyService, 
               private fb: FormBuilder, private sanitizer: DomSanitizer, 
-              private DDS: DeviceDetectorService, private router: Router) {}
+              private DDS: DeviceDetectorService, private router: Router,
+              private housingService: HousingService) {}
   
-  ngOnInit() {
+  ngOnInit() 
+  {
     
     const savedTabIndex = localStorage.getItem('lastTab');
     this.selectedIndex= savedTabIndex;
@@ -77,13 +80,17 @@ export class PropertyDetailComponent implements OnInit {
     this.form.controls['subject'].disable();
     this.form1.controls['subject1'].disable();
     this.token = localStorage.getItem('token');
+    
     this.propertyId = +this.route.snapshot.params['id'];
     this.route.data.subscribe(
       (data: any) => {
         this.property = data['prp'];
       }
     )
-      // check if user navigate to other page and delete the lastTab in local storage
+
+    this.property.age = this.housingService.getPropertyAge(this.property.estPossessionOn);
+
+    // check if user navigate to other page and delete the lastTab in local storage
     this.router.events
       .pipe(
         filter((e) => e instanceof NavigationEnd && !e.url.startsWith('claim')),
@@ -106,7 +113,7 @@ export class PropertyDetailComponent implements OnInit {
 
     return this.urlPath;
      
-}
+  }
 
 tabChanged(tabChangeEvent: MatTabChangeEvent): void {
   localStorage.removeItem('lastTab');
