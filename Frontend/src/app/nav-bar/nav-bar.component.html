@@ -7,7 +7,7 @@
 <body>
 
 <nav *ngIf="(deviveInfo.deviceType=== 'mobile' && deviveInfo.orientation=== 'landscape')
-              || deviveInfo.deviceType != 'mobile'" class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
+              || deviveInfo.deviceType !== 'mobile'" class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
   <div class="container-fluid">
     <a style="color: blue;" class="navbar-brand" href="/"> All Properties </a>
     

@@ -8,8 +8,8 @@ import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class HousingService {
-
+export class HousingService 
+{
   baseUrl = environment.baseUrl;
 
   constructor(private http:HttpClient) { }
@@ -18,56 +18,23 @@ export class HousingService {
     return this.http.get<string[]>(this.baseUrl + "/city/cities");
   }
 
-  getProperty(id: number){
-    return this.getAllProperties().pipe(
-      map(propertiesArray => {
-        //throw new Error("some error");
-        return propertiesArray.find(p => p.Id === id);
-      })
-    );
+  getProperty(id: number)
+  {
+    return this.http.get<Property>(this.baseUrl + '/property/detail/' + id.toString());
   }
 
-  getAllProperties(SellRent?: number): Observable<Property[]>{
-    return this.http.get<Property[]>('data/properties.json').pipe(
-      map(data => {
-        const propertiesArray: Array<Property>=[];
-        const localProperties = JSON.parse(localStorage.getItem('newProp')as any);
+  getAllProperties(SellRent?: number): Observable<Property[]>
+  {
+    return this.http.get<Property[]>(this.baseUrl + '/property/list/' +SellRent.toString());
+  }
 
-        if (localProperties)
-        {
-          for (const id in localProperties){
-            if (SellRent)
-            {
-              if (localProperties.hasOwnProperty(id) && localProperties[id].SellRent === SellRent){
-                propertiesArray.push(localProperties[id]);
-              }
-            }
-            else{
-              propertiesArray.push(localProperties[id]);
-            }
-            
-          }
-        }
-        
-        for (const id in data){
-
-          if (SellRent)
-          {
-            if (data.hasOwnProperty(id) && data[id].SellRent === SellRent){
-              propertiesArray.push(data[id]);
-            }
-          }
-          else{
-            propertiesArray.push(data[id]);
-          }
-
-        }
-        return propertiesArray;
-      })
-      );
-      return this.http.get<Property[]>('data/properties.json');
-    }
-    addProperty(property: Property) {
+  getAllProperties1(): Observable<Property[]>
+  {
+    return this.http.get<Property[]>(this.baseUrl + '/property/list/');
+  }
+    
+  addProperty(property: Property) 
+  {
       let newProp = [property];
 
       if (localStorage.getItem('newProp')){
@@ -76,10 +43,11 @@ export class HousingService {
       }
 
       localStorage.setItem('newProp', JSON.stringify(newProp));
-    }
+  }
 
-    newPropID(){
-      if (localStorage.getItem('PID'))
+  newPropID()
+  {
+    if (localStorage.getItem('PID'))
       {
         localStorage.setItem('PID', String(+localStorage.getItem('PID') + 1));
         return +localStorage.getItem('PID');
@@ -89,5 +57,5 @@ export class HousingService {
         localStorage.setItem('PID', '101');
         return 101;
       }
-    }
   }
+}

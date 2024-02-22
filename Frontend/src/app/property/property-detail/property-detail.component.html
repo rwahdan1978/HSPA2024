@@ -1,44 +1,58 @@
-<h5 *ngIf="deviveInfo.deviceType=== 'mobile' && deviveInfo.orientation=== 'portrait'">Rotate your mobile to view the page!</h5>
+<!-- eslint-disable @angular-eslint/template/eqeqeq -->
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<!-- eslint-disable @angular-eslint/template/alt-text -->
+<h5 *ngIf="deviveInfo.deviceType == 'mobile' && deviveInfo.orientation == 'portrait'">Rotate your mobile to view the page!</h5>
 
-<div *ngIf="(deviveInfo.deviceType=== 'mobile' 
-    && deviveInfo.orientation=== 'landscape') || deviveInfo.deviceType != 'mobile'" class="row shadow">
+<div *ngIf="(deviveInfo.deviceType == 'mobile' 
+    && deviveInfo.orientation == 'landscape') || deviveInfo.deviceType != 'mobile'" class="row shadow">
     
   <div class="col-sm-4 p-0">
     <div class="card">
       <div class="card-img-wrapper">
-        <img *ngIf="property.Image1" class="card-img-top" src="https://angular-upload-files-2023-2024.s3.amazonaws.com/properties2023/{{property.Image1}}">
-        <img *ngIf="!property.Image1" class="card-img-top" src="https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/default_house.png">
+        <img *ngIf="property.image1" class="card-img-top" src="https://angular-upload-files-2023-2024.s3.amazonaws.com/properties2023/{{property.image1}}">
+        <img *ngIf="!property.image1" class="card-img-top" src="https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/default_house.png">
       </div>
       <div class="card-body">
         
-        <h2 class="card-title" *ngIf="property.SellRent == 1">{{property.Name}} - For Sale</h2>
-        <h2 class="card-title" *ngIf="property.SellRent == 2">{{property.Name}} - For Rent</h2>
+        <!-- <h2 class="card-title" *ngIf="property.sellRent == 1">{{property.name}} - For Sale</h2>
+        <h2 class="card-title" *ngIf="property.sellRent == 2">{{property.name}} - For Rent</h2> -->
         <div>
-            <h6 *ngIf="property.SellRent == 1"> AED{{property.Price}} / 3-6 year Plans Available</h6>
-            <h6 *ngIf="property.SellRent == 1">{{property.BHK}} bedroom {{property.PType}}</h6>
-            <h6 *ngIf="property.SellRent == 2"> AED{{property.Price}} / 4 cheques payments</h6>
-            <h6 *ngIf="property.SellRent == 2">{{property.BHK}} bedroom {{property.PType}}</h6> 
+            <h5 *ngIf="property.sellRent == 1">
+              {{property.bhk}} bedroom {{property.propertyType}} @  AED{{property.price}}
+            </h5>
+            <h6 *ngIf="property.sellRent == 1" style="padding-left: 50px; color: red;">
+              3-6 year Plans Available
+            </h6>
+            <h5 *ngIf="property.sellRent == 2">
+              {{property.bhk}} bedroom {{property.propertyType}} @  AED{{property.price}}
+            </h5>
+            <h6 *ngIf="property.sellRent == 2" style="padding-left: 50px; color: red;">
+              4 cheques payments
+            </h6>
         </div>
         <div>
-           <strong *ngIf="property.building_flat !=null">{{property.Address}}, Near {{property.Address2}} - Building # {{property.building_flat}}<br> {{property.Name}}, {{property.City}}</strong>
-           <strong *ngIf="property.villa !=null">{{property.Address}}, Near {{property.Address2}} - Villa # {{property.villa}}<br> {{property.Name}}, {{property.City}}</strong>
+           <strong *ngIf="property.building_flat !== null">{{property.Address}}, Near {{property.Address2}} - Building # {{property.building_flat}}<br> {{property.ProjectName}}, {{property.city}}</strong>
+           <strong *ngIf="property.villa !== null">{{property.Address}}, Near {{property.Address2}} - Villa # {{property.villa}}<br> {{property.ProjectName}}, {{property.city}}</strong>
         </div> <hr>
+
         <div>
             <strong>Build Area: </strong> 
-            {{property.BuiltArea}} Sqft
+            {{property.builtArea}} Sqft
         </div>
 
         <div>
             <strong>Carpet Area: </strong>
-            {{property.CarpetArea}} Sqft
+            {{property.carpetArea}} Sqft
         </div>
         <div>
             <strong>Furnishing Type: </strong>
-            {{property.FType}}
+            {{property.furnishingType}}
         </div>
         <div>
-          <strong>Posted on: </strong>
-          {{property.PostedOn | date: 'mediumDate' }}
+          <strong>Available For: </strong>
+          <span *ngIf="property.sellRent == 1" style="color: red;">Purchase</span>
+          <span *ngIf="property.sellRent == 2" style="color: red;">Rent</span>
         </div>
       </div>
       <div class="card-footer">
@@ -58,48 +72,48 @@
               <div class="col-sm-6">
                   <div class="heading">
                       <strong>Project Name</strong>
-                      <p>{{property.ProjectName}}</p>
+                      <p>{{property.projectName}}</p>
                   </div>
 
                   <div class="heading">
-                      <strong *ngIf="property.FloorNo !='NA'">Floor Number</strong>
-                      <p *ngIf="property.FloorNo !='NA'">Floor number {{property.FloorNo}}</p>
+                      <strong *ngIf="property.floorNo !== 'NA'">Floor Number</strong>
+                      <p *ngIf="property.floorNo !== 'NA'">Floor number: {{property.floorNo}}</p>
                   </div>
 
                   <div class="heading">
-                    <strong *ngIf="property.TotalFloor !='NA'">Total Number of Floors</strong>
-                    <p *ngIf="property.TotalFloor !='NA'">{{property.TotalFloor}} floors</p>
+                    <strong *ngIf="property.totalFloor !== 'NA'">Total Number of Floors</strong>
+                    <p *ngIf="property.totalFloors !== 'NA'">{{property.totalFloors}} floors</p>
                 </div>
 
                   <div class="heading">
                       <strong>Age of Property</strong>
-                      <p>{{property.AOP}} yaers</p>
+                      <p>{{property.age}} years</p>
                   </div>
 
                   <div class="heading">
                       <strong>Available moving date</strong>
-                      <p style="color: red;  font-size: 1.5rem">{{property.PA | date: 'mediumDate' }}</p>
+                      <p style="color: red;  font-size: 1.5rem">{{property.estPossessionOn | date: 'mediumDate' }}</p>
                   </div>
               </div>
 
               <div class="col-sm-6">
                   <div class="heading">
                       <strong>Main Entrance</strong>
-                      <p>{{property.MainEntrance}}</p>
+                      <p>{{property.mainEntrance}}</p>
                   </div>
 
                   <div class="heading">
                       <strong>Gated Community</strong>
-                      <p>{{property.Gated}}</p>
+                      <p>{{property.gated}}</p>
                   </div>
 
                   <div class="heading">
                       <strong>Security Deposit</strong>
-                      <p>{{property.Security}}AED/Once</p>
+                      <p>{{property.security}}AED/Once</p>
                   </div>
                   <div class="heading">
                       <strong>Maintenance</strong>
-                      <p>{{property.Maintenance}}AED/Yearly</p>
+                      <p>{{property.maintenance}}AED/Yearly</p>
                   </div>
               </div>
               <div class="col-sm-12">
@@ -111,25 +125,25 @@
                           style="font-size: 30px;" >
                         </i>
                         &nbsp; &nbsp;
-                        <strong>{{property.BuiltArea}} Sqft</strong>&nbsp; &nbsp;
+                        <strong>{{property.builtArea}} Sqft</strong>&nbsp; &nbsp;
 
                         <i class="fas fa-bed" aria-hidden="true" 
                           style="font-size: 30px;" >
                         </i> 
                         &nbsp; &nbsp;  
-                        <strong>{{property.BHK}} Beds</strong>&nbsp; &nbsp; 
+                        <strong>{{property.bhk}} Beds</strong>&nbsp; &nbsp; 
                         
                         <i class="fa fa-bath" aria-hidden="true" 
                           style="font-size: 30px;" >
                         </i>
                         &nbsp; &nbsp;  
-                        <strong>{{property.bathroom}} Baths</strong><br> 
+                        <strong>{{property.bhk}} Bathrooms</strong><br> 
                         
                         <i class="fa-solid fa-square-parking" 
                           style="font-size: 30px;" >
                         </i> 
                         &nbsp; &nbsp; 
-                        <strong>{{property.parking}} Parking</strong>&nbsp; &nbsp; 
+                        <strong>{{property.bhk}} Parking</strong>&nbsp; &nbsp; 
                         
                         <i class="fas fa-swimming-pool" 
                           style="font-size: 30px;" >
@@ -215,7 +229,7 @@
 
         <mat-tab label="Address">
 
-          <h5 *ngIf="property.theaddress != null">
+          <h5 *ngIf="property.theaddress !== null">
                     For directions, click on <strong 
                     style="color: red;">Directions.</strong><br>
                     For contact details, click on <strong 
@@ -223,7 +237,7 @@
           </h5><br>
          
           <div>
-            <iframe *ngIf="deviveInfo.deviceType != 'mobile'"
+            <iframe *ngIf="deviveInfo.deviceType !== 'mobile'"
               [src]= urlPath
               width="800" height="450" style="border:0;" loading="lazy" 
               referrerpolicy="no-referrer-when-downgrade">
@@ -274,8 +288,8 @@
                    style="background-image:url('https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image1}}')">
                   <div class="container">
                   
-                  <p *ngIf="property.SellRent ==1">For Sale / Price:{{property.Price}}AED</p>
-                  <p *ngIf="property.SellRent ==2">For Rent / Price:{{property.Price}}AED</p>
+                  <p *ngIf="property.sellRent ===1">For Sale / Price:{{property.Price}}AED</p>
+                  <p *ngIf="property.sellRent ===2">For Rent / Price:{{property.Price}}AED</p>
                   </div>
                 </div>
 
@@ -283,8 +297,8 @@
                 style="background-image:url('https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image2}}')">
                   <div class="container">
                   
-                  <p *ngIf="property.SellRent ==1">For Sale / Price:{{property.Price}}AED</p>
-                  <p *ngIf="property.SellRent ==2">For Rent / Price:{{property.Price}}AED</p>
+                  <p *ngIf="property.sellRent ===1">For Sale / Price:{{property.Price}}AED</p>
+                  <p *ngIf="property.sellRent ===2">For Rent / Price:{{property.Price}}AED</p>
                   </div>
                 </div>
 
@@ -292,8 +306,8 @@
                 style="background-image:url('https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image3}}')">
                   <div class="container">
                   
-                  <p *ngIf="property.SellRent ==1">For Sale / Price:{{property.Price}}AED</p>
-                  <p *ngIf="property.SellRent ==2">For Rent / Price:{{property.Price}}AED</p>
+                  <p *ngIf="property.sellRent ===1">For Sale / Price:{{property.Price}}AED</p>
+                  <p *ngIf="property.sellRent ===2">For Rent / Price:{{property.Price}}AED</p>
                   </div>
                 </div>
 
@@ -301,8 +315,8 @@
                 style="background-image:url('https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image4}}')">
                   <div class="container">
                   
-                  <p *ngIf="property.SellRent ==1">For Sale / Price:{{property.Price}}AED</p>
-                  <p *ngIf="property.SellRent ==2">For Rent / Price:{{property.Price}}AED</p>
+                  <p *ngIf="property.sellRent ===1">For Sale / Price:{{property.Price}}AED</p>
+                  <p *ngIf="property.sellRent ===2">For Rent / Price:{{property.Price}}AED</p>
                   </div>
                 </div>
 
@@ -310,8 +324,8 @@
                 style="background-image:url('https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image5}}')">
                   <div class="container">
                   
-                  <p *ngIf="property.SellRent ==1">For Sale / Price:{{property.Price}}AED</p>
-                  <p *ngIf="property.SellRent ==2">For Rent / Price:{{property.Price}}AED</p>
+                  <p *ngIf="property.sellRent ===1">For Sale / Price:{{property.Price}}AED</p>
+                  <p *ngIf="property.sellRent ===2">For Rent / Price:{{property.Price}}AED</p>
                   </div>
                 </div>
                 
@@ -342,7 +356,7 @@
           <br>
           <strong>You can fill out the form otherwise<br><br></strong>
           <div>
-            <form *ngIf="deviveInfo.deviceType != 'mobile'" [formGroup]="form" class="form" action="javascript:void(0)" (submit)="send()" method="POST">
+            <form *ngIf="deviveInfo.deviceType !== 'mobile'" [formGroup]="form" class="form" action="javascript:void(0)" (submit)="send()" method="POST">
               <input formControlName="from_name" name="from_name" type="text"  placeholder="Full Name"/>
               <input formControlName="from_email" name="from_email" type="text"  placeholder="Email Address"/>
               <input formControlName="subject" name="subject" type="text" placeholder="{{property.ProjectName}} - {{this.property.Name}}, {{this.property.City}}"/>

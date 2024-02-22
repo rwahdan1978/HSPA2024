@@ -23,9 +23,35 @@ namespace WebAPI.Data.Repo
             throw new NotImplementedException();
         }
 
+        public async Task<IEnumerable<Property>> GetPropertiesAllAsync()
+        {
+            var properties = await dc.Properties
+            .Include(p => p.City)
+            .Include(p => p.PropertyType)
+            .Include(p => p.FurnishingType)
+            .ToListAsync();
+            return properties;
+        }
+
         public async Task<IEnumerable<Property>> GetPropertiesAsync(int sellRent)
         {
-            var properties = await dc.Properties.ToListAsync();
+            var properties = await dc.Properties
+            .Include(p => p.City)
+            .Include(p => p.PropertyType)
+            .Include(p => p.FurnishingType)
+            .Where(p => p.SellRent == sellRent)
+            .ToListAsync();
+            return properties;
+        }
+
+        public async Task<Property> GetPropertyDetailAsync(int id)
+        {
+            var properties = await dc.Properties
+            .Include(p => p.City)
+            .Include(p => p.PropertyType)
+            .Include(p => p.FurnishingType)
+            .Where(p => p.Id == id)
+            .FirstAsync();
             return properties;
         }
     }

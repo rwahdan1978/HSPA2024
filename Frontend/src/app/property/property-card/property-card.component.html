@@ -1,10 +1,11 @@
+<!-- eslint-disable @angular-eslint/template/alt-text -->
         <div class="card">
             <div class="card-img-wrapper">
-                <img *ngIf="property.Image1" class="card-img-top" src="https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image1}}" />
-                <img *ngIf="!property.Image1" class="card-img-top" src="https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/default_house.png" />
+                <img *ngIf="property.image" class="card-img-top" src="https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.image}}" />
+                <img *ngIf="!property.image" class="card-img-top" src="https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/default_house.png" />
                 <ul *ngIf="!hideIcons" class="list-inline text-center member-icons animate">
                     <li class="list-inline-item">
-                        <button class="btn btn-primary" routerLink="/property-detail/{{property.Id}}"><i class="far fa-edit" title="View Property"></i></button>
+                        <button class="btn btn-primary" routerLink="/property-detail/{{property.id}}"><i class="far fa-edit" title="View Property"></i></button>
                     </li>
                    
                 </ul>
@@ -13,33 +14,33 @@
 
             <div class="card-body p-1">
 
-                <h5 class="mb-0" style="color: blue;" *ngIf="deviveInfo.deviceType != 'mobile'"> 
-                    Project Name: {{property.ProjectName}}
+                <h5 class="mb-0" style="color: blue;" *ngIf="deviveInfo.deviceType !== 'mobile'"> 
+                    Project Name: {{property.projectName}}
                 </h5>
                 <h5 class="mb-0" style="color: blue;" 
                     *ngIf="deviveInfo.deviceType=== 'mobile' && deviveInfo.orientation=== 'landscape'"> 
-                    Project Name: <br>{{property.ProjectName}}
+                    Project Name: <br>{{property.projectName}}
                 </h5>
 
-                <h6 class="mb-0" *ngIf="property.SellRent === 1"> {{property.BHK}} BHK {{property.PType}} For Sale</h6>
-                <h6 class="mb-0" *ngIf="property.SellRent === 2"> {{property.BHK}} BHK {{property.PType}} For Rent</h6>
+                <h6 class="mb-0" *ngIf="property.sellRent === 1"> {{property.bhk}} BHK {{property.propertyType}} For Sale</h6>
+                <h6 class="mb-0" *ngIf="property.sellRent === 2"> {{property.bhk}} BHK {{property.propertyType}} For Rent</h6>
             
-                in {{property.Name}}
-                <span *ngIf="property.Name">,</span>
-                {{property.City}}
+                in {{property.name}}
+                <span *ngIf="property.name">,</span>
+                {{property.city}}
             
-                <h6  class="mt-2">{{property.FType}}
-                <span *ngIf="property.FType !== 'Unfurnished'">Furnished</span> | Ready to Move</h6>
+                <h6  class="mt-2">{{property.furnishingType}}
+                <span *ngIf="property.furnishingType !== 'Unfurnished'">Furnished</span> | Ready to Move</h6>
             
                 <hr class="mt-0 mb-2">
             
-                <h6 *ngIf="deviveInfo.deviceType != 'mobile'" class="mb-0">Price:<span class="font-highlight">{{property.Price}} AED</span> |
-                    Area:<span class="font-highlight">{{property.BuiltArea}} sq/m </span> 
+                <h6 *ngIf="deviveInfo.deviceType !== 'mobile'" class="mb-0">Price:<span class="font-highlight">{{property.price}} AED</span> |
+                    Area:<span class="font-highlight">{{property.builtArea}} sq/m </span> 
                 </h6>
 
                 <h6 *ngIf="deviveInfo.deviceType=== 'mobile' && deviveInfo.orientation=== 'landscape'" 
-                    class="mb-0">Price:<span class="font-highlight">{{property.Price}} AED</span> <br>
-                    Area:<span class="font-highlight">{{property.BuiltArea}} sq/m </span> 
+                    class="mb-0">Price:<span class="font-highlight">{{property.price}} AED</span> <br>
+                    Area:<span class="font-highlight">{{property.builtArea}} sq/m </span> 
                 </h6>
 
             </div>

@@ -43,17 +43,17 @@ export class AddPropertyComponent implements OnInit {
   cityList: any[];
 
   propertyView: IPropertyBase = {
-    Id: null as any,
-    Name: '',
-    Price: null as any,
-    SellRent: null as any,
-    PType: null as any,
-    FType: null as any,
-    BHK: null as any,
-    BuiltArea: null as any,
-    City: '' as any,
-    RTM: null as any,
-    ProjectName: null as any
+    id: null as any,
+    name: '',
+    price: null as any,
+    sellRent: null as any,
+    propertyType: null as any,
+    furnishingType: null as any,
+    bhk: null as any,
+    builtArea: null as any,
+    city: '' as any,
+    readyToMove: null as any,
+    projectName: null as any
   };
   
   constructor(
@@ -106,7 +106,7 @@ export class AddPropertyComponent implements OnInit {
     this.loggedinUser = localStorage.getItem('userName') || '';
 
     this.myDateValue = new Date();
-    let thesave = document.getElementById("saveIT");
+    const thesave = document.getElementById("saveIT");
           thesave?.removeAttribute("disabled");
     this.CreateAddPropertyForm();
   }
@@ -368,7 +368,7 @@ export class AddPropertyComponent implements OnInit {
       this.housingService.addProperty(this.property);
       console.log(this.addPropertyForm);
 
-      let thesave = document.getElementById("saveIT");
+      const thesave = document.getElementById("saveIT");
       thesave?.setAttribute("disabled","true");
 
       if(this.SellRent.value === '2') {
@@ -396,52 +396,51 @@ export class AddPropertyComponent implements OnInit {
 
   mapProperty(): void {
     //comment
-    this.property.Id = this.housingService.newPropID();
-    this.property.ProjectName = this.ProjectName.value;
-    this.property.SellRent = +this.SellRent.value;
-    this.property.BHK = this.BHK.value;
-    this.property.PType = this.PType.value;
-    this.property.Name = this.Name.value;
-    this.property.City = this.City.value;
-    this.property.FType = this.FType.value;
-    this.property.Price = this.Price.value;
-    this.property.Security = this.Security.value;
-    this.property.Maintenance = this.Maintenance.value;
-    this.property.BuiltArea = this.BuiltArea.value;
+    this.property.id = this.housingService.newPropID();
+    //this.property.projectName = this.ProjectName.value;
+    this.property.sellRent = +this.SellRent.value;
+    this.property.bhk = this.BHK.value;
+    this.property.propertyType = this.PType.value;
+    this.property.name = this.Name.value;
+    this.property.city = this.City.value;
+    this.property.furnishingType = this.FType.value;
+    this.property.price = this.Price.value;
+    this.property.security = this.Security.value;
+    this.property.maintenance = this.Maintenance.value;
+    this.property.builtArea = this.BuiltArea.value;
     this.property.CarpetArea = this.CarpetArea.value;
-    this.property.FloorNo = this.FloorNo.value;
-    this.property.TotalFloor = this.TotalFloor.value;
-    this.property.Address = this.Address.value;
-    this.property.Address2 = this.LandMark.value;
-    this.property.building_flat = this.building_flat.value;
-    this.property.villa = this.villa.value;
-    this.property.RTM = this.RTM.value;
-    this.property.AOP = this.AOP.value;
-    this.property.PA = this.PA.value;
-    this.property.Gated = this.Gated.value;
-    this.property.MainEntrance = this.MainEntrance.value;
-    this.property.Possession = this.PossessionOn.value;
-    this.property.Description = this.Description.value;
-    this.property.PostedOn = new Date().toString();
-    this.property.Image1 = this.getVariable.theFileName1;
-    this.property.Image2 = this.getVariable.theFileName2;
-    this.property.Image3 = this.getVariable.theFileName3;
-    this.property.Image4 = this.getVariable.theFileName4;
-    this.property.Image5 = this.getVariable.theFileName5;
-    this.property.companyImage = this.getVariable.theFileName6;
-    this.property.contactCommission = this.contactCommission.value;
-    this.property.contactCompany = this.contactCompany.value;
-    this.property.contactName = this.contactName.value;
-    this.property.contactNumber = this.contactNumber.value;
-    this.property.contactNumber2 = this.contactNumber2.value;
-    this.property.contactEmail = this.contactEmail.value;
-    this.property.theaddress = this.contactCompany.value;
-    this.property.mall = this.mall;
-    this.property.zoo = this.zoo;
-    this.property.fastFood = this.fastFood;
-    this.property.beach = this.beach;
-    this.property.school = this.school;
-    this.property.mosque = this.mosque;
+    this.property.floorNo = this.FloorNo.value;
+    this.property.totalFloor = this.TotalFloor.value;
+    this.property.address = this.Address.value;
+    this.property.address2 = this.LandMark.value;
+    //this.property.Building_Flat = this.building_flat.value;
+    //this.property.Villa = this.villa.value;
+    this.property.readyToMove = this.RTM.value;
+    this.property.age = this.AOP.value;
+    this.property.propertyType = this.PA.value;
+    this.property.gated = this.Gated.value;
+    this.property.mainEntrance = this.MainEntrance.value;
+    this.property.estPossessionOn = this.PossessionOn.value;
+    this.property.description = this.Description.value;
+   // this.property.image1 = this.getVariable.theFileName1;
+   // this.property.Image2 = this.getVariable.theFileName2;
+   // this.property.Image3 = this.getVariable.theFileName3;
+   // this.property.Image4 = this.getVariable.theFileName4;
+   // this.property.Image5 = this.getVariable.theFileName5;
+    // this.property.companyImage = this.getVariable.theFileName6;
+    // this.property.contactCommission = this.contactCommission.value;
+    // this.property.contactCompany = this.contactCompany.value;
+    // this.property.contactName = this.contactName.value;
+    // this.property.contactNumber = this.contactNumber.value;
+    // this.property.contactNumber2 = this.contactNumber2.value;
+    // this.property.contactEmail = this.contactEmail.value;
+    // this.property.theaddress = this.contactCompany.value;
+    // this.property.mall = this.mall;
+    // this.property.zoo = this.zoo;
+    // this.property.fastFood = this.fastFood;
+    // this.property.beach = this.beach;
+    // this.property.school = this.school;
+    // this.property.mosque = this.mosque;
   }
 
   checkCheckBoxvalue1(event:any){

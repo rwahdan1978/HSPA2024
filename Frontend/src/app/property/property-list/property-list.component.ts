@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 import { Component, OnInit } from '@angular/core';
 import { HousingService } from 'src/app/services/housing.service';
 import { ActivatedRoute } from '@angular/router';
@@ -47,8 +48,6 @@ export class PropertyListComponent implements OnInit{
 
       this.deviveInfo = this.DDS.getDeviceInfo();
 
-      //to detect the orientation
-
       window.matchMedia("(orientation:portrait)").addEventListener("change", (e: MediaQueryListEvent) => { 
         const portrait: boolean = e.matches; 
         if (portrait) { 
@@ -63,7 +62,9 @@ export class PropertyListComponent implements OnInit{
       }if (this.route.snapshot.url.toString()==="rent-property"){
         this.SellRent = 2;
       }
-  
+      
+      if (this.SellRent == 1 || this.SellRent == 2)
+      {
         this.housingService.getAllProperties(this.SellRent).subscribe(
           data=> {
                 this.properties = data;
@@ -71,6 +72,17 @@ export class PropertyListComponent implements OnInit{
             console.log(error);
           }
         );
+      }
+      else
+      {
+        this.housingService.getAllProperties1().subscribe(
+          data=> {
+                this.properties = data;
+          }, error => {
+            console.log(error);
+          }
+        );
+      }
   }
  
   onCityFilter(){

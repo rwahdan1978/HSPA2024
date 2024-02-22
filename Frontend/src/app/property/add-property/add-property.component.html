@@ -1,12 +1,13 @@
+<!-- eslint-disable @angular-eslint/template/label-has-associated-control -->
 <br>
 
-<h4 *ngIf="loggedinUser != 'rwahdan'">Only Admin can add new property</h4>
+<h4 *ngIf="loggedinUser !== 'rwahdan'">Only Admin can add new property</h4>
 
 <h4 *ngIf="loggedinUser === 'rwahdan' && deviveInfo.deviceType === 'mobile'">
   Admin, you can add new property on a larger device, desktop or laptop.
 </h4>
 
-<div *ngIf="loggedinUser === 'rwahdan' && deviveInfo.deviceType != 'mobile'" class="row mb-5">
+<div *ngIf="loggedinUser === 'rwahdan' && deviveInfo.deviceType !== 'mobile'" class="row mb-5">
   <div class="col-7 shadow-lg p-0 bg-white">
     <div class="card">
       <div class="card-header">
@@ -23,7 +24,7 @@
                   <input type="text" class="form-control"
                   ngModel
                   formControlName="ProjectName"
-                  [(ngModel)]="propertyView.ProjectName">
+                  [(ngModel)]="propertyView.projectName">
                   <div class="error-block"
                   *ngIf="ProjectName.invalid && (nextClicked || ProjectName.touched)">
                     <strong> select project name </strong>
@@ -49,7 +50,7 @@
                   <p>BHK</p>
                   <div class="btn-group" btnRadioGroup
                   formControlName="BHK"
-                  [(ngModel)]="propertyView.BHK" name="BHK">
+                  [(ngModel)]="propertyView.bhk" name="BHK">
                     <label
                       *ngFor="let bhk of [1,2,3,4]"
                       class="btn btn-outline-primary mr-2"
@@ -67,7 +68,7 @@
                   <p>Property Type</p>
                   <div class="btn-group" btnRadioGroup
                   formControlName='PType'
-                  [(ngModel)]="propertyView.PType">
+                  [(ngModel)]="propertyView.propertyType">
                     <label
                     *ngFor="let ptype of propertyTypes"
                     class="btn btn-outline-primary mr-2"
@@ -84,7 +85,7 @@
                   <p>Furnishing Type</p>
                   <div class="btn-group" btnRadioGroup
                   formControlName="FType"
-                  [(ngModel)]="propertyView.FType">
+                  [(ngModel)]="propertyView.furnishingType">
                   <label
                     *ngFor="let ftype of furnishTypes"
                     class="btn btn-outline-primary mr-2"
@@ -102,7 +103,7 @@
                   <label>City</label>
                   <select class="form-control"
                     formControlName="Name"
-                    [(ngModel)]="propertyView.Name">
+                    [(ngModel)]="propertyView.name">
                     <option value="">--Select a City--</option>
                     <option *ngFor="let city of cityList" 
                     value={{city.id}}>
@@ -122,7 +123,7 @@
                   <input type="text"
                   class="form-control"
                   formControlName="City"
-                  [(ngModel)]="propertyView.City"><br>
+                  [(ngModel)]="propertyView.city"><br>
                   <div class="error-block"
                   *ngIf="City.invalid && (nextClicked || City.touched)">
                     <strong> select state/country </strong>
@@ -138,20 +139,20 @@
 
               <tab heading="Pricing and Area" formGroupName="PriceInfo">
                   <div class="form-group col-12">
-                    <label *ngIf="SellRent.value==1">Price (in AED)</label>
-                    <label *ngIf="SellRent.value==2">Rent (in AED)</label>
+                    <label *ngIf="SellRent.value===1">Price (in AED)</label>
+                    <label *ngIf="SellRent.value===2">Rent (in AED)</label>
                     <input type="text" class="form-control"
                     formControlName="Price"
-                    [(ngModel)]="propertyView.Price">
+                    [(ngModel)]="propertyView.price">
                     <div class="error-block"
                     *ngIf="Price.invalid && (nextClicked || Price.touched)">
                       <strong> select </strong>
-                      <span *ngIf="SellRent.value==1;else ShowRent">price</span>
+                      <span *ngIf="SellRent.value===1;else ShowRent">price</span>
                       <ng-template #ShowRent>rent</ng-template>
                     </div>
                   </div>
 
-                  <div *ngIf="SellRent.value==2">
+                  <div *ngIf="SellRent.value===2">
                     <div class="form-group col-12">
                       <label>Security (in AED)</label>
                       <input type="text"
@@ -171,7 +172,7 @@
                     <label>Built Area (in Sqr Meter)</label>
                     <input type="text"
                     class="form-control"
-                    [(ngModel)]="propertyView.BuiltArea"
+                    [(ngModel)]="propertyView.builtArea"
                     formControlName="BuiltArea">
                     <div class="error-block"
                     *ngIf="BuiltArea.invalid && nextClicked">

@@ -1,3 +1,5 @@
+/* eslint-disable prefer-const */
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import { Property } from 'src/app/model/property';
@@ -147,7 +149,7 @@ tabChanged(tabChangeEvent: MatTabChangeEvent): void {
         to_name: "Admin",
         from_name: this.form.value.from_name,
         from_email: this.form.value.from_email,
-        subject:  this.property.ProjectName + "    " + this.property.Name + "," + this.property.City,
+        subject:  this.property.projectName + "    " + this.property.name + "," + this.property.city,
         message: this.form.value.message,
         });
 
@@ -177,7 +179,7 @@ tabChanged(tabChangeEvent: MatTabChangeEvent): void {
         to_name: "Admin",
         from_name: this.form.value.from_name1,
         from_email: this.form.value.from_email1,
-        subject:  this.property.ProjectName + "    " + this.property.Name + "," + this.property.City,
+        subject:  this.property.projectName + "    " + this.property.name + "," + this.property.city,
         message: this.form.value.message1,
         });
 

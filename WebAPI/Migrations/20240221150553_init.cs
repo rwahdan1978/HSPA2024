@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class init1 : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,7 +17,7 @@ namespace WebAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastUpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastUpdatedBy = table.Column<int>(type: "int", nullable: false)
@@ -65,7 +65,9 @@ namespace WebAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    PasswordKey = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
+                    PasswordKey = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    LastUpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastUpdatedBy = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -73,7 +75,7 @@ namespace WebAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "properties",
+                name: "Properties",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -83,7 +85,7 @@ namespace WebAPI.Migrations
                     PropertyTypeId = table.Column<int>(type: "int", nullable: false),
                     BHK = table.Column<int>(type: "int", nullable: false),
                     FurnishingTypeId = table.Column<int>(type: "int", nullable: false),
-                    price = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<int>(type: "int", nullable: false),
                     BuiltArea = table.Column<int>(type: "int", nullable: false),
                     CarpetArea = table.Column<int>(type: "int", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -106,27 +108,27 @@ namespace WebAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_properties", x => x.Id);
+                    table.PrimaryKey("PK_Properties", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_properties_FurnishingTypes_FurnishingTypeId",
+                        name: "FK_Properties_FurnishingTypes_FurnishingTypeId",
                         column: x => x.FurnishingTypeId,
                         principalTable: "FurnishingTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_properties_cities_CityId",
+                        name: "FK_Properties_cities_CityId",
                         column: x => x.CityId,
                         principalTable: "cities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_properties_propertyTypes_PropertyTypeId",
+                        name: "FK_Properties_propertyTypes_PropertyTypeId",
                         column: x => x.PropertyTypeId,
                         principalTable: "propertyTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_properties_users_PostedBy",
+                        name: "FK_Properties_users_PostedBy",
                         column: x => x.PostedBy,
                         principalTable: "users",
                         principalColumn: "Id",
@@ -149,9 +151,9 @@ namespace WebAPI.Migrations
                 {
                     table.PrimaryKey("PK_Photos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Photos_properties_PropertyId",
+                        name: "FK_Photos_Properties_PropertyId",
                         column: x => x.PropertyId,
-                        principalTable: "properties",
+                        principalTable: "Properties",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -162,23 +164,23 @@ namespace WebAPI.Migrations
                 column: "PropertyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_properties_CityId",
-                table: "properties",
+                name: "IX_Properties_CityId",
+                table: "Properties",
                 column: "CityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_properties_FurnishingTypeId",
-                table: "properties",
+                name: "IX_Properties_FurnishingTypeId",
+                table: "Properties",
                 column: "FurnishingTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_properties_PostedBy",
-                table: "properties",
+                name: "IX_Properties_PostedBy",
+                table: "Properties",
                 column: "PostedBy");
 
             migrationBuilder.CreateIndex(
-                name: "IX_properties_PropertyTypeId",
-                table: "properties",
+                name: "IX_Properties_PropertyTypeId",
+                table: "Properties",
                 column: "PropertyTypeId");
         }
 
@@ -189,7 +191,7 @@ namespace WebAPI.Migrations
                 name: "Photos");
 
             migrationBuilder.DropTable(
-                name: "properties");
+                name: "Properties");
 
             migrationBuilder.DropTable(
                 name: "FurnishingTypes");

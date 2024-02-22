@@ -1,3 +1,4 @@
+<!-- eslint-disable @angular-eslint/template/label-has-associated-control -->
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,22 +42,22 @@
   Please switch to landscape mode to show the content of the page. 
 </h4>
 
-<div *ngIf="deviveInfo.deviceType != 'mobile'">
+<div *ngIf="deviveInfo.deviceType !== 'mobile'">
   <br> &nbsp;
   <label>Choose Filter:</label>&nbsp;
   <select [(ngModel)] = 'SearchCar' (change)="ClearList()">
-    <option value="ProjectName">Project Name</option>
-    <option value="Name">City</option>
-    <option value="PType">Property Type</option>
+    <option value="projectName">Project Name</option>
+    <option value="name">City</option>
+    <option value="propertyType">Property Type</option>
   </select>
   &nbsp;
   <label>Sort by &nbsp;</label>
   <select [(ngModel)] = 'SortbyParam'>
-    <option value="ProjectName">Project Name</option>
-    <option value="Name">City</option>
-    <option value="SellRent">Sell/Rent</option>
-    <option value="Price">Price</option>
-    <option value="PType">Property Type</option>
+    <option value="projectName">Project Name</option>
+    <option value="name">City</option>
+    <option value="sellRent">Sell/Rent</option>
+    <option value="price">Price</option>
+    <option value="propertyType">Property Type</option>
   </select>
   &nbsp;
   <button type="button" (click) = "onSortDirection()">
@@ -73,7 +74,7 @@
   <br><br>
 </div>
 
-<div class="row" *ngIf="(deviveInfo.deviceType=== 'mobile' && deviveInfo.orientation=== 'landscape') || deviveInfo.deviceType != 'mobile'">
+<div class="row" *ngIf="(deviveInfo.deviceType=== 'mobile' && deviveInfo.orientation=== 'landscape') || deviveInfo.deviceType !== 'mobile'">
     <div *ngFor="let property of properties|filter:SearchCity:SearchCar|sort:[SortbyParam,SortDirection]| paginate:{ itemsPerPage: 4,
       currentPage: p}"class="col-sm-6">
       <div class="shadow-lg p-3 mb-4">
