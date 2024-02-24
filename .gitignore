@@ -1,4 +1,3 @@
 node_modules
 WebAPI/obj
 WebAPI/bin
-Frontend/src/environments/environment.ts
