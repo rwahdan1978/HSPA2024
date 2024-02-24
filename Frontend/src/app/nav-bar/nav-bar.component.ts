@@ -35,7 +35,7 @@ export class NavBarComponent implements OnInit {
 
   onFamilyDocs(){
     window.open(
-      'https://family-documents.onrender.com/',
+      'http://angular-upload-files-2023-2024.s3-website.ap-south-1.amazonaws.com/',
       '_self' // <- This is what makes it open in a new window.
     );
   }

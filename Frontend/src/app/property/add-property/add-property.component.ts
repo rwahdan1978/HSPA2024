@@ -83,9 +83,9 @@ export class AddPropertyComponent implements OnInit {
     const config = {
       bucketName: 'angular-upload-files-2023-2024',
       dirName: '/properties2023/',
-      region: 'ap-south-1',
-      accessKeyId: environment.accessKeyId,
-      secretAccessKey: environment.secretAccessKey,
+      region: environment.AWS_DEFAULT_REGION,
+      accessKeyId: environment.AWS_ACCESS_KEY_ID,
+      secretAccessKey: environment.AWS_SECRET_ACCESS_KEY,
       s3Url: 'https://angular-upload-files-2023-2024.s3.amazonaws.com/'
   }
   
