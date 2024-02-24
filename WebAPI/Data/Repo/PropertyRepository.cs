@@ -49,7 +49,7 @@ namespace WebAPI.Data.Repo
             var properties = await dc.Properties
             .Include(p => p.City)
             .Include(p => p.PropertyType)
-            .Include(p => p.FurnishingType) 
+            .Include(p => p.FurnishingType)
             .Where(p => p.Id == id)
             .FirstAsync();
             return properties;

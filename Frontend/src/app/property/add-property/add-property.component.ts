@@ -52,6 +52,7 @@ export class AddPropertyComponent implements OnInit {
     villa: null as any,
     furnishingType: null as any,
     bhk: null as any,
+    bathroom: null as any,
     builtArea: null as any,
     city: '' as any,
     readyToMove: null as any,
@@ -154,23 +155,23 @@ export class AddPropertyComponent implements OnInit {
         Interests: [null]
       }),
 
-      sellerInfo: this.fb.group({
-        contactCompany: [null],
-        contactName: [null],
-        contactNumber: [null],
-        contactNumber2: [null],
-        contactEmail: [null],
-        contactCommission: [null]
-      }),
+      // sellerInfo: this.fb.group({
+      //   contactCompany: [null],
+      //   contactName: [null],
+      //   contactNumber: [null],
+      //   contactNumber2: [null],
+      //   contactEmail: [null],
+      //   contactCommission: [null]
+      // }),
 
-      PhotoInfo: this.fb.group({
-        Image1: [null],
-        Image2: [null],
-        Image3: [null],
-        Image4: [null],
-        Image5: [null],
-        companyImage: [null]
-      }),
+      // PhotoInfo: this.fb.group({
+      //   Image1: [null],
+      //   Image2: [null],
+      //   Image3: [null],
+      //   Image4: [null],
+      //   Image5: [null],
+      //   companyImage: [null]
+      // }),
 
       });
       
@@ -268,11 +269,11 @@ export class AddPropertyComponent implements OnInit {
       }
 
       get building_flat() {
-        return this.AddressInfo.controls['building_flat'] as FormControl;
+        return this.AddressInfo.controls['building_flat#'] as FormControl;
       }
 
       get villa() {
-        return this.AddressInfo.controls['villa'] as FormControl;
+        return this.AddressInfo.controls['villa#'] as FormControl;
       }
 
       get RTM() {
@@ -307,53 +308,53 @@ export class AddPropertyComponent implements OnInit {
         return this.OtherInfo.controls['Interests'] as FormControl;
       }
 
-      get Image1() {
-        return this.PhotoInfo.controls['Image1'] as FormControl;
-      }
+      // get Image1() {
+      //   return this.PhotoInfo.controls['Image1'] as FormControl;
+      // }
 
-      get Image2() {
-        return this.PhotoInfo.controls['Image2'] as FormControl;
-      }
+      // get Image2() {
+      //   return this.PhotoInfo.controls['Image2'] as FormControl;
+      // }
 
-      get Image3() {
-        return this.PhotoInfo.controls['Image3'] as FormControl;
-      }
+      // get Image3() {
+      //   return this.PhotoInfo.controls['Image3'] as FormControl;
+      // }
 
-      get Image4() {
-        return this.PhotoInfo.controls['Image4'] as FormControl;
-      }
+      // get Image4() {
+      //   return this.PhotoInfo.controls['Image4'] as FormControl;
+      // }
 
-      get Image5() {
-        return this.PhotoInfo.controls['Image5'] as FormControl;
-      }
+      // get Image5() {
+      //   return this.PhotoInfo.controls['Image5'] as FormControl;
+      // }
 
-      get contactCompany() {
-        return this.sellerInfo.controls['contactCompany'] as FormControl;
-      }
+      // get contactCompany() {
+      //   return this.sellerInfo.controls['contactCompany'] as FormControl;
+      // }
 
-      get contactName() {
-        return this.sellerInfo.controls['contactName'] as FormControl;
-      }
+      // get contactName() {
+      //   return this.sellerInfo.controls['contactName'] as FormControl;
+      // }
 
-      get contactNumber() {
-        return this.sellerInfo.controls['contactNumber'] as FormControl;
-      }
+      // get contactNumber() {
+      //   return this.sellerInfo.controls['contactNumber'] as FormControl;
+      // }
 
-      get contactNumber2() {
-        return this.sellerInfo.controls['contactNumber2'] as FormControl;
-      }
+      // get contactNumber2() {
+      //   return this.sellerInfo.controls['contactNumber2'] as FormControl;
+      // }
 
-      get contactEmail() {
-        return this.sellerInfo.controls['contactEmail'] as FormControl;
-      }
+      // get contactEmail() {
+      //   return this.sellerInfo.controls['contactEmail'] as FormControl;
+      // }
 
-      get contactCommission() {
-        return this.sellerInfo.controls['contactCommission'] as FormControl;
-      }
+      // get contactCommission() {
+      //   return this.sellerInfo.controls['contactCommission'] as FormControl;
+      // }
 
-      get companyImage() {
-        return this.PhotoInfo.controls['companyImage'] as FormControl;
-      }
+      // get companyImage() {
+      //   return this.PhotoInfo.controls['companyImage'] as FormControl;
+      // }
 
   //#endregion
 //#endregion
@@ -415,8 +416,8 @@ export class AddPropertyComponent implements OnInit {
     this.property.totalFloor = this.TotalFloor.value;
     this.property.address = this.Address.value;
     this.property.address2 = this.LandMark.value;
-    //this.property.Building_Flat = this.building_flat.value;
-    //this.property.Villa = this.villa.value;
+    this.property.building_flat = this.building_flat.value;
+    this.property.villa = this.villa.value;
     this.property.readyToMove = this.RTM.value;
     this.property.age = this.AOP.value;
     this.property.propertyType = this.PA.value;

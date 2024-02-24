@@ -14,6 +14,7 @@ namespace WebAPI.Models
         public bool Building_flat { get; set; }
         public bool Villa { get; set; }
         public int BHK { get; set; }
+        public int Bathroom { get; set; }
         public int FurnishingTypeId { get; set; }
         public FurnishingType FurnishingType { get; set; }
         public int Price { get; set; }

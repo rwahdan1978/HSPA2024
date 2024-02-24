@@ -87,7 +87,6 @@ export class PropertyDetailComponent implements OnInit {
         this.property = data['prp'];
       }
     )
-
     this.property.age = this.housingService.getPropertyAge(this.property.estPossessionOn);
 
     // check if user navigate to other page and delete the lastTab in local storage

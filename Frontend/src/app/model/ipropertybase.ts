@@ -7,6 +7,7 @@ export interface IPropertyBase {
     building_flat: boolean;
     villa: boolean;
     furnishingType: string;
+    bathroom: number;
     price: number;
     bhk: number;
     builtArea: number;
