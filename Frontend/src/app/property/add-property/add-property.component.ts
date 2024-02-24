@@ -48,6 +48,8 @@ export class AddPropertyComponent implements OnInit {
     price: null as any,
     sellRent: null as any,
     propertyType: null as any,
+    building_flat: null as any,
+    villa: null as any,
     furnishingType: null as any,
     bhk: null as any,
     builtArea: null as any,

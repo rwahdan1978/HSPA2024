@@ -7,7 +7,10 @@ export class Property implements IPropertyBase {
     projectName: string;
     name: string;
     propertyType: string;
+    building_flat: boolean;
+    villa: boolean;
     bhk: number;
+    country: string;
     furnishingType: string;
     price: number;
     builtArea: number;
@@ -17,7 +20,7 @@ export class Property implements IPropertyBase {
     city: string;
     floorNo?: string;
     totalFloor?: string;
-    readyToMove: number;
+    readyToMove: boolean;
     age?: string;
     mainEntrance?: string;
     security?: number;

@@ -11,6 +11,8 @@ namespace WebAPI.Models
         public string Name { get; set; }
         public int PropertyTypeId { get; set; }
         public PropertyType PropertyType { get; set; }
+        public bool Building_flat { get; set; }
+        public bool Villa { get; set; }
         public int BHK { get; set; }
         public int FurnishingTypeId { get; set; }
         public FurnishingType FurnishingType { get; set; }

@@ -14,7 +14,7 @@ import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
 })
 
 export class PropertycardComponent implements OnInit
-{   
+{ 
     deviveInfo: DeviceInfo;
     @Input() property : IPropertyBase;
     @Input() hideIcons: boolean;
@@ -22,6 +22,7 @@ export class PropertycardComponent implements OnInit
     constructor(private DDS: DeviceDetectorService) { }
 
     ngOnInit() {
+      
         window.matchMedia("(orientation:portrait)").addEventListener("change", (e: MediaQueryListEvent) => { 
             const portrait: boolean = e.matches; 
             if (portrait) { 

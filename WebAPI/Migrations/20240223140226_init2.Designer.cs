@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAPI.Data;
 
@@ -11,9 +12,11 @@ using WebAPI.Data;
 namespace WebAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240223140226_init2")]
+    partial class init2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -128,8 +131,8 @@ namespace WebAPI.Migrations
                     b.Property<int>("BHK")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Building_flat")
-                        .HasColumnType("bit");
+                    b.Property<int>("Building_flat")
+                        .HasColumnType("int");
 
                     b.Property<int>("BuiltArea")
                         .HasColumnType("int");
@@ -197,8 +200,8 @@ namespace WebAPI.Migrations
                     b.Property<int>("TotalFloors")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Villa")
-                        .HasColumnType("bit");
+                    b.Property<int>("Villa")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

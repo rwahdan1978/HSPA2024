@@ -33,10 +33,12 @@
             </h6>
         </div>
         <div>
-           <strong *ngIf="property.building_flat !== null">{{property.Address}}, Near {{property.Address2}} - Building # {{property.building_flat}}<br> {{property.ProjectName}}, {{property.city}}</strong>
-           <strong *ngIf="property.villa !== null">{{property.Address}}, Near {{property.Address2}} - Villa # {{property.villa}}<br> {{property.ProjectName}}, {{property.city}}</strong>
-        </div> <hr>
-
+           <strong *ngIf="property.building_flat">{{property.address}}, Near {{property.address2}} <br> 
+            {{property.city}}, {{property.country}}</strong>
+           <strong *ngIf="!property.building_flat">{{property.address}}, Near {{property.address2}} <br> 
+            {{property.city}}, {{property.country}}</strong>
+        </div> 
+        <hr>
         <div>
             <strong>Build Area: </strong> 
             {{property.builtArea}} Sqft
@@ -226,7 +228,6 @@
                         &nbsp; &nbsp; &nbsp;
                         <strong *ngIf="property.mosque"> 10 minutes walk</strong> 
                         <strong *ngIf="!property.mosque" style="color: red;"> Not Available </strong> 
-                        
                   </div>
               </div>
             </div>
@@ -293,8 +294,8 @@
                    style="background-image:url('https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image1}}')">
                   <div class="container">
                   
-                  <p *ngIf="property.sellRent ===1">For Sale / Price:{{property.Price}}AED</p>
-                  <p *ngIf="property.sellRent ===2">For Rent / Price:{{property.Price}}AED</p>
+                  <p *ngIf="property.sellRent ===1">For Sale / Price:{{property.price}}AED</p>
+                  <p *ngIf="property.sellRent ===2">For Rent / Price:{{property.price}}AED</p>
                   </div>
                 </div>
 
@@ -302,8 +303,8 @@
                 style="background-image:url('https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image2}}')">
                   <div class="container">
                   
-                  <p *ngIf="property.sellRent ===1">For Sale / Price:{{property.Price}}AED</p>
-                  <p *ngIf="property.sellRent ===2">For Rent / Price:{{property.Price}}AED</p>
+                  <p *ngIf="property.sellRent ===1">For Sale / Price:{{property.price}}AED</p>
+                  <p *ngIf="property.sellRent ===2">For Rent / Price:{{property.price}}AED</p>
                   </div>
                 </div>
 
@@ -311,8 +312,8 @@
                 style="background-image:url('https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image3}}')">
                   <div class="container">
                   
-                  <p *ngIf="property.sellRent ===1">For Sale / Price:{{property.Price}}AED</p>
-                  <p *ngIf="property.sellRent ===2">For Rent / Price:{{property.Price}}AED</p>
+                  <p *ngIf="property.sellRent ===1">For Sale / Price:{{property.price}}AED</p>
+                  <p *ngIf="property.sellRent ===2">For Rent / Price:{{property.price}}AED</p>
                   </div>
                 </div>
 
@@ -320,8 +321,8 @@
                 style="background-image:url('https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image4}}')">
                   <div class="container">
                   
-                  <p *ngIf="property.sellRent ===1">For Sale / Price:{{property.Price}}AED</p>
-                  <p *ngIf="property.sellRent ===2">For Rent / Price:{{property.Price}}AED</p>
+                  <p *ngIf="property.sellRent ===1">For Sale / Price:{{property.price}}AED</p>
+                  <p *ngIf="property.sellRent ===2">For Rent / Price:{{property.price}}AED</p>
                   </div>
                 </div>
 
@@ -329,8 +330,8 @@
                 style="background-image:url('https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image5}}')">
                   <div class="container">
                   
-                  <p *ngIf="property.sellRent ===1">For Sale / Price:{{property.Price}}AED</p>
-                  <p *ngIf="property.sellRent ===2">For Rent / Price:{{property.Price}}AED</p>
+                  <p *ngIf="property.sellRent ===1">For Sale / Price:{{property.price}}AED</p>
+                  <p *ngIf="property.sellRent ===2">For Rent / Price:{{property.price}}AED</p>
                   </div>
                 </div>
                 
@@ -364,7 +365,7 @@
             <form *ngIf="deviveInfo.deviceType !== 'mobile'" [formGroup]="form" class="form" action="javascript:void(0)" (submit)="send()" method="POST">
               <input formControlName="from_name" name="from_name" type="text"  placeholder="Full Name"/>
               <input formControlName="from_email" name="from_email" type="text"  placeholder="Email Address"/>
-              <input formControlName="subject" name="subject" type="text" placeholder="{{property.ProjectName}} - {{this.property.Name}}, {{this.property.City}}"/>
+              <input formControlName="subject" name="subject" type="text" placeholder="{{property.projectName}} - {{this.property.name}}, {{this.property.city}}"/>
               <textarea formControlName="message" name="message" type="text" placeholder="Enter your message"></textarea>
               <button id="clickit" class="button1" type="submit">Submit</button>
             </form>
