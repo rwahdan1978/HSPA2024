@@ -33,4 +33,11 @@ export class Property implements IPropertyBase {
     estPossessionOn?: string;
     image?: string;
     description?: string;
+
+    contactCommission: number;
+    contactCompany: string;
+    contactName: string;
+    contactNumber: string;
+    contactNumber2: string;
+    contactEmail: string;
 }

@@ -87,6 +87,7 @@ export class PropertyDetailComponent implements OnInit {
         this.property = data['prp'];
       }
     )
+    
     this.property.age = this.housingService.getPropertyAge(this.property.estPossessionOn);
 
     // check if user navigate to other page and delete the lastTab in local storage
@@ -106,7 +107,7 @@ export class PropertyDetailComponent implements OnInit {
     this.likes = JSON.parse(data2);
 
     setTimeout(() => {
-      this.dangerousUrl = "https://www.google.com/maps?q=" + this.property.theaddress + "&output=embed";
+      this.dangerousUrl = "https://www.google.com/maps?q=" + this.property.contactCompany + "&output=embed";
       this.urlPath = this.sanitizer.bypassSecurityTrustResourceUrl(this.dangerousUrl);
     }, 100);
 

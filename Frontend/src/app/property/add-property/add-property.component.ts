@@ -47,7 +47,7 @@ export class AddPropertyComponent implements OnInit {
   propertyView: IPropertyBase = {
     id: null as any,
     name: '',
-    price:'' as any,
+    price: '' as any,
     sellRent: 1 as number,
     propertyType: null as any,
     building_flat: null as any,
@@ -59,6 +59,12 @@ export class AddPropertyComponent implements OnInit {
     city: '' as any,
     readyToMove: false as boolean,
     projectName: null as any
+    // contactCommission: 0,
+    // contactCompany: '',
+    // contactName: '',
+    // contactNumber: '',
+    // contactNumber2: '',
+    // contactEmail: ''
   };
   
   constructor(
@@ -78,7 +84,6 @@ export class AddPropertyComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log("hi there!")
     this.housingService.getAllCities().subscribe(data => {
       this.cityList = data;
     });
@@ -128,6 +133,7 @@ export class AddPropertyComponent implements OnInit {
   CreateAddPropertyForm() {
     
     this.addPropertyForm = this.fb.group({
+
       BasicInfo: this.fb.group({
         ProjectName: [null, Validators.required],
         SellRent: ['1' , Validators.required],
@@ -141,24 +147,24 @@ export class AddPropertyComponent implements OnInit {
       PriceInfo: this.fb.group({
         Price: [null, Validators.required],
         BuiltArea: [null, Validators.required],
-        CarpetArea: [null],
+        CarpetArea: [0],
         Security: [0],
         Maintenance: [0],
       }),
 
       AddressInfo: this.fb.group({
-        FloorNo: [null],
-        TotalFloor: [null],
+        FloorNo: [0],
+        TotalFloor: [0],
         Address: [null, Validators.required],
         LandMark: [null], //address2
-        building_flat:[null],
-        villa:[null]
+        building_flat:[0],
+        villa:[0]
       }),
 
       OtherInfo: this.fb.group({
         RTM: [null],
         PossessionOn: [null, Validators.required],
-        Gated: [null],
+        Gated: [false],
         MainEntrance: [null],
         Description: [null],
         // mall:[null],
@@ -170,12 +176,12 @@ export class AddPropertyComponent implements OnInit {
       }),
 
       sellerInfo: this.fb.group({
-        contactCompany: [null],
-        contactName: [null],
-        contactNumber: [null],
-        contactNumber2: [null],
-        contactEmail: [null],
-        contactCommission: [null]
+        ContactCompany: [null, Validators.required],
+        ContactName: [null],
+        ContactNumber: [null],
+        ContactNumber2: [null],
+        ContactEmail: [null],
+        ContactCommission: [null]
       })
 
       });
@@ -200,9 +206,6 @@ export class AddPropertyComponent implements OnInit {
         return this.addPropertyForm.controls['OtherInfo'] as FormGroup;
       }
 
-      get PhotoInfo() {
-        return this.addPropertyForm.controls['PhotoInfo'] as FormGroup;
-      }
       get sellerInfo() {
         return this.addPropertyForm.controls['sellerInfo'] as FormGroup;
       }
@@ -273,13 +276,13 @@ export class AddPropertyComponent implements OnInit {
         return this.AddressInfo.controls['LandMark'] as FormControl;
       }
 
-      get building_flat() {
-        return this.AddressInfo.controls['building_flat'] as FormControl;
-      }
+      // get building_flat() {
+      //   return this.AddressInfo.controls['building_flat'] as FormControl;
+      // }
 
-      get villa() {
-        return this.AddressInfo.controls['villa'] as FormControl;
-      }
+      // get villa() {
+      //   return this.AddressInfo.controls['villa'] as FormControl;
+      // }
 
       get RTM() {
         return this.OtherInfo.controls['RTM'] as FormControl;
@@ -305,28 +308,28 @@ export class AddPropertyComponent implements OnInit {
       //   return this.OtherInfo.controls['Interests'] as FormControl;
       // }
 
-      get contactCompany() {
-        return this.sellerInfo.controls['contactCompany'] as FormControl;
+      get ContactCompany() {
+        return this.sellerInfo.controls['ContactCompany'] as FormControl;
       }
 
-      get contactName() {
-        return this.sellerInfo.controls['contactName'] as FormControl;
+      get ContactName() {
+        return this.sellerInfo.controls['ContactName'] as FormControl;
       }
 
-      get contactNumber() {
-        return this.sellerInfo.controls['contactNumber'] as FormControl;
+      get ContactNumber() {
+        return this.sellerInfo.controls['ContactNumber'] as FormControl;
       }
 
-      get contactNumber2() {
-        return this.sellerInfo.controls['contactNumber2'] as FormControl;
+      get ContactNumber2() {
+        return this.sellerInfo.controls['ContactNumber2'] as FormControl;
       }
 
-      get contactEmail() {
-        return this.sellerInfo.controls['contactEmail'] as FormControl;
+      get ContactEmail() {
+        return this.sellerInfo.controls['ContactEmail'] as FormControl;
       }
 
-      get contactCommission() {
-        return this.sellerInfo.controls['contactCommission'] as FormControl;
+      get ContactCommission() {
+        return this.sellerInfo.controls['ContactCommission'] as FormControl;
       }
 
   //#endregion
@@ -384,7 +387,7 @@ export class AddPropertyComponent implements OnInit {
     this.property.name = this.Name.value;
     this.property.cityId = this.City.value;
     this.property.furnishingTypeId = this.FType.value;
-    this.property.price = this.Price.value;
+    this.property.price = +this.Price.value;
     this.property.security = this.Security.value;
     this.property.maintenance = this.Maintenance.value;
     this.property.builtArea = this.BuiltArea.value;
@@ -393,8 +396,8 @@ export class AddPropertyComponent implements OnInit {
     this.property.totalFloor = this.TotalFloor.value;
     this.property.address = this.Address.value;
     this.property.address2 = this.LandMark.value;
-    this.property.building_flat = this.building_flat.value;
-    this.property.villa = this.villa.value;
+    // this.property.building_flat = this.building_flat.value;
+    // this.property.villa = this.villa.value;
     this.property.readyToMove = this.RTM.value;
     //this.property.propertyType = this.PA.value;
     this.property.gated = this.Gated.value;
@@ -403,14 +406,13 @@ export class AddPropertyComponent implements OnInit {
         this.datePipe.transform(this.PossessionOn.value,"MM/dd/yyyy");
     this.property.description = this.Description.value;
    
-    // this.property.contactCommission = this.contactCommission.value;
-    // this.property.contactCompany = this.contactCompany.value;
-    // this.property.contactName = this.contactName.value;
-    // this.property.contactNumber = this.contactNumber.value;
-    // this.property.contactNumber2 = this.contactNumber2.value;
-    // this.property.contactEmail = this.contactEmail.value;
-    // this.property.theaddress = this.contactCompany.value;
-    
+    this.property.contactCommission = this.ContactCommission.value;
+    this.property.contactCompany = this.ContactCompany.value;
+    this.property.contactName = this.ContactName.value;
+    this.property.contactNumber = this.ContactNumber.value;
+    this.property.contactNumber2 = this.ContactNumber2.value;
+    this.property.contactEmail = this.ContactEmail.value;
+    //this.property.theaddress = this.contactCompany.value;
     
     // this.property.mall = this.mall;
     // this.property.zoo = this.zoo;
@@ -463,6 +465,11 @@ export class AddPropertyComponent implements OnInit {
 
     if (this.OtherInfo.invalid) {
       this.formTabs.tabs[3].active = true;
+      return false;
+    }
+
+    if (this.sellerInfo.invalid) {
+      this.formTabs.tabs[4].active = true;
       return false;
     }
 

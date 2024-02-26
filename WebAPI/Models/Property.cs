@@ -35,11 +35,19 @@ namespace WebAPI.Models
         public int Age { get; set; }
         public string Description { get; set; }
 
+
+        public int ContactCommission { get; set; }
+        public string ContactCompany { get; set; } 
+        public string ContactName { get; set; }
+        public string ContactNumber { get; set; }
+        public string ContactNumber2 { get; set; } 
+        public string ContactEmail { get; set; }
+
         public ICollection<Photo> Photos { get; set; }
         public DateTime PostedOn { get; set; } = DateTime.Now;
         
         [ForeignKey("User")]
         public int PostedBy { get; set; } 
-        public User User { get; set; }       
+        public User User { get; set; }
     }
 }

@@ -28,5 +28,11 @@ namespace WebAPI.Dtos
         public int Maintenance { get; set; } = 0;
         public int Age { get; set; } = 0;
         public string Description { get; set; }
+        public int ContactCommission { get; set; }
+        public string ContactCompany { get; set; } 
+        public string ContactName { get; set; }
+        public string ContactNumber { get; set; }
+        public string ContactNumber2 { get; set; } 
+        public string ContactEmail { get; set; }
     }
 }
