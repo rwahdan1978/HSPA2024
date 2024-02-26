@@ -11,6 +11,8 @@ namespace WebAPI.Interfaces
         ICityRepository CityRepository {get;}
         IUserRepository userRepository {get;}
         IPropertyRepository PropertyRepository {get;}
+        IPropertyTypeRepository PropertyTypeRepository {get;}
+        IFurnishingTypeRepository FurnishingTypeRepository {get;} 
         Task<bool> SaveAsync();
     }
 }

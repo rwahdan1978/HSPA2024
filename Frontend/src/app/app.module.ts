@@ -11,7 +11,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { GoogleMapsModule } from '@angular/google-maps';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { DatePipe, HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { PropertycardComponent } from './property/property-card/property-card..component';
@@ -85,6 +85,7 @@ const appRoutes: Routes = [
       useClass: HttpErrorInterceptorService,
       multi: true
     },
+    DatePipe,
     {provide: LocationStrategy, useClass: HashLocationStrategy},
 
     {

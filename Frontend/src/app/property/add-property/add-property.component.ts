@@ -12,6 +12,8 @@ import {GetVariableService} from '../getVariable.service';
 import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
 import AWSS3UploadAsh from 'aws-s3-upload-ash';
 import { environment } from 'src/environments/environment.development';
+import { Ikeyvaluepair } from 'src/app/model/ikeyvaluepair';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-property',
@@ -21,12 +23,12 @@ import { environment } from 'src/environments/environment.development';
 export class AddPropertyComponent implements OnInit {
 
   deviveInfo: DeviceInfo;
-  mall: any;
-  fastFood: any;
-  zoo:any;
-  beach:any;
-  school:any;
-  mosque:any;
+  // mall: any;
+  // fastFood: any;
+  // zoo:any;
+  // beach:any;
+  // school:any;
+  // mosque:any;
 
   @ViewChild('formTabs') formTabs: TabsetComponent;
   datePickerConfig: Partial<BsDatepickerConfig>;
@@ -38,15 +40,15 @@ export class AddPropertyComponent implements OnInit {
   loggedinUser:any;
   
   // Will come from masters
-  propertyTypes: Array<string> = ['House', 'Apartment', 'Villa']
-  furnishTypes: Array<string> = ['Fully', 'Semi', 'Unfurnished']
+  propertyTypes: Ikeyvaluepair[]; 
+  furnishTypes: Ikeyvaluepair[];
   cityList: any[];
 
   propertyView: IPropertyBase = {
     id: null as any,
     name: '',
-    price: null as any,
-    sellRent: null as any,
+    price:'' as any,
+    sellRent: 1 as number,
     propertyType: null as any,
     building_flat: null as any,
     villa: null as any,
@@ -55,11 +57,12 @@ export class AddPropertyComponent implements OnInit {
     bathroom: null as any,
     builtArea: null as any,
     city: '' as any,
-    readyToMove: null as any,
+    readyToMove: false as boolean,
     projectName: null as any
   };
   
   constructor(
+    private datePipe: DatePipe,
     private fb: FormBuilder,
     private router: Router, private getVariable: GetVariableService,
     private housingService: HousingService,
@@ -78,6 +81,14 @@ export class AddPropertyComponent implements OnInit {
     console.log("hi there!")
     this.housingService.getAllCities().subscribe(data => {
       this.cityList = data;
+    });
+
+    this.housingService.getPropertyTypes().subscribe(data => {
+      this.propertyTypes = data;
+    });
+
+    this.housingService.getFurnishingTypes().subscribe(data => {
+      this.furnishTypes = data;
     });
 
     const config = {
@@ -131,8 +142,8 @@ export class AddPropertyComponent implements OnInit {
         Price: [null, Validators.required],
         BuiltArea: [null, Validators.required],
         CarpetArea: [null],
-        Security: [null],
-        Maintenance: [null],
+        Security: [0],
+        Maintenance: [0],
       }),
 
       AddressInfo: this.fb.group({
@@ -146,32 +157,26 @@ export class AddPropertyComponent implements OnInit {
 
       OtherInfo: this.fb.group({
         RTM: [null],
-        PossessionOn: [null],
-        AOP: [null, Validators.required],
-        PA: [null,  Validators.required],
+        PossessionOn: [null, Validators.required],
         Gated: [null],
         MainEntrance: [null],
         Description: [null],
-        Interests: [null]
+        // mall:[null],
+        // fastFood:[null],
+        // zoo:[null],
+        // beach:[null],
+        // school:[null],
+        // mosque:[null]
       }),
 
-      // sellerInfo: this.fb.group({
-      //   contactCompany: [null],
-      //   contactName: [null],
-      //   contactNumber: [null],
-      //   contactNumber2: [null],
-      //   contactEmail: [null],
-      //   contactCommission: [null]
-      // }),
-
-      // PhotoInfo: this.fb.group({
-      //   Image1: [null],
-      //   Image2: [null],
-      //   Image3: [null],
-      //   Image4: [null],
-      //   Image5: [null],
-      //   companyImage: [null]
-      // }),
+      sellerInfo: this.fb.group({
+        contactCompany: [null],
+        contactName: [null],
+        contactNumber: [null],
+        contactNumber2: [null],
+        contactEmail: [null],
+        contactCommission: [null]
+      })
 
       });
       
@@ -263,17 +268,17 @@ export class AddPropertyComponent implements OnInit {
       get Address() {
         return this.AddressInfo.controls['Address'] as FormControl;
       }
-      //address2
+      
       get LandMark() {
         return this.AddressInfo.controls['LandMark'] as FormControl;
       }
 
       get building_flat() {
-        return this.AddressInfo.controls['building_flat#'] as FormControl;
+        return this.AddressInfo.controls['building_flat'] as FormControl;
       }
 
       get villa() {
-        return this.AddressInfo.controls['villa#'] as FormControl;
+        return this.AddressInfo.controls['villa'] as FormControl;
       }
 
       get RTM() {
@@ -284,14 +289,6 @@ export class AddPropertyComponent implements OnInit {
         return this.OtherInfo.controls['PossessionOn'] as FormControl;
       }
 
-      get AOP() {
-        return this.OtherInfo.controls['AOP'] as FormControl;
-      }
-
-      get PA() {
-        return this.OtherInfo.controls['PA'] as FormControl;
-      }
-
       get Gated() {
         return this.OtherInfo.controls['Gated'] as FormControl;
       }
@@ -300,61 +297,37 @@ export class AddPropertyComponent implements OnInit {
         return this.OtherInfo.controls['MainEntrance'] as FormControl;
       }
 
-      get Description() {
-        return this.OtherInfo.controls['Description'] as FormControl;
+       get Description() {
+         return this.OtherInfo.controls['Description'] as FormControl;
+       }
+
+      // get Interests() {
+      //   return this.OtherInfo.controls['Interests'] as FormControl;
+      // }
+
+      get contactCompany() {
+        return this.sellerInfo.controls['contactCompany'] as FormControl;
       }
 
-      get Interests() {
-        return this.OtherInfo.controls['Interests'] as FormControl;
+      get contactName() {
+        return this.sellerInfo.controls['contactName'] as FormControl;
       }
 
-      // get Image1() {
-      //   return this.PhotoInfo.controls['Image1'] as FormControl;
-      // }
+      get contactNumber() {
+        return this.sellerInfo.controls['contactNumber'] as FormControl;
+      }
 
-      // get Image2() {
-      //   return this.PhotoInfo.controls['Image2'] as FormControl;
-      // }
+      get contactNumber2() {
+        return this.sellerInfo.controls['contactNumber2'] as FormControl;
+      }
 
-      // get Image3() {
-      //   return this.PhotoInfo.controls['Image3'] as FormControl;
-      // }
+      get contactEmail() {
+        return this.sellerInfo.controls['contactEmail'] as FormControl;
+      }
 
-      // get Image4() {
-      //   return this.PhotoInfo.controls['Image4'] as FormControl;
-      // }
-
-      // get Image5() {
-      //   return this.PhotoInfo.controls['Image5'] as FormControl;
-      // }
-
-      // get contactCompany() {
-      //   return this.sellerInfo.controls['contactCompany'] as FormControl;
-      // }
-
-      // get contactName() {
-      //   return this.sellerInfo.controls['contactName'] as FormControl;
-      // }
-
-      // get contactNumber() {
-      //   return this.sellerInfo.controls['contactNumber'] as FormControl;
-      // }
-
-      // get contactNumber2() {
-      //   return this.sellerInfo.controls['contactNumber2'] as FormControl;
-      // }
-
-      // get contactEmail() {
-      //   return this.sellerInfo.controls['contactEmail'] as FormControl;
-      // }
-
-      // get contactCommission() {
-      //   return this.sellerInfo.controls['contactCommission'] as FormControl;
-      // }
-
-      // get companyImage() {
-      //   return this.PhotoInfo.controls['companyImage'] as FormControl;
-      // }
+      get contactCommission() {
+        return this.sellerInfo.controls['contactCommission'] as FormControl;
+      }
 
   //#endregion
 //#endregion
@@ -368,29 +341,33 @@ export class AddPropertyComponent implements OnInit {
     this.nextClicked = true;
     if (this.allTabsValid()) {
       this.mapProperty();
-      this.housingService.addProperty(this.property);
-      console.log(this.addPropertyForm);
-
-      const thesave = document.getElementById("saveIT");
-      thesave?.setAttribute("disabled","true");
-
-      if(this.SellRent.value === '2') {
-        setTimeout(()=>
+      this.housingService.addProperty(this.property).subscribe(
+        () => 
         {
-          this.test = "ok";
-          this.alertify.success('Congrats, your property listed successfully on our website');
-          this.router.navigate(['/rent-property']);
-        }, 12000);
-        
-      } else { 
-        setTimeout(()=>
-        {
-          this.test = "ok";
-          this.alertify.success('Congrats, your property listed successfully on our website');
-          this.router.navigate(['/buy-property']);
-        }, 12000);
-        
-      }
+          console.log(this.addPropertyForm);
+
+          const thesave = document.getElementById("saveIT");
+          thesave?.setAttribute("disabled","true");
+    
+          if(this.SellRent.value === '2') {
+            setTimeout(()=>
+            {
+              this.test = "ok";
+              this.alertify.success('Congrats, your property listed successfully on our website');
+              this.router.navigate(['/rent-property']);
+            }, 12000);
+            
+          } else { 
+            setTimeout(()=>
+            {
+              this.test = "ok";
+              this.alertify.success('Congrats, your property listed successfully on our website');
+              this.router.navigate(['/buy-property']);
+            }, 12000);
+            
+          }
+        }
+      );
 
     } else {
       this.alertify.error('Please review the form and provide all valid entries');
@@ -400,13 +377,13 @@ export class AddPropertyComponent implements OnInit {
   mapProperty(): void {
     //comment
     this.property.id = this.housingService.newPropID();
-    //this.property.projectName = this.ProjectName.value;
+    this.property.projectName = this.ProjectName.value;
     this.property.sellRent = +this.SellRent.value;
     this.property.bhk = this.BHK.value;
-    this.property.propertyType = this.PType.value;
+    this.property.propertyTypeId = this.PType.value;
     this.property.name = this.Name.value;
-    this.property.city = this.City.value;
-    this.property.furnishingType = this.FType.value;
+    this.property.cityId = this.City.value;
+    this.property.furnishingTypeId = this.FType.value;
     this.property.price = this.Price.value;
     this.property.security = this.Security.value;
     this.property.maintenance = this.Maintenance.value;
@@ -419,18 +396,13 @@ export class AddPropertyComponent implements OnInit {
     this.property.building_flat = this.building_flat.value;
     this.property.villa = this.villa.value;
     this.property.readyToMove = this.RTM.value;
-    this.property.age = this.AOP.value;
-    this.property.propertyType = this.PA.value;
+    //this.property.propertyType = this.PA.value;
     this.property.gated = this.Gated.value;
     this.property.mainEntrance = this.MainEntrance.value;
-    this.property.estPossessionOn = this.PossessionOn.value;
+    this.property.estPossessionOn = 
+        this.datePipe.transform(this.PossessionOn.value,"MM/dd/yyyy");
     this.property.description = this.Description.value;
-   // this.property.image1 = this.getVariable.theFileName1;
-   // this.property.Image2 = this.getVariable.theFileName2;
-   // this.property.Image3 = this.getVariable.theFileName3;
-   // this.property.Image4 = this.getVariable.theFileName4;
-   // this.property.Image5 = this.getVariable.theFileName5;
-    // this.property.companyImage = this.getVariable.theFileName6;
+   
     // this.property.contactCommission = this.contactCommission.value;
     // this.property.contactCompany = this.contactCompany.value;
     // this.property.contactName = this.contactName.value;
@@ -438,37 +410,40 @@ export class AddPropertyComponent implements OnInit {
     // this.property.contactNumber2 = this.contactNumber2.value;
     // this.property.contactEmail = this.contactEmail.value;
     // this.property.theaddress = this.contactCompany.value;
+    
+    
     // this.property.mall = this.mall;
     // this.property.zoo = this.zoo;
     // this.property.fastFood = this.fastFood;
     // this.property.beach = this.beach;
     // this.property.school = this.school;
     // this.property.mosque = this.mosque;
+    
   }
 
-  checkCheckBoxvalue1(event:any){
-    this.mall = event.checked;
-  }
+  // checkCheckBoxvalue1(event:any){
+  //   this.mall = event.checked;
+  // }
 
-  checkCheckBoxvalue2(event:any){
-    this.zoo = event.checked;
-  }
+  // checkCheckBoxvalue2(event:any){
+  //   this.zoo = event.checked;
+  // }
 
-  checkCheckBoxvalue3(event:any){
-    this.fastFood = event.checked;
-  }
+  // checkCheckBoxvalue3(event:any){
+  //   this.fastFood = event.checked;
+  // }
 
-  checkCheckBoxvalue4(event:any){
-    this.beach = event.checked;
-  }
+  // checkCheckBoxvalue4(event:any){
+  //   this.beach = event.checked;
+  // }
 
-  checkCheckBoxvalue5(event:any){
-    this.school = event.checked;
-  }
+  // checkCheckBoxvalue5(event:any){
+  //   this.school = event.checked;
+  // }
 
-  checkCheckBoxvalue6(event:any){
-    this.mosque = event.checked;
-  }
+  // checkCheckBoxvalue6(event:any){
+  //   this.mosque = event.checked;
+  // }
 
   allTabsValid(): boolean {
     if (this.BasicInfo.invalid) {
@@ -488,11 +463,6 @@ export class AddPropertyComponent implements OnInit {
 
     if (this.OtherInfo.invalid) {
       this.formTabs.tabs[3].active = true;
-      return false;
-    }
-
-    if (this.PhotoInfo.invalid) {
-      this.formTabs.tabs[4].active = true;
       return false;
     }
 

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Property } from '../model/property';
 import { environment } from '../../environments/environment';
+import { Ikeyvaluepair } from '../model/ikeyvaluepair';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,14 @@ export class HousingService
 
   getAllCities(): Observable<string[]>{
     return this.http.get<string[]>(this.baseUrl + "/city/cities");
+  }
+
+  getPropertyTypes(): Observable<Ikeyvaluepair[]>{
+    return this.http.get<Ikeyvaluepair[]>(this.baseUrl + "/propertytype/list");
+  }
+
+  getFurnishingTypes(): Observable<Ikeyvaluepair[]>{
+    return this.http.get<Ikeyvaluepair[]>(this.baseUrl + "/furnishingtype/list");
   }
 
   getProperty(id: number)
@@ -34,14 +43,7 @@ export class HousingService
     
   addProperty(property: Property) 
   {
-      let newProp = [property];
-
-      if (localStorage.getItem('newProp')){
-        newProp = [property, 
-                  ...JSON.parse(localStorage.getItem('newProp'))];
-      }
-
-      localStorage.setItem('newProp', JSON.stringify(newProp));
+      return this.http.post(this.baseUrl + "/property/add", property);
   }
 
   newPropID()

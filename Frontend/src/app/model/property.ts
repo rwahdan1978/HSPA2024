@@ -6,18 +6,21 @@ export class Property implements IPropertyBase {
     sellRent: number;
     projectName: string;
     name: string;
+    propertyTypeId: number;
     propertyType: string;
     building_flat: boolean;
     villa: boolean;
     bhk: number;
     bathroom: number;
     country: string;
+    furnishingTypeId: number;
     furnishingType: string;
     price: number;
     builtArea: number;
     CarpetArea?: number;
     address: string;
     address2?: string;
+    cityId: number;
     city: string;
     floorNo?: string;
     totalFloor?: string;
@@ -27,7 +30,7 @@ export class Property implements IPropertyBase {
     security?: number;
     gated?: boolean;
     maintenance?: number;
-    estPossessionOn?: Date;
+    estPossessionOn?: string;
     image?: string;
     description?: string;
 }

@@ -14,21 +14,16 @@
 
             <div class="card-body p-1">
 
-                <h5 class="mb-0" *ngIf="property.sellRent === 1" style="color: red;"> For Sale in {{property.name}} | 
-                    {{property.bhk}} BHK {{property.propertyType}} 
-                    </h5>
-                <h5 class="mb-0" *ngIf="property.sellRent === 2" style="color: red;"> For Rent in {{property.name}} |
-                    {{property.bhk}} BHK {{property.propertyType}} 
-                    </h5>
+                <h2 class="mb-0" style="color: red;"> {{property.bhk}} BHK {{property.propertyType}} </h2>
                 <br>
                 <h6 class="mb-0" style="color: blue;" *ngIf="deviveInfo.deviceType !== 'mobile'"> 
-                    Project Name: {{property.projectName}} |
-                    Propert Name: {{property.name}}
+                    Project Name: {{property.projectName}} <br>
+                    Property Name: {{property.name}} in {{property.city}}
                 </h6>
                 <h6 class="mb-0" style="color: blue;" 
                     *ngIf="deviveInfo.deviceType=== 'mobile' && deviveInfo.orientation=== 'landscape'"> 
                     Project Name: <br>{{property.projectName}} |
-                    Propert Name: {{property.name}}
+                    Property Name: {{property.name}} in {{property.city}}
                 </h6>
             
                 <h6  class="mt-2">{{property.furnishingType}}
