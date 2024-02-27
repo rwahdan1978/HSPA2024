@@ -59,12 +59,6 @@ export class AddPropertyComponent implements OnInit {
     city: '' as any,
     readyToMove: false as boolean,
     projectName: null as any
-    // contactCommission: 0,
-    // contactCompany: '',
-    // contactName: '',
-    // contactNumber: '',
-    // contactNumber2: '',
-    // contactEmail: ''
   };
   
   constructor(
@@ -383,6 +377,7 @@ export class AddPropertyComponent implements OnInit {
     this.property.projectName = this.ProjectName.value;
     this.property.sellRent = +this.SellRent.value;
     this.property.bhk = this.BHK.value;
+    this.property.bathroom = this.BHK.value + 1;
     this.property.propertyTypeId = this.PType.value;
     this.property.name = this.Name.value;
     this.property.cityId = this.City.value;
@@ -393,7 +388,7 @@ export class AddPropertyComponent implements OnInit {
     this.property.builtArea = this.BuiltArea.value;
     this.property.CarpetArea = this.CarpetArea.value;
     this.property.floorNo = this.FloorNo.value;
-    this.property.totalFloor = this.TotalFloor.value;
+    this.property.totalFloors = this.TotalFloor.value;
     this.property.address = this.Address.value;
     this.property.address2 = this.LandMark.value;
     // this.property.building_flat = this.building_flat.value;

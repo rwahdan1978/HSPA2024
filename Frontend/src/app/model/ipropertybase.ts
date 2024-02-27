@@ -15,11 +15,4 @@ export interface IPropertyBase {
     readyToMove: boolean;
     image?: string;
     estPossessionOn?: string;
-
-    // contactCommission: number;
-    // contactCompany: string;
-    // contactName: string;
-    // contactNumber: string;
-    // contactNumber2: string;
-    // contactEmail: string;
 }
