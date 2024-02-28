@@ -11,10 +11,15 @@ namespace WebAPI.Models
         public string Name { get; set; }
         public int PropertyTypeId { get; set; }
         public PropertyType PropertyType { get; set; }
-        public bool Building_flat { get; set; }
-        public bool Villa { get; set; }
         public int BHK { get; set; }
+
+
         public int Bathroom { get; set; }
+        public string FlatNumber { get; set; }
+        public string VillaNumber { get; set; }
+
+
+
         public int FurnishingTypeId { get; set; }
         public FurnishingType FurnishingType { get; set; }
         public int Price { get; set; }
@@ -34,8 +39,6 @@ namespace WebAPI.Models
         public DateTime EstPossessionOn { get; set; }
         public int Age { get; set; }
         public string Description { get; set; }
-
-
         public int ContactCommission { get; set; }
         public string ContactCompany { get; set; } 
         public string ContactName { get; set; }

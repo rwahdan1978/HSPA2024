@@ -14,9 +14,13 @@ namespace WebAPI.Dtos
         public bool ReadyToMove { get; set; }
         public DateTime EstPossessionOn { get; set; }
 
-         public int Bathroom { get; set; }
-         public bool Building_flat { get; set; }
-        public bool Villa { get; set; }
+
+
+        public int Bathroom { get; set; }
+        public string FlatNumber { get; set; }
+        public string VillaNumber { get; set; }
+
+
         public int CarpetArea { get; set; }
         public string Address { get; set; }
         public string Address2 { get; set; }

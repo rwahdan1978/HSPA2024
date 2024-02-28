@@ -3,13 +3,7 @@
 <!-- eslint-disable @angular-eslint/template/label-has-associated-control -->
 <br>
 
-<h4 *ngIf="loggedinUser !== 'rwahdan'">Only Admin can add new property</h4>
-
-<h4 *ngIf="loggedinUser == 'rwahdan' && deviveInfo.deviceType == 'mobile'">
-  Admin, you can add new property on a larger device, desktop or laptop.
-</h4>
-
-<div *ngIf="loggedinUser == 'rwahdan' && deviveInfo.deviceType !== 'mobile'" class="row mb-5">
+<div class="row mb-5">
   <div class="col-7 shadow-lg p-0 bg-white">
     <div class="card">
       <div class="card-header">
@@ -62,7 +56,25 @@
                     </label>
                   </div>
                   <div class="error-block" *ngIf="BHK.invalid && nextClicked">
-                    <strong> select BHK </strong>
+                    <strong> select BHK Numbers</strong>
+                  </div>
+                </div>
+
+                <div class="form-group col-12">
+                  <p>Bathroom</p>
+                  <div class="btn-group" btnRadioGroup
+                  formControlName="Bathroom">
+                    <label
+                      *ngFor="let bath of [1,2,3,4]"
+                      class="btn btn-outline-primary mr-2"
+                      [btnRadio]="bath" tabindex="0" role="button"
+                      (click)="propertyView.bathroom=bath"
+                      name="BHK">
+                      {{bath}}
+                    </label>
+                  </div>
+                  <div class="error-block" *ngIf="Bathroom.invalid && nextClicked">
+                    <strong> select Bathroom Numbers </strong>
                   </div>
                 </div>
 
@@ -204,14 +216,28 @@
 
               <tab heading="Address" formGroupName="AddressInfo">
 
-                <div class="form-group col-12">
+                <div *ngIf="propertyView.propertyType == 'Villa'" class="form-group col-12">
+                  <label>Villa Number</label>
+                  <input type="text"
+                  formControlName="villaNumber"
+                  class="form-control">
+                </div>
+
+                <div *ngIf="propertyView.propertyType != 'Villa'" class="form-group col-12">
+                  <label>Flat Number</label>
+                  <input type="text"
+                  formControlName="flatNumber"
+                  class="form-control">
+                </div>
+
+                <div *ngIf="propertyView.propertyType != 'Villa'" class="form-group col-12">
                   <label>Floor</label>
                   <input type="text"
                   formControlName="FloorNo"
                   class="form-control">
                 </div>
 
-                <div class="form-group col-12">
+                <div *ngIf="propertyView.propertyType != 'Villa'" class="form-group col-12">
                   <label>Total Floor</label>
                   <input type="text"
                   formControlName="TotalFloor"
@@ -239,38 +265,24 @@
                 </div><br>
 
                 <!-- <div class="row">
-                  <div class="form-group col-6">
-                    <label>Building/Flat</label>
-                    
-                    <input type="text"      
-                    formControlName="building_flat"
-                    class="form-control">
-                  </div><br>
-
-                  <div class="form-group col-6">
-                    <label>Villa#</label>
-                    
-                    <input type="text"      
-                    formControlName="villa"
-                    class="form-control">
-                  </div>
-                </div><br> -->
-
+                  option for villa or flat then show flat or villa number inputs
+                  -->
                 <div class="form-group col-12">
                   <button type="button" class="btn btn-primary col-12"
                   (click)="selectTab(3, AddressInfo.valid)">Next</button>
 
                   <button type="button" class="btn btn-primary col-12"
                   (click)="selectTab(1, AddressInfo.valid)">Back</button>
-                </div>
-              </tab>
+                </div> 
+              </tab> 
 
-              <tab heading="Other Details" formGroupName="OtherInfo">
+               <tab heading="Other Details" formGroupName="OtherInfo">
 
                 <div class="form-group col-12">
                   <p>Ready to Move</p>
                   <div class="btn-group" btnRadioGroup
                   formControlName="RTM">
+
                     <label class="btn btn-outline-primary mr-2"
                       btnRadio=true tabindex="0" role="button"
                       (click)="propertyView.readyToMove=true"
@@ -278,7 +290,7 @@
                     </label>
 
                     <label class="btn btn-outline-primary"
-                      btnRadio=false tabindex="0" role="button"
+                      btnRadio=false tabindex="1" role="button"
                       (click)="propertyView.readyToMove=false"
                       name="RTM">No
                     </label>
@@ -287,7 +299,6 @@
                     Please select ready to move
                   </div>
                 </div>
-
 
                 <div class="form-group col-6">
                   <label *ngIf="propertyView.readyToMove">Establishment Date</label>
@@ -342,10 +353,11 @@
                 </div>
                 
                 <br>
-                <!-- add fileds for Places to visit around (part of address) checkboxes-->
-                <div class="form-group col-12">
+
+                add fileds for Places to visit around (part of address) checkboxes
+                <!-- <div class="form-group col-12">
                   <div formControlName="Interests">
-                    <!-- <label>Places of Interest</label><br>
+                     <label>Places of Interest</label><br>
                     <mat-checkbox (change)="checkCheckBoxvalue1($event)"> <i class="fa-solid fa-store" aria-hidden="true" 
                                     style="font-size: 30px; padding-top: 15px;"></i>Shopping Mall
                     </mat-checkbox> &nbsp;  &nbsp;  &nbsp; 
@@ -363,9 +375,9 @@
                     </mat-checkbox> &nbsp;  &nbsp;  &nbsp; 
                     <mat-checkbox (change)="checkCheckBoxvalue6($event)"> <i class="fa-solid fa-mosque" aria-hidden="true" 
                                     style="font-size: 30px; padding-top: 15px;"></i>Mosque
-                    </mat-checkbox> &nbsp;  &nbsp;  &nbsp;  -->
+                    </mat-checkbox> &nbsp;  &nbsp;  &nbsp;  
                   </div>
-                </div><br>
+                </div><br> -->
 
                 <div class="form-group col-12">
                     <button type="button" class="btn btn-primary col-12"
@@ -379,9 +391,12 @@
               <tab heading="sellerInfo" formGroupName="sellerInfo">
                 
                 <div class="form-group col-12">
-                  <label>Contact Company</label>
+                  <label>Company Name</label>
                   <input type="text" class="form-control"
                   formControlName="ContactCompany">
+                  <div class="error-block" *ngIf="ContactCompany.invalid && nextClicked">
+                    Please select Company Name
+                  </div>
                 </div>
 
                 <div class="form-group col-12">
@@ -412,6 +427,10 @@
                   <label>Commission</label>
                   <input type="text" class="form-control"
                   formControlName="ContactCommission">
+                  <div class="error-block" *ngIf="ContactCommission.invalid && nextClicked">
+                    Please input a commission price
+                  </div>
+                  <br>
                 </div>
                 
                 <div class="form-group col-12">
@@ -454,10 +473,3 @@
     </div>
   </div>
 </div>
-
-            <!-- <tab heading="Photos" formGroupName="PhotoInfo"> -->
-
-                   <!-- <app-upload></app-upload>
-                   <br/><br/> -->
-
-            <!-- </tab> -->

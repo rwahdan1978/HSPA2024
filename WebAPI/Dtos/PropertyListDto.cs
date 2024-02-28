@@ -9,7 +9,9 @@ namespace WebAPI.Dtos
         public string ProjectName { get; set; }
         public int SellRent { get; set; }
         public string PropertyType { get; set; }
-        public bool Building_flat { get; set; }
+        // public bool Building_flat { get; set; }
+        public string FlatNumber { get; set; }
+        public string VillaNumber { get; set; }
         public bool Villa { get; set; }
         public string FurnishingType { get; set; }
         public int Price { get; set; }

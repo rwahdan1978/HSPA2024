@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Property } from '../model/property';
 import { environment } from '../../environments/environment';
@@ -43,7 +43,12 @@ export class HousingService
     
   addProperty(property: Property) 
   {
-      return this.http.post(this.baseUrl + "/property/add", property);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      })
+    };
+    return this.http.post(this.baseUrl + "/property/add", property, httpOptions);
   }
 
   newPropID()

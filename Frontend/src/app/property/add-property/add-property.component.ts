@@ -50,15 +50,16 @@ export class AddPropertyComponent implements OnInit {
     price: '' as any,
     sellRent: 1 as number,
     propertyType: null as any,
-    building_flat: null as any,
-    villa: null as any,
     furnishingType: null as any,
     bhk: null as any,
-    bathroom: null as any,
+    bathroom: null as number,
     builtArea: null as any,
     city: '' as any,
     readyToMove: false as boolean,
-    projectName: null as any
+    projectName: null as any,
+    flatNumber: '',
+    villaNumber: '',
+    villa: false
   };
   
   constructor(
@@ -76,7 +77,14 @@ export class AddPropertyComponent implements OnInit {
 
     }
 
-  ngOnInit() {
+  ngOnInit() 
+  {
+
+    if (!localStorage.getItem('userName'))
+    {
+      this.alertify.error("You must be loggedIn as an Admin to add a peroperty!");
+      this.router.navigate(['/user/login']);
+    }
 
     this.housingService.getAllCities().subscribe(data => {
       this.cityList = data;
@@ -97,18 +105,18 @@ export class AddPropertyComponent implements OnInit {
       accessKeyId: environment.AWS_ACCESS_KEY_ID,
       secretAccessKey: environment.AWS_SECRET_ACCESS_KEY,
       s3Url: 'https://angular-upload-files-2023-2024.s3.amazonaws.com/'
-  }
+    }
   
-  const S3CustomClient = new AWSS3UploadAsh(config);
+    const S3CustomClient = new AWSS3UploadAsh(config);
 
-    window.matchMedia("(orientation:portrait)").addEventListener("change", (e: MediaQueryListEvent) => { 
-      const portrait: boolean = e.matches; 
-      if (portrait) { 
-        location.reload(); 
-      } else { 
-        location.reload(); 
-      } 
-    });
+      window.matchMedia("(orientation:portrait)").addEventListener("change", (e: MediaQueryListEvent) => { 
+        const portrait: boolean = e.matches; 
+        if (portrait) { 
+          location.reload(); 
+        } else { 
+          location.reload(); 
+        } 
+      });
 
     this.housingService.getAllCities().subscribe(data => {
       this.cityList = data;
@@ -132,6 +140,7 @@ export class AddPropertyComponent implements OnInit {
         ProjectName: [null, Validators.required],
         SellRent: ['1' , Validators.required],
         BHK: [null, Validators.required],
+        Bathroom: [null, Validators.required],
         PType: [null, Validators.required],
         FType: [null, Validators.required],
         Name: [null, Validators.required],
@@ -151,12 +160,13 @@ export class AddPropertyComponent implements OnInit {
         TotalFloor: [0],
         Address: [null, Validators.required],
         LandMark: [null], //address2
-        building_flat:[0],
-        villa:[0]
+        villa:['false'],
+        flatNumber:[0],
+        villaNumber:[0]
       }),
 
       OtherInfo: this.fb.group({
-        RTM: [null],
+        RTM: ['false'],
         PossessionOn: [null, Validators.required],
         Gated: [false],
         MainEntrance: [null],
@@ -175,7 +185,7 @@ export class AddPropertyComponent implements OnInit {
         ContactNumber: [null],
         ContactNumber2: [null],
         ContactEmail: [null],
-        ContactCommission: [null]
+        ContactCommission: [null, Validators.required],
       })
 
       });
@@ -218,6 +228,10 @@ export class AddPropertyComponent implements OnInit {
         return this.BasicInfo.controls['BHK'] as FormControl;
       }
 
+      get Bathroom() {
+        return this.BasicInfo.controls['Bathroom'] as FormControl;
+      }
+
       get PType() {
         return this.BasicInfo.controls['PType'] as FormControl;
       }
@@ -254,6 +268,14 @@ export class AddPropertyComponent implements OnInit {
         return this.PriceInfo.controls['Maintenance'] as FormControl;
       }
 
+      get flatNumber() {
+        return this.AddressInfo.controls['flatNumber'] as FormControl;
+      }
+
+      get villaNumber() {
+        return this.AddressInfo.controls['villaNumber'] as FormControl;
+      }
+
       get FloorNo() {
         return this.AddressInfo.controls['FloorNo'] as FormControl;
       }
@@ -269,14 +291,6 @@ export class AddPropertyComponent implements OnInit {
       get LandMark() {
         return this.AddressInfo.controls['LandMark'] as FormControl;
       }
-
-      // get building_flat() {
-      //   return this.AddressInfo.controls['building_flat'] as FormControl;
-      // }
-
-      // get villa() {
-      //   return this.AddressInfo.controls['villa'] as FormControl;
-      // }
 
       get RTM() {
         return this.OtherInfo.controls['RTM'] as FormControl;
@@ -377,7 +391,7 @@ export class AddPropertyComponent implements OnInit {
     this.property.projectName = this.ProjectName.value;
     this.property.sellRent = +this.SellRent.value;
     this.property.bhk = this.BHK.value;
-    this.property.bathroom = this.BHK.value + 1;
+    this.property.bathroom = this.Bathroom.value;
     this.property.propertyTypeId = this.PType.value;
     this.property.name = this.Name.value;
     this.property.cityId = this.City.value;
@@ -387,14 +401,13 @@ export class AddPropertyComponent implements OnInit {
     this.property.maintenance = this.Maintenance.value;
     this.property.builtArea = this.BuiltArea.value;
     this.property.CarpetArea = this.CarpetArea.value;
+    this.property.villaNumber = this.villaNumber.value;
+    this.property.flatNumber = this.flatNumber.value;
     this.property.floorNo = this.FloorNo.value;
     this.property.totalFloors = this.TotalFloor.value;
     this.property.address = this.Address.value;
     this.property.address2 = this.LandMark.value;
-    // this.property.building_flat = this.building_flat.value;
-    // this.property.villa = this.villa.value;
     this.property.readyToMove = this.RTM.value;
-    //this.property.propertyType = this.PA.value;
     this.property.gated = this.Gated.value;
     this.property.mainEntrance = this.MainEntrance.value;
     this.property.estPossessionOn = 
@@ -407,7 +420,6 @@ export class AddPropertyComponent implements OnInit {
     this.property.contactNumber = this.ContactNumber.value;
     this.property.contactNumber2 = this.ContactNumber2.value;
     this.property.contactEmail = this.ContactEmail.value;
-    //this.property.theaddress = this.contactCompany.value;
     
     // this.property.mall = this.mall;
     // this.property.zoo = this.zoo;

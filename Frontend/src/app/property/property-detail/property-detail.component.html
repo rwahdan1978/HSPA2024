@@ -78,15 +78,25 @@
                       <p>{{property.projectName}}</p>
                   </div>
 
-                  <div class="heading">
-                      <strong *ngIf="property.floorNo !== 'NA'">Floor Number</strong>
-                      <p *ngIf="property.floorNo !== 'NA'">Floor number: {{property.floorNo}}</p>
+                  <div *ngIf="property.propertyType != 'Villa'" class="heading">
+                      <strong>Floor Number</strong>
+                      <p>Floor number: {{property.floorNo}}</p>
                   </div>
 
-                  <div class="heading">
-                    <strong *ngIf="property.totalFloor !== 'NA'">Total Number of Floors</strong>
-                    <p *ngIf="property.totalFloors !== 'NA'">{{property.totalFloors}} floors</p>
-                </div>
+                  <div *ngIf="property.propertyType != 'Villa'" class="heading">
+                    <strong>Total Number of Floors</strong>
+                    <p>{{property.totalFloors}} floors</p>
+                  </div>
+
+                  <div *ngIf="property.propertyType != 'Villa'" class="heading">
+                    <strong>Flat Number</strong>
+                    <p>{{property.flatNumber}}</p>
+                  </div>
+
+                  <div *ngIf="property.propertyType == 'Villa'" class="heading">
+                    <strong>Villa Number</strong>
+                    <p>{{property.villaNumber}}</p>
+                  </div>
 
                   <div class="heading">
                       <strong>Age of Property</strong>

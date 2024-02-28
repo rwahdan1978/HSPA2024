@@ -8,10 +8,12 @@ export class Property implements IPropertyBase {
     name: string;
     propertyTypeId: number;
     propertyType: string;
-    building_flat: boolean;
-    villa: boolean;
     bhk: number;
+    villa: boolean;
     bathroom: number;
+    flatNumber: string;
+    villaNumber: string;
+
     country: string;
     furnishingTypeId: number;
     furnishingType: string;
