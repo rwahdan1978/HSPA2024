@@ -7,6 +7,7 @@ using WebAPI.Data;
 using WebAPI.Helpers;
 using WebAPI.Interfaces;
 using WebAPI.Middlewares;
+using WebAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var builder2 = new SqlConnectionStringBuilder(builder.Configuration.GetConnectionString("Default"));
@@ -41,6 +42,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         });
 
 builder.Services.AddScoped<IunitOfWork,UnitOfWork>();
+builder.Services.AddScoped<IPhotoService,PhotoService>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 

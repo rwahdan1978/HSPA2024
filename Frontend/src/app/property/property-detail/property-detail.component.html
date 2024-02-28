@@ -172,9 +172,9 @@
                         <br>
                         <strong>Places to visit around:</strong><br>
 
-                        <!-- <i class="fa-solid fa-store" aria-hidden="true" 
-                            style="font-size: 30px; padding-top: 15px;">
-                        </i>
+                        <!--  <i class="fa-solid fa-store" aria-hidden="true" 
+                                style="font-size: 30px; padding-top: 15px;">
+                              </i>
                         
                         <strong>Shopping Mall</strong>  
                         &nbsp;&nbsp; &nbsp;
@@ -240,7 +240,8 @@
                         <strong *ngIf="!property.mosque" style="color: red;"> Not Available </strong>  -->
                         <br>
                         <strong>Description</strong><br>
-                        {{property.description}}
+                        <div [innerHTML]="property.description"></div>
+                        
                   </div>
               </div>
             </div>

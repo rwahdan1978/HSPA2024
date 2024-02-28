@@ -12,14 +12,9 @@ namespace WebAPI.Models
         public int PropertyTypeId { get; set; }
         public PropertyType PropertyType { get; set; }
         public int BHK { get; set; }
-
-
         public int Bathroom { get; set; }
         public string FlatNumber { get; set; }
         public string VillaNumber { get; set; }
-
-
-
         public int FurnishingTypeId { get; set; }
         public FurnishingType FurnishingType { get; set; }
         public int Price { get; set; }
@@ -45,10 +40,8 @@ namespace WebAPI.Models
         public string ContactNumber { get; set; }
         public string ContactNumber2 { get; set; } 
         public string ContactEmail { get; set; }
-
         public ICollection<Photo> Photos { get; set; }
         public DateTime PostedOn { get; set; } = DateTime.Now;
-        
         [ForeignKey("User")]
         public int PostedBy { get; set; } 
         public User User { get; set; }
