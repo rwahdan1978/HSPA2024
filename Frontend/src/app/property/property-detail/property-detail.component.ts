@@ -21,6 +21,7 @@ import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov
 
 export class PropertyDetailComponent implements OnInit {
 
+  public mainPhotoUrl: string;
   deviveInfo: DeviceInfo;
   public urlPath: any;
   public theIndex: any = 0;
@@ -71,64 +72,9 @@ export class PropertyDetailComponent implements OnInit {
               private fb: FormBuilder, private sanitizer: DomSanitizer, 
               private DDS: DeviceDetectorService, private router: Router,
               private housingService: HousingService) {}
-  
+
   ngOnInit() 
   {
-
-    this.galleryOptions = [
-      {
-        width: "100%",
-        height: "465px",
-        thumbnailsColumns: 4,
-        imageAnimation: NgxGalleryAnimation.Slide
-      },
-      // max-width 800
-      {
-        breakpoint: 800,
-        width: '100%',
-        height: '600px',
-        imagePercent: 80,
-        thumbnailsPercent: 20,
-        thumbnailsMargin: 20,
-        thumbnailMargin: 20
-      },
-      // max-width 400
-      {
-        breakpoint: 400,
-        preview: false
-      }
-    ];
-
-    this.galleryImages = [
-      {
-        small: 'assets/images/prop-1.png',
-        medium: 'assets/images/prop-1.png',
-        big: 'assets/images/prop-1.png'
-      },
-      {
-        small: 'assets/images/prop-2.png',
-        medium: 'assets/images/prop-2.png',
-        big: 'assets/images/prop-2.png'
-      },
-      {
-        small: 'assets/images/prop-3.png',
-        medium: 'assets/images/prop-3.png',
-        big: 'assets/images/prop-3.png'
-      },
-      {
-        small: 'assets/images/prop-4.png',
-        medium: 'assets/images/prop-4.png',
-        big: 'assets/images/prop-4.png'
-      },
-      {
-        small: 'assets/images/prop-5.png',
-        medium: 'assets/images/prop-5.png',
-        big: 'assets/images/prop-5.png'
-      }
-     
-    ];
-  
-    
     const savedTabIndex = localStorage.getItem('lastTab');
     this.selectedIndex= savedTabIndex;
 
@@ -169,15 +115,65 @@ export class PropertyDetailComponent implements OnInit {
       this.urlPath = this.sanitizer.bypassSecurityTrustResourceUrl(this.dangerousUrl);
     }, 100);
 
+     this.galleryOptions = [
+      {
+        width: '600px',
+        height: '400px',
+        thumbnailsColumns: 4,
+        imageAnimation: NgxGalleryAnimation.Slide
+      },
+      // max-width 800
+      {
+        breakpoint: 800,
+        width: '100%',
+        height: '600px',
+        imagePercent: 80,
+        thumbnailsPercent: 20,
+        thumbnailsMargin: 20,
+        thumbnailMargin: 20
+      },
+      // max-width 400
+      {
+        breakpoint: 400,
+        preview: false
+      }
+    ];
+
+    this.galleryImages = this.getPropertyPhotos();
+
     return this.urlPath;
      
   }
 
-tabChanged(tabChangeEvent: MatTabChangeEvent): void {
-  localStorage.removeItem('lastTab');
-  this.theIndex = tabChangeEvent.index;
-  localStorage.setItem('lastTab', this.theIndex);
-}
+  getPropertyPhotos(): NgxGalleryImage[]
+  {
+    const photoUrls: NgxGalleryImage[] = [];
+    for (const photo of this.property.photos)
+    {
+      if(photo.isPrimary) 
+      {
+        this.mainPhotoUrl = photo.imageUrl;
+        console.log(this.mainPhotoUrl);
+      }
+      else
+      {
+        photoUrls.push(
+          {
+            small: photo.imageUrl,
+            medium: photo.imageUrl,
+            big: photo.imageUrl
+          }
+        );
+      }
+    }
+    return photoUrls;                
+  }
+
+  tabChanged(tabChangeEvent: MatTabChangeEvent): void {
+    localStorage.removeItem('lastTab');
+    this.theIndex = tabChangeEvent.index;
+    localStorage.setItem('lastTab', this.theIndex);
+  }
 
   showImage(){
     this.visable1 = true;

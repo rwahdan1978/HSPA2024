@@ -1,3 +1,5 @@
+using WebAPI.Models;
+
 namespace WebAPI.Dtos
 {
     public class PropertyDetailDto: PropertyListDto
@@ -30,5 +32,6 @@ namespace WebAPI.Dtos
         public bool Beach { get; set; }
         public bool School { get; set; }
         public bool Mosque { get; set; }
+        public ICollection<PhotoDto> Photos { get; set; }
     }
 }

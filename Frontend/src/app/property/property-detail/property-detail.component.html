@@ -4,14 +4,14 @@
 <!-- eslint-disable @angular-eslint/template/alt-text -->
 <h5 *ngIf="deviveInfo.deviceType == 'mobile' && deviveInfo.orientation == 'portrait'">Rotate your mobile to view the page!</h5>
 
-<div *ngIf="(deviveInfo.deviceType == 'mobile' 
-    && deviveInfo.orientation == 'landscape') || deviveInfo.deviceType != 'mobile'" class="row shadow">
+<div *ngIf="(deviveInfo.deviceType == 'mobile' && deviveInfo.orientation == 'landscape') 
+      || deviveInfo.deviceType != 'mobile'" class="row shadow">
     
   <div class="col-sm-4 p-0">
     <div class="card">
       <div class="card-img-wrapper">
-        <img *ngIf="property.image1" class="card-img-top" src="https://angular-upload-files-2023-2024.s3.amazonaws.com/properties2023/{{property.image1}}">
-        <img *ngIf="!property.image1" class="card-img-top" src="https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/default_house.png">
+        <img *ngIf="mainPhotoUrl" class="card-img-top" src={{mainPhotoUrl}}>
+        <img *ngIf="!mainPhotoUrl" class="card-img-top" src="https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/default_house.png">
       </div>
       <div class="card-body">
         
@@ -278,7 +278,6 @@
 
           <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
 
-          
         </mat-tab>
 
         <mat-tab label="Contact">
