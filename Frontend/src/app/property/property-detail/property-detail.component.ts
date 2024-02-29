@@ -11,6 +11,7 @@ import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { filter, first } from 'rxjs';
 import { HousingService } from 'src/app/services/housing.service';
+import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 
 @Component({
   selector: 'app-property-detail',
@@ -44,6 +45,9 @@ export class PropertyDetailComponent implements OnInit {
 
   public propertyId: number;
   property: any = new Property();
+  galleryOptions: NgxGalleryOptions[];
+  galleryImages: NgxGalleryImage[];
+
   theArray: Array<any> = [];
   likes: number;
   propid: number;
@@ -70,6 +74,60 @@ export class PropertyDetailComponent implements OnInit {
   
   ngOnInit() 
   {
+
+    this.galleryOptions = [
+      {
+        width: "100%",
+        height: "465px",
+        thumbnailsColumns: 4,
+        imageAnimation: NgxGalleryAnimation.Slide
+      },
+      // max-width 800
+      {
+        breakpoint: 800,
+        width: '100%',
+        height: '600px',
+        imagePercent: 80,
+        thumbnailsPercent: 20,
+        thumbnailsMargin: 20,
+        thumbnailMargin: 20
+      },
+      // max-width 400
+      {
+        breakpoint: 400,
+        preview: false
+      }
+    ];
+
+    this.galleryImages = [
+      {
+        small: 'assets/images/prop-1.png',
+        medium: 'assets/images/prop-1.png',
+        big: 'assets/images/prop-1.png'
+      },
+      {
+        small: 'assets/images/prop-2.png',
+        medium: 'assets/images/prop-2.png',
+        big: 'assets/images/prop-2.png'
+      },
+      {
+        small: 'assets/images/prop-3.png',
+        medium: 'assets/images/prop-3.png',
+        big: 'assets/images/prop-3.png'
+      },
+      {
+        small: 'assets/images/prop-4.png',
+        medium: 'assets/images/prop-4.png',
+        big: 'assets/images/prop-4.png'
+      },
+      {
+        small: 'assets/images/prop-5.png',
+        medium: 'assets/images/prop-5.png',
+        big: 'assets/images/prop-5.png'
+      }
+     
+    ];
+  
     
     const savedTabIndex = localStorage.getItem('lastTab');
     this.selectedIndex= savedTabIndex;

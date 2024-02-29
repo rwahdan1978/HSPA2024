@@ -34,6 +34,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { NgxPaginationModule } from 'ngx-pagination'; 
 import {MatTabsModule} from '@angular/material/tabs';
 import { HttpErrorInterceptorService } from './services/httperor-interceptor.service';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 
 const appRoutes: Routes = [
   {path: '', component: PropertyListComponent},
@@ -47,6 +48,7 @@ const appRoutes: Routes = [
 ]
 
 @NgModule({
+  
   declarations: [	
     AppComponent,
     PropertycardComponent,
@@ -61,7 +63,9 @@ const appRoutes: Routes = [
       FilterPipe,
       SortPipe
    ],
+  
   imports: [
+    NgxGalleryModule,
     NgxFileDropModule,
     MatCheckboxModule,
     BrowserModule,
@@ -79,6 +83,7 @@ const appRoutes: Routes = [
     NgxPaginationModule,
     MatTabsModule
   ],
+
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
@@ -98,6 +103,7 @@ const appRoutes: Routes = [
     PropertyDetailResolverService,
     GetVariableService
   ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

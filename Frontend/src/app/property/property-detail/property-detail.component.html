@@ -240,7 +240,7 @@
                         <strong *ngIf="!property.mosque" style="color: red;"> Not Available </strong>  -->
                         <br>
                         <strong>Description</strong><br>
-                        <div [innerHTML]="property.description"></div>
+                      <div [innerHTML]="property.description"></div>
                         
                   </div>
               </div>
@@ -276,84 +276,8 @@
 
         <mat-tab  id="photosTab" label="Photos"> 
 
-          <section class="home">
+          <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
 
-            <div *ngIf="visable2" id="carousel" class="carousel slide" data-ride="carousel" loading="lazy">
-              <div class="carousel-controls">
-
-                <ol class="carousel-indicators">
-                  <li data-target="#carousel" data-slide-to="0" class="active" 
-                      style="background-image:url('https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image1}}')"></li>
-
-                  <li data-target="#carousel" data-slide-to="1" style="background-image:url('https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image2}}')"></li>
-                  <li data-target="#carousel" data-slide-to="2" style="background-image:url('https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image3}}')"></li>
-                  <li data-target="#carousel" data-slide-to="3" style="background-image:url('https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image4}}')"></li>
-                  <li data-target="#carousel" data-slide-to="4" style="background-image:url('https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image5}}')"></li>
-            
-                </ol>
-
-                <a class="carousel-control-prev" style="width: 100px;" href="#carousel" role="button" data-slide="prev">
-                  <img src="https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/left-arrow.svg" alt="Prev"> 
-                </a>
-                <a class="carousel-control-next" style="width: 100px;" href="#carousel" role="button" data-slide="next">
-                  <img src="https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/right-arrow.svg" alt="Next">
-                </a>
-
-              </div>
-
-              <div *ngIf="visable2 === true" class="carousel-inner">
-
-                <!-- here we need to make to show original photo-->
-                <div id="image1" class="carousel-item active" (click)="showImage()"
-                   style="background-image:url('https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image1}}')">
-                  <div class="container">
-                  
-                  <p *ngIf="property.sellRent ===1">For Sale / Price:{{property.price}}AED</p>
-                  <p *ngIf="property.sellRent ===2">For Rent / Price:{{property.price}}AED</p>
-                  </div>
-                </div>
-
-                <div id="image2" class="carousel-item" (click)="showImage()"
-                style="background-image:url('https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image2}}')">
-                  <div class="container">
-                  
-                  <p *ngIf="property.sellRent ===1">For Sale / Price:{{property.price}}AED</p>
-                  <p *ngIf="property.sellRent ===2">For Rent / Price:{{property.price}}AED</p>
-                  </div>
-                </div>
-
-                <div id="image3" class="carousel-item" (click)="showImage()"
-                style="background-image:url('https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image3}}')">
-                  <div class="container">
-                  
-                  <p *ngIf="property.sellRent ===1">For Sale / Price:{{property.price}}AED</p>
-                  <p *ngIf="property.sellRent ===2">For Rent / Price:{{property.price}}AED</p>
-                  </div>
-                </div>
-
-                <div id="image4" class="carousel-item " (click)="showImage()"
-                style="background-image:url('https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image4}}')">
-                  <div class="container">
-                  
-                  <p *ngIf="property.sellRent ===1">For Sale / Price:{{property.price}}AED</p>
-                  <p *ngIf="property.sellRent ===2">For Rent / Price:{{property.price}}AED</p>
-                  </div>
-                </div>
-
-                <div id="image5" class="carousel-item " (click)="showImage()"
-                style="background-image:url('https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image5}}')">
-                  <div class="container">
-                  
-                  <p *ngIf="property.sellRent ===1">For Sale / Price:{{property.price}}AED</p>
-                  <p *ngIf="property.sellRent ===2">For Rent / Price:{{property.price}}AED</p>
-                  </div>
-                </div>
-                
-              </div>
-
-            </div>
-
-          </section>
           
         </mat-tab>
 

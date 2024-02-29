@@ -1,9 +1,5 @@
-.card{
+.card {
     min-height: 600px;
-  }
-
-.card h2{
-    color: blue;
   }
   
   .card img {
@@ -14,127 +10,12 @@
   .card-img-wrapper {
     height: 250px;
   }
-
-.slider_container{
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    overflow: hidden;
-}
-.slider{
-    position: relative;
-    width: 400%;
-    height: 300%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    animation: 20s cubic-bezier(0.39, 0.775, 0.775, 1) sliding infinite;
-}
-.slide{
-    position: relative;
-    min-width: 100%;
-    height: 100%;
-}
-.slide img{
-    width: 100%;
-    height: 100%;
-}
-.slide .caption{
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    font-size: 5rem;
-    font-weight: 600;
-    color: white;
-    text-transform: capitalize;
-    background: rgba(0, 0, 0, 0.348);
-    backdrop-filter: blur(10px);
-    
-    border-radius: 0 2rem 2rem 0 ;
-}
-
-@keyframes sliding {
-    0% { 
-        transform: translateX(0%);
-    }
-    15%{
-        transform: translateX(0%);
-    }
-    25%{
-        transform: translateX(-100%);
-    }
-    35%{
-        transform: translateX(-100%);
-    }
-    40%{
-        transform: translateX(-200%);
-    }
-    50%{
-        transform: translateX(-200%);
-    }
-    55%{
-        transform: translateX(-300%);
-    }
-    65%{
-        transform: translateX(-300%);
-    }
-    70%{
-        transform: translateX(-300%);
-    }
-    80%{
-        transform: translateX(-400%);
-    }
-    90%{
-        transform: translateX(-400%);
-    }
-    100%{
-        transform: translateX(-400%);
-    }
-}
-
-.form {
-    display: flex;
-    flex-direction: column;
-    margin-left: 150px;
-    width: 35rem;
-    gap: 1rem;
-    
-}
-
-.form1 {
-    display: flex;
-    flex-direction: column;
-    width: 20rem;
-    gap: 1rem;
-    
-}
-
-input, select, textarea {
-    padding: 1.4rem;
-    background: transparent;
-    border: 1px solid black;
-}
-
-textarea{
-    height: 5rem;
-}
-
-.button1{
-    width: 35rem;
-    padding: 1rem;
-    cursor: pointer;
-    background-color: green;
-    color: white;
-}
-
-.button2{
-    width: 20rem;
-    padding: 1rem;
-    cursor: pointer;
-    background-color: green;
-    color: white;
-}
+  
+  .ngx-gallery
+  {
+    display: inline-block;
+    min-width: 800px;
+    min-height: 500px;
+    margin-bottom: 20px;
+  }
+  
