@@ -2,7 +2,9 @@
 <!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 <!-- eslint-disable @angular-eslint/template/alt-text -->
-<h5 *ngIf="deviveInfo.deviceType == 'mobile' && deviveInfo.orientation == 'portrait'">Rotate your mobile to view the page!</h5>
+<h5 *ngIf="deviveInfo.deviceType == 'mobile' && deviveInfo.orientation == 'portrait'">
+  Rotate your mobile to view the page!
+</h5>
 
 <div *ngIf="(deviveInfo.deviceType == 'mobile' && deviveInfo.orientation == 'landscape') 
       || deviveInfo.deviceType != 'mobile'" class="row shadow">
@@ -11,7 +13,8 @@
     <div class="card">
       <div class="card-img-wrapper">
         <img *ngIf="mainPhotoUrl" class="card-img-top" src={{mainPhotoUrl}}>
-        <img *ngIf="!mainPhotoUrl" class="card-img-top" src="https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/default_house.png">
+        <img *ngIf="!mainPhotoUrl" class="card-img-top" 
+              src="https://res.cloudinary.com/hspa2024/image/upload/v1709295557/house_default_kfgrot.png">
       </div>
       <div class="card-body">
         

@@ -9,7 +9,6 @@ namespace WebAPI.Dtos
         public string ProjectName { get; set; }
         public int SellRent { get; set; }
         public string PropertyType { get; set; }
-        // public bool Building_flat { get; set; }
         public string FlatNumber { get; set; }
         public string VillaNumber { get; set; }
         public bool Villa { get; set; }
@@ -22,5 +21,6 @@ namespace WebAPI.Dtos
         public string Country { get; set; }
         public bool ReadyToMove { get; set; }
         public DateTime EstPossessionOn { get; set; }
+        public string Photo { get; set; }
     }
 }

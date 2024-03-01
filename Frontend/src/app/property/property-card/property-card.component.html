@@ -1,8 +1,8 @@
 <!-- eslint-disable @angular-eslint/template/alt-text -->
         <div class="card">
             <div class="card-img-wrapper">
-                <img *ngIf="property.image" class="card-img-top" src="https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.image}}" />
-                <img *ngIf="!property.image" class="card-img-top" src="https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/default_house.png" />
+                <img *ngIf="property.photo" class="card-img-top" src="{{property.photo}}" />
+                <img *ngIf="!property.photo" class="card-img-top" src="https://res.cloudinary.com/hspa2024/image/upload/v1709295557/house_default_kfgrot.png"/>
                 <ul *ngIf="!hideIcons" class="list-inline text-center member-icons animate">
                     <li class="list-inline-item">
                         <button class="btn btn-primary" routerLink="/property-detail/{{property.id}}"><i class="far fa-edit" title="View Property"></i></button>
