@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.IO.Pipelines;
-using System.Linq;
-using System.Threading.Tasks;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using WebAPI.Interfaces;
@@ -21,6 +16,13 @@ namespace WebAPI.Services
                 config.GetSection("CloudinarySettings:ApiSecret").Value
             );
             cloudinary = new Cloudinary(account);
+        }
+
+        public async Task<DeletionResult> DeletePhotoAsync(string publicId)
+        {
+            var deleteParams = new DeletionParams(publicId);
+            var result = await cloudinary.DestroyAsync(deleteParams);
+            return result;
         }
 
         public async Task<ImageUploadResult> UploadPhotoAsync(IFormFile photo)

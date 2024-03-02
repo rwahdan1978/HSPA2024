@@ -64,11 +64,14 @@ namespace WebAPI.Controllers
         [Authorize]
         public async Task<IActionResult> AddPropertyPhoto(IFormFile file, int propId)
         {
-            var result = await photoService.UploadPhotoAsync(file);
-            if (result.Error != null)
-                return BadRequest(result.Error.Message);
 
             var property = await uow.PropertyRepository.GetPropertyByIdAsync(propId);
+            
+            var result = await photoService.UploadPhotoAsync(file);
+
+            if (result.Error != null)
+                return BadRequest(result.Error.Message);
+            
             var photo = new Photo
             {
                 ImageUrl = result.SecureUrl.AbsoluteUri,
@@ -113,6 +116,39 @@ namespace WebAPI.Controllers
             if (await uow.SaveAsync()) return NoContent();
 
             return BadRequest("Some error has occured, failed to set the primary photo!");
+        }
+
+        [HttpDelete("delete-photo/{propId}/{photoPublicId}")]
+        [Authorize]
+        public async Task<IActionResult> DeletePhoto(int propId, string photoPublicId)
+        {
+            var userId = GetUserId();
+            var property = await uow.PropertyRepository.GetPropertyByIdAsync(propId);
+            
+            if (property == null)
+                return BadRequest("No such property or photo exists");
+
+            if (property.PostedBy != userId)
+                return BadRequest("You are not authorized to delete the photo!");
+
+            var photo = property.Photos.FirstOrDefault(p => p.PublicId == photoPublicId);
+
+            if (photo == null)
+                return BadRequest("No such property or photo exists");
+
+            if (photo.IsPrimary)
+                return BadRequest("You cannot delete the primary photo!");
+
+            var result = await photoService.DeletePhotoAsync(photo.PublicId);
+            
+            if (result.Error != null) 
+                return BadRequest(result.Error.Message);
+
+            property.Photos.Remove(photo);
+
+            if (await uow.SaveAsync()) return Ok();
+
+            return BadRequest("Some error has occured, failed to delete photo!");
         }
     }
 }
