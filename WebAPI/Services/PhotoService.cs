@@ -25,15 +25,16 @@ namespace WebAPI.Services
             return result;
         }
 
-        public async Task<ImageUploadResult> UploadPhotoAsync(IFormFile photo)
+        public async Task<ImageUploadResult> UploadPhotoAsync(IFormFile photo, string folder)
         {
             var uploadResult = new ImageUploadResult();
             if(photo.Length > 0)
             {
                 using var stream = photo.OpenReadStream();
                 var uploadParams = new ImageUploadParams
-                {
+                {    
                     File = new FileDescription(photo.FileName, stream),
+                    PublicId = folder,
                     Transformation = new Transformation()
                         .Height(500).Width(800)
                 };

@@ -65,9 +65,11 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> AddPropertyPhoto(IFormFile file, int propId)
         {
 
+            var theDate = DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss");
             var property = await uow.PropertyRepository.GetPropertyByIdAsync(propId);
+            var folder = property.Name + theDate;
             
-            var result = await photoService.UploadPhotoAsync(file);
+            var result = await photoService.UploadPhotoAsync(file,folder);
 
             if (result.Error != null)
                 return BadRequest(result.Error.Message);
