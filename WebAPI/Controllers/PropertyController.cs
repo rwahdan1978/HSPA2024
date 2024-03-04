@@ -67,7 +67,7 @@ namespace WebAPI.Controllers
 
             var theDate = DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss");
             var property = await uow.PropertyRepository.GetPropertyByIdAsync(propId);
-            var folder = property.Name + theDate;
+            var folder = property.ProjectName + "_" + property.Name + "_" + theDate;
             
             var result = await photoService.UploadPhotoAsync(file,folder);
 
