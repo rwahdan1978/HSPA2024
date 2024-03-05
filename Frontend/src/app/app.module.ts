@@ -35,6 +35,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import {MatTabsModule} from '@angular/material/tabs';
 import { HttpErrorInterceptorService } from './services/httperor-interceptor.service';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { PhotoEditorComponent } from './property/photo-editor/photo-editor.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 const appRoutes: Routes = [
   {path: '', component: PropertyListComponent},
@@ -61,7 +63,8 @@ const appRoutes: Routes = [
       DemoDirective,
       UploadComponent,
       FilterPipe,
-      SortPipe
+      SortPipe,
+      PhotoEditorComponent
    ],
   
   imports: [
@@ -81,7 +84,8 @@ const appRoutes: Routes = [
     BsDatepickerModule.forRoot(),
     GoogleMapsModule,
     NgxPaginationModule,
-    MatTabsModule
+    MatTabsModule,
+    FileUploadModule
   ],
 
   providers: [

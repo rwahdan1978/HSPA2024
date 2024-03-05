@@ -21,6 +21,7 @@ import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov
 
 export class PropertyDetailComponent implements OnInit {
 
+
   public mainPhotoUrl: string;
   deviveInfo: DeviceInfo;
   public urlPath: any;
@@ -143,6 +144,11 @@ export class PropertyDetailComponent implements OnInit {
 
     return this.urlPath;
      
+  }
+
+  changePrimaryPhoto(mainPhotoUrl: string)
+  {
+    this.mainPhotoUrl = mainPhotoUrl;
   }
 
   getPropertyPhotos(): NgxGalleryImage[]

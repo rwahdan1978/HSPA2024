@@ -3,7 +3,8 @@
     "@ng-bootstrap/ng-bootstrap": "^15.1.2",
     "aws": "^0.0.3-2",
     "file-system": "^2.2.2",
-    "jquery": "^3.7.1"
+    "jquery": "^3.7.1",
+    "ng2-file-upload": "^5.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.10.6"

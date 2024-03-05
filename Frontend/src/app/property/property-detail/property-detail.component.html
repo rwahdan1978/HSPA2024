@@ -283,6 +283,13 @@
 
         </mat-tab>
 
+        <mat-tab label="Upload/Edit Photos"> 
+
+          <app-photo-editor [property]="property"
+          (mainPhotoChangedEvent)="changePrimaryPhoto($event)"></app-photo-editor>
+
+        </mat-tab>
+
         <mat-tab label="Contact">
 
           <div *ngIf="loggedinUser" class="card text-center" style="max-width: 100vw; min-height: 10vw;">
