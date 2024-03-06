@@ -11,6 +11,6 @@ namespace WebAPI.Models
 
         public byte[] PasswordKey { get; set; }
 
-        public Boolean IsAdmin { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }

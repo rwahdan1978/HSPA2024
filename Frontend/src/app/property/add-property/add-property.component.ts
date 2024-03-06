@@ -78,7 +78,7 @@ export class AddPropertyComponent implements OnInit {
   ngOnInit() 
   {
 
-    if (!localStorage.getItem('userName'))
+    if (!localStorage.getItem('userName') || localStorage.getItem('isAdmin') === 'false')
     {
       this.alertify.error("You must be loggedIn as an Admin to add a peroperty!");
       this.router.navigate(['/user/login']);

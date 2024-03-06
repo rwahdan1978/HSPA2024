@@ -41,7 +41,7 @@ namespace WebAPI.Data.Repo
             }
         }
 
-        public void Register(string userName, string password)
+        public void Register(string userName, string password, bool isAdmin)
         {
             byte[] passwordHash, passwordKey;
             using(var hmac = new HMACSHA512())
@@ -54,6 +54,7 @@ namespace WebAPI.Data.Repo
             user.Username = userName;
             user.Password = passwordHash;
             user.PasswordKey = passwordKey;
+            user.IsAdmin = isAdmin;
 
             dc.users.Add(user);
         }

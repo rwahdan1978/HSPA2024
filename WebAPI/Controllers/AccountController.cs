@@ -61,7 +61,7 @@ namespace WebAPI.Controllers
                 return BadRequest(apiError);
             }                
 
-            uow.userRepository.Register(loginReq.UserName, loginReq.Password);
+            uow.userRepository.Register(loginReq.UserName, loginReq.Password, loginReq.IsAdmin);
             await uow.SaveAsync();
             return StatusCode(201);
         }
