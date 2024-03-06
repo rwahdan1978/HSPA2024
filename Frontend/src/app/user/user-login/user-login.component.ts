@@ -43,6 +43,7 @@ export class UserLoginComponent implements OnInit {
         localStorage.setItem('token', user.token);
         localStorage.setItem('userName', user.userName);
         localStorage.setItem('isAdmin', user.isAdmin);
+        localStorage.setItem('userId', user.userId);
         this.alertify.success("You have loged-in successfully!");
         this.router.navigate(['/']);
       }

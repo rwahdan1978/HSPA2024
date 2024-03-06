@@ -16,8 +16,7 @@ import { environment } from 'src/environments/environment';
 export class PhotoEditorComponent implements OnInit{
 
   ngOnInit(): void {
-    this.initializeFileUploader();
-    
+      this.initializeFileUploader();
 }
 
   @Input() property: Property;
@@ -32,32 +31,33 @@ export class PhotoEditorComponent implements OnInit{
 
   initializeFileUploader()
   {
-    this.uploader = new FileUploader({
-      url: this.baseUrl + '/property/add/photo/' + String(this.property.id),
-      authToken: 'Bearer ' + localStorage.getItem('token'),
-      isHTML5: true,
-      allowedFileType: ['image'],
-      removeAfterUpload: true,
-      autoUpload: true,
-      maxFileSize: this.maxAllowedFileSize
+    
+      this.uploader = new FileUploader({
+        url: this.baseUrl + '/property/add/photo/' + String(this.property.id),
+        authToken: 'Bearer ' + localStorage.getItem('token'),
+        isHTML5: true,
+        allowedFileType: ['image'],
+        removeAfterUpload: true,
+        autoUpload: true,
+        maxFileSize: this.maxAllowedFileSize
 
-    });
+      });
+    
 
-    this.uploader.onAfterAddingFile = (file) => {
-      file.withCredentials = false;
-    };
+      this.uploader.onAfterAddingFile = (file) => {
+        file.withCredentials = false;
+      };
 
-      this.uploader.onSuccessItem = (item,respose,status, header) => 
-      {
-        if (respose)
+        this.uploader.onSuccessItem = (item,respose,status, header) => 
         {
-          const photo = JSON.parse(respose);
-          this.property.photos?.push(photo);
+          if (respose)
+          {
+            const photo = JSON.parse(respose);
+            this.property.photos?.push(photo);
+          }
+          window.location.reload();
+          //this.router.navigate(["/property-detail/" + String(this.property.id)]);
         }
-        window.location.reload();
-        //this.router.navigate(["/property-detail/" + String(this.property.id)]);
-      }
-      
   }
 
   mainPhotoChanged(url: string)

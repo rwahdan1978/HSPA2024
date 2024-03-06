@@ -8,6 +8,7 @@ export interface UserForRegister {
 }
 
 export interface UserForLogin {
+    userId: number;
     userName: string;
     password: string;
     token: string;

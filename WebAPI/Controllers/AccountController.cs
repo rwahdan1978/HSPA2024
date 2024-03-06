@@ -40,6 +40,7 @@ namespace WebAPI.Controllers
             loginRes.UserName = user.Username;
             loginRes.Token = CreateJWT(user);
             loginRes.IsAdmin = user.IsAdmin;
+            loginRes.UserId = user.Id;
             return Ok(loginRes);
         }
 

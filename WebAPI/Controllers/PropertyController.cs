@@ -64,9 +64,16 @@ namespace WebAPI.Controllers
         [Authorize]
         public async Task<ActionResult<PhotoDto>> AddPropertyPhoto(IFormFile file, int propId)
         {
-
-            var theDate = DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss");
+            var userId = GetUserId();
             var property = await uow.PropertyRepository.GetPropertyByIdAsync(propId);
+
+            if (property == null)
+                return BadRequest("No such property or photo exists");
+
+            if (property.PostedBy != userId)
+                return BadRequest("You are not authorized to change the primary photo!");
+            
+            var theDate = DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss");
             var folder = property.ProjectName + "_" + property.Name + "_" + theDate;
             
             var result = await photoService.UploadPhotoAsync(file,folder);

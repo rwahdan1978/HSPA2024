@@ -36,6 +36,7 @@ export class Property implements IPropertyBase {
     estPossessionOn?: string;
     photo?: string;
     description?: string;
+    postedBy: string;
 
     contactCommission: number;
     contactCompany: string;
