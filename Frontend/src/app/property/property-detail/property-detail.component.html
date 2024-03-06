@@ -278,9 +278,7 @@
         </mat-tab>
 
         <mat-tab  id="photosTab" label="Photos"> 
-
-          <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
-
+            <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
         </mat-tab>
 
         <mat-tab label="Upload/Edit Photos"> 
@@ -296,7 +294,6 @@
             <div class="card-header">
               <strong> Commission: {{property.contactCommission}} AED </strong>
             </div>
-            <!-- <img src="https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.companyImage}}" class="card-img-top" style= "max-height: 20%;"> -->
             <div class="card-body">
                 <p> Seller Name: {{property.contactCompany}}</p>
                 <p> Seller Name: {{property.contactName}}</p>
@@ -331,32 +328,7 @@
         </mat-tab>
 
       </mat-tab-group>
-
-        <section *ngIf="visable1 === true" class="slider_container">
-          <section class="slider">
-              <div class="slide one">
-                  <img (click)="hideImage()" src="https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image1}}" alt="">
-                 
-              </div>
-              <div (click)="hideImage()" class="slide two">
-                  <img src="https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image2}}" alt="">
-                  
-              </div>
-              <div (click)="hideImage()" class="slide three">
-                  <img src="https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image3}}" alt="">
-                  
-              </div>
-              <div (click)="hideImage()" class="slide four">
-                  <img src="https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image4}}" alt="">
-                  
-              </div>
-              <div (click)="hideImage()" class="slide five">
-                  <img src="https://angular-upload-files-2023-2024.s3.ap-south-1.amazonaws.com/properties2023/{{property.Image5}}" alt="">
-                  
-              </div>
-          </section>
-      </section>
-
+      
     </div>
   </div>
 </div>

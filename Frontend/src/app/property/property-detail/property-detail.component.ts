@@ -12,6 +12,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { filter, first } from 'rxjs';
 import { HousingService } from 'src/app/services/housing.service';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
+import 'hammerjs';
 
 @Component({
   selector: 'app-property-detail',
@@ -20,7 +21,6 @@ import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov
 })
 
 export class PropertyDetailComponent implements OnInit {
-
 
   public mainPhotoUrl: string;
   deviveInfo: DeviceInfo;
@@ -76,6 +76,7 @@ export class PropertyDetailComponent implements OnInit {
 
   ngOnInit() 
   {
+
     const savedTabIndex = localStorage.getItem('lastTab');
     this.selectedIndex= savedTabIndex;
 
@@ -118,8 +119,14 @@ export class PropertyDetailComponent implements OnInit {
 
      this.galleryOptions = [
       {
-        width: '600px',
-        height: '400px',
+        width: '100%',
+        height: '100%',
+
+        previewForceFullscreen: true,
+        previewCloseOnClick: true,
+        previewCloseOnEsc: true,
+        previewAutoPlay:true,
+        previewKeyboardNavigation: true,
         thumbnailsColumns: 4,
         imageAnimation: NgxGalleryAnimation.Slide
       },

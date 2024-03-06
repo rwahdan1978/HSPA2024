@@ -34,7 +34,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { NgxPaginationModule } from 'ngx-pagination'; 
 import {MatTabsModule} from '@angular/material/tabs';
 import { HttpErrorInterceptorService } from './services/httperor-interceptor.service';
-import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { NgxGalleryModule,  NgxGalleryAction } from '@kolkov/ngx-gallery';
 import { PhotoEditorComponent } from './property/photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
 

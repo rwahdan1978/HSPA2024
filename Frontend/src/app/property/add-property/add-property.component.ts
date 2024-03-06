@@ -98,17 +98,6 @@ export class AddPropertyComponent implements OnInit {
       this.furnishTypes = data;
     });
 
-    const config = {
-      bucketName: 'angular-upload-files-2023-2024',
-      dirName: '/properties2023/',
-      region: environment.AWS_DEFAULT_REGION,
-      accessKeyId: environment.AWS_ACCESS_KEY_ID,
-      secretAccessKey: environment.AWS_SECRET_ACCESS_KEY,
-      s3Url: 'https://angular-upload-files-2023-2024.s3.amazonaws.com/'
-    }
-  
-    const S3CustomClient = new AWSS3UploadAsh(config);
-
       window.matchMedia("(orientation:portrait)").addEventListener("change", (e: MediaQueryListEvent) => { 
         const portrait: boolean = e.matches; 
         if (portrait) { 

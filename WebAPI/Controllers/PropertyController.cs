@@ -62,7 +62,7 @@ namespace WebAPI.Controllers
 
         [HttpPost("add/photo/{propId}")]
         [Authorize]
-        public async Task<IActionResult> AddPropertyPhoto(IFormFile file, int propId)
+        public async Task<ActionResult<PhotoDto>> AddPropertyPhoto(IFormFile file, int propId)
         {
 
             var theDate = DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss");
@@ -84,8 +84,10 @@ namespace WebAPI.Controllers
                 photo.IsPrimary =true;
             }
             property.Photos.Add(photo);
-            await uow.SaveAsync();
-            return StatusCode(201);
+            if (await uow.SaveAsync()) 
+                return mapper.Map<PhotoDto>(photo);
+
+            return BadRequest("some problems occuried uploading the photo!");
         }
 
         [HttpPost("set-primary-photo/{propId}/{photoPublicId}")]

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, EventEmitter, OnInit,Input, Output } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload';
 import { Photo } from 'src/app/model/photo';
 import { Property } from 'src/app/model/property';
@@ -23,7 +24,9 @@ export class PhotoEditorComponent implements OnInit{
   baseUrl = environment.baseUrl;
   maxAllowedFileSize = 10*1024*1024;
 
-  constructor(private housingService: HousingService){}
+  constructor(private route: ActivatedRoute, private router: Router, 
+    private housingService: HousingService) {
+  }
 
   initializeFileUploader()
   {
@@ -35,12 +38,24 @@ export class PhotoEditorComponent implements OnInit{
       removeAfterUpload: true,
       autoUpload: true,
       maxFileSize: this.maxAllowedFileSize
+
     });
 
     this.uploader.onAfterAddingFile = (file) => {
       file.withCredentials = false;
     };
 
+      this.uploader.onSuccessItem = (item,respose,status, header) => 
+      {
+        if (respose)
+        {
+          const photo = JSON.parse(respose);
+          this.property.photos?.push(photo);
+        }
+        window.location.reload();
+        //this.router.navigate(["/property-detail/" + String(this.property.id)]);
+      }
+      
   }
 
   mainPhotoChanged(url: string)
@@ -64,7 +79,10 @@ export class PhotoEditorComponent implements OnInit{
     this.housingService.deletePhoto(propertyId,photo.publicId).subscribe(()=> {
     this.property.photos = this.property.photos?.filter(p=> 
       p.publicId !== photo.publicId);
+      //this.router.navigate(["/property-detail/" + String(this.property.id)]);
+      window.location.reload();
     });
+    
   }
 
 }
