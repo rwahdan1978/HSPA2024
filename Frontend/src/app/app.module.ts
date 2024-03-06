@@ -37,7 +37,7 @@ import { HttpErrorInterceptorService } from './services/httperor-interceptor.ser
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { PhotoEditorComponent } from './property/photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
-import { FileManagerModule } from '@syncfusion/ej2-angular-filemanager';
+import { DetailsViewService, NavigationPaneService, ToolbarService } from '@syncfusion/ej2-angular-filemanager';
 
 const appRoutes: Routes = [
   {path: '', component: PropertyListComponent},
@@ -87,8 +87,7 @@ const appRoutes: Routes = [
     GoogleMapsModule,
     NgxPaginationModule,
     MatTabsModule,
-    FileUploadModule,
-    FileManagerModule
+    FileUploadModule
   ],
 
   providers: [
@@ -108,7 +107,8 @@ const appRoutes: Routes = [
     AlertifyService,
     AuthService,
     PropertyDetailResolverService,
-    GetVariableService
+    GetVariableService,
+    NavigationPaneService, ToolbarService, DetailsViewService
   ],
 
   bootstrap: [AppComponent]
