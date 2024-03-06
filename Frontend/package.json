@@ -23,6 +23,8 @@
     "@angular/router": "^16.2.0",
     "@emailjs/browser": "^3.11.0",
     "@kolkov/ngx-gallery": "^2.0.1",
+    "@syncfusion/ej2-angular-filemanager": "^24.2.7",
+    "@syncfusion/ej2-material-theme": "~24.2.7",
     "alertifyjs": "^1.13.1",
     "aws-s3-upload-ash": "^1.1.7",
     "aws-sdk": "^2.1529.0",

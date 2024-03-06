@@ -34,9 +34,10 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { NgxPaginationModule } from 'ngx-pagination'; 
 import {MatTabsModule} from '@angular/material/tabs';
 import { HttpErrorInterceptorService } from './services/httperor-interceptor.service';
-import { NgxGalleryModule,  NgxGalleryAction } from '@kolkov/ngx-gallery';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { PhotoEditorComponent } from './property/photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
+import { FileManagerModule } from '@syncfusion/ej2-angular-filemanager';
 
 const appRoutes: Routes = [
   {path: '', component: PropertyListComponent},
@@ -68,6 +69,7 @@ const appRoutes: Routes = [
    ],
   
   imports: [
+    BrowserModule,
     NgxGalleryModule,
     NgxFileDropModule,
     MatCheckboxModule,
@@ -85,7 +87,8 @@ const appRoutes: Routes = [
     GoogleMapsModule,
     NgxPaginationModule,
     MatTabsModule,
-    FileUploadModule
+    FileUploadModule,
+    FileManagerModule
   ],
 
   providers: [
