@@ -10,8 +10,6 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { HttpClient } from '@angular/common/http';
 import {GetVariableService} from '../getVariable.service';
 import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
-import AWSS3UploadAsh from 'aws-s3-upload-ash';
-import { environment } from 'src/environments/environment.development';
 import { Ikeyvaluepair } from 'src/app/model/ikeyvaluepair';
 import { DatePipe } from '@angular/common';
 

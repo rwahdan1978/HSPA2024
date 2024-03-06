@@ -74,7 +74,7 @@
         </div>
 
         <div class="form-group col-12">
-          <label for="adminPass" class="form-label required">Admin Password</label>
+          <label for="adminPass" class="form-label ">Admin Password</label>
           <input type="password" class="form-control" formControlName="adminPass">
           <span class="error-block" *ngIf="(!adminPass.touched) || userSubmitted">
             <span *ngIf="adminPass.hasError('required')">

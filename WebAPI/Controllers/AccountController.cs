@@ -39,6 +39,7 @@ namespace WebAPI.Controllers
             var loginRes = new LoginResDto();
             loginRes.UserName = user.Username;
             loginRes.Token = CreateJWT(user);
+            loginRes.IsAdmin = user.IsAdmin;
             return Ok(loginRes);
         }
 

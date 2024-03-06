@@ -76,7 +76,6 @@ export class PropertyDetailComponent implements OnInit {
 
   ngOnInit() 
   {
-
     const savedTabIndex = localStorage.getItem('lastTab');
     this.selectedIndex= savedTabIndex;
 
@@ -150,7 +149,7 @@ export class PropertyDetailComponent implements OnInit {
     this.galleryImages = this.getPropertyPhotos();
 
     return this.urlPath;
-     
+
   }
 
   changePrimaryPhoto(mainPhotoUrl: string)
@@ -185,9 +184,26 @@ export class PropertyDetailComponent implements OnInit {
   }
 
   tabChanged(tabChangeEvent: MatTabChangeEvent): void {
+
     localStorage.removeItem('lastTab');
     this.theIndex = tabChangeEvent.index;
     localStorage.setItem('lastTab', this.theIndex);
+
+    if (!localStorage.getItem('userName') && 
+         (localStorage.getItem('lastTab')=== '3'))
+    {
+      this.alert.error("You must be loggedIn as an Admin to add photos!");
+      this.router.navigate(['/user/login']);
+    }
+
+    if (localStorage.getItem('userName') && 
+         (localStorage.getItem('lastTab')=== '3') 
+        && (localStorage.getItem('isAdmin') === 'false'))
+    {
+      this.alert.error("You must be loggedIn as an Admin to add photos!");
+      this.router.navigate(['/user/login']);
+    }
+
   }
 
   showImage(){

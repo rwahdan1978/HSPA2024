@@ -43,7 +43,7 @@ export class UserRegisterComponent implements OnInit
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
       confirmPassword: new FormControl(null, [Validators.required]),
-      adminPass: new FormControl(null, [Validators.required]),
+      adminPass: new FormControl(null),
       mobile: new FormControl(null, [Validators.required, Validators.pattern("^[0-9]{9}$"),
       
         
@@ -107,7 +107,11 @@ export class UserRegisterComponent implements OnInit
       }
       else
       {
-        this.alertify.error('You need to be an admin! Enter the correct admin password!');
+        this.authService.registerUser(this.userData2()).subscribe(() =>{
+          this.registerationForm.reset();
+          this.userSubmitted = false;
+          this.alertify.success('You have registered successfully!');
+          });
       }
     }
   }
@@ -118,8 +122,19 @@ export class UserRegisterComponent implements OnInit
       countrycode: this.countrycode.toString(),
       email: this.email.value,
       password: this.password.value,
-      mobile: this.mobile.value
-      
+      mobile: this.mobile.value,
+      isAdmin: true
+    }
+  }
+
+  userData2(): UserForRegister{
+    return this.user = {
+      userName: this.userName.value,
+      countrycode: this.countrycode.toString(),
+      email: this.email.value,
+      password: this.password.value,
+      mobile: this.mobile.value,
+      isAdmin: false
     }
   }
 }

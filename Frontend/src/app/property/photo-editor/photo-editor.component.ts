@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload';
 import { Photo } from 'src/app/model/photo';
 import { Property } from 'src/app/model/property';
+import { AlertifyService } from 'src/app/services/alertify.service';
 import { HousingService } from 'src/app/services/housing.service';
 import { environment } from 'src/environments/environment';
 
@@ -16,6 +17,7 @@ export class PhotoEditorComponent implements OnInit{
 
   ngOnInit(): void {
     this.initializeFileUploader();
+    
 }
 
   @Input() property: Property;
@@ -25,7 +27,7 @@ export class PhotoEditorComponent implements OnInit{
   maxAllowedFileSize = 10*1024*1024;
 
   constructor(private route: ActivatedRoute, private router: Router, 
-    private housingService: HousingService) {
+    private housingService: HousingService, private alertify: AlertifyService) {
   }
 
   initializeFileUploader()

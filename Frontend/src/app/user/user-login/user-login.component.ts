@@ -42,6 +42,7 @@ export class UserLoginComponent implements OnInit {
         const user = response;
         localStorage.setItem('token', user.token);
         localStorage.setItem('userName', user.userName);
+        localStorage.setItem('isAdmin', user.isAdmin);
         this.alertify.success("You have loged-in successfully!");
         this.router.navigate(['/']);
       }

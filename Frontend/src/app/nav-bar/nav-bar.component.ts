@@ -50,6 +50,7 @@ export class NavBarComponent implements OnInit {
   {
     localStorage.removeItem('token');
     localStorage.removeItem('userName');
+    localStorage.removeItem('isAdmin');
     this.alertify.error("You are logged out!")
     this.router.navigate(['/']);
   }

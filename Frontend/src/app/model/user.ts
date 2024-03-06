@@ -4,7 +4,7 @@ export interface UserForRegister {
     password: string;
     mobile?: number;
     countrycode: string;
-
+    isAdmin: boolean;
 }
 
 export interface UserForLogin {
