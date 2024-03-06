@@ -176,6 +176,7 @@ export class PropertyDetailComponent implements OnInit {
             small: photo.imageUrl,
             medium: photo.imageUrl,
             big: photo.imageUrl
+            
           }
         );
       }
