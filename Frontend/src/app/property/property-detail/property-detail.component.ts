@@ -204,10 +204,10 @@ export class PropertyDetailComponent implements OnInit {
       this.router.navigate(['/user/login']);
     }
 
-    if ((localStorage.getItem('userId') !== this.property.postedBy) && 
+    if ((localStorage.getItem('userId') != this.property.postedBy) && 
        (localStorage.getItem('lastTab')=== '3'))
     {
-      this.alert.error("You must be loggedIn as an Admin to add photos!");
+      this.alert.error("You are not authorized to add photos to this property!");
       this.router.navigate(['/user/login']);
     }
 

@@ -32,6 +32,7 @@ namespace WebAPI.Dtos
         public bool Beach { get; set; }
         public bool School { get; set; }
         public bool Mosque { get; set; }
+        public string PostedBy { get; set; }
         public ICollection<PhotoDto> Photos { get; set; }
     }
 }
