@@ -76,6 +76,7 @@ export class PropertyDetailComponent implements OnInit {
 
   ngOnInit() 
   {
+
     const savedTabIndex = localStorage.getItem('lastTab');
     this.selectedIndex= savedTabIndex;
 

@@ -51,6 +51,27 @@ namespace WebAPI.Migrations
                     b.ToTable("cities");
                 });
 
+            modelBuilder.Entity("WebAPI.Models.FamilyDocuments", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PublicId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("familyDocuments");
+                });
+
             modelBuilder.Entity("WebAPI.Models.FurnishingType", b =>
                 {
                     b.Property<int>("Id")

@@ -74,13 +74,13 @@ namespace WebAPI.Controllers
             if (property.PostedBy != userId)
                 return BadRequest("You are not authorized to change the primary photo!");
             
+            //code to use to upload photos to cloudinary
             var theDate = DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss");
             var folder = property.ProjectName + "_" + property.Name + "_" + theDate;
-            
             var result = await photoService.UploadPhotoAsync(file,folder);
-
             if (result.Error != null)
                 return BadRequest(result.Error.Message);
+            //end of code above to upload to cloudinary
             
             var photo = new Photo
             {

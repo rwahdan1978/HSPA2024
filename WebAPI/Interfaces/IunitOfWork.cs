@@ -13,6 +13,7 @@ namespace WebAPI.Interfaces
         IPropertyRepository PropertyRepository {get;}
         IPropertyTypeRepository PropertyTypeRepository {get;}
         IFurnishingTypeRepository FurnishingTypeRepository {get;} 
+        IFamilyRepository familyRepository{get;}
         Task<bool> SaveAsync();
     }
 }

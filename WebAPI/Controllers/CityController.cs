@@ -57,7 +57,7 @@ namespace WebAPI.Controllers
             cityFromDb.LastUpdatedOn = DateTime.Now;
             mapper.Map(cityDto,cityFromDb);
 
-            throw new Exception ("Some unknown");
+            //throw new Exception ("Some unknown");
 
             await uow.SaveAsync();
             return StatusCode(200);

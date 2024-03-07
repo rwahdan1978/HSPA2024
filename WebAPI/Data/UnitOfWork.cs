@@ -26,6 +26,9 @@ namespace WebAPI.Data
         public IFurnishingTypeRepository FurnishingTypeRepository => 
             new FurnishingTypeRepository(dc);
 
+        public IFamilyRepository familyRepository => 
+            new FamilyRepository(dc);
+
         public async Task<bool> SaveAsync()
         {
             return await dc.SaveChangesAsync() > 0;

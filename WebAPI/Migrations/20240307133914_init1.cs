@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class init1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -28,6 +28,20 @@ namespace WebAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "familyDocuments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PublicId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_familyDocuments", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "FurnishingTypes",
                 columns: table => new
                 {
@@ -43,7 +57,7 @@ namespace WebAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "propertyTypes",
+                name: "PropertyTypes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -54,7 +68,7 @@ namespace WebAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_propertyTypes", x => x.Id);
+                    table.PrimaryKey("PK_PropertyTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -66,6 +80,7 @@ namespace WebAPI.Migrations
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     PasswordKey = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    IsAdmin = table.Column<bool>(type: "bit", nullable: false),
                     LastUpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastUpdatedBy = table.Column<int>(type: "int", nullable: false)
                 },
@@ -85,6 +100,9 @@ namespace WebAPI.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PropertyTypeId = table.Column<int>(type: "int", nullable: false),
                     BHK = table.Column<int>(type: "int", nullable: false),
+                    Bathroom = table.Column<int>(type: "int", nullable: false),
+                    FlatNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    VillaNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FurnishingTypeId = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
                     BuiltArea = table.Column<int>(type: "int", nullable: false),
@@ -102,6 +120,12 @@ namespace WebAPI.Migrations
                     EstPossessionOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Age = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ContactCommission = table.Column<int>(type: "int", nullable: false),
+                    ContactCompany = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ContactName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ContactNumber2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ContactEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PostedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PostedBy = table.Column<int>(type: "int", nullable: false),
                     LastUpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -117,15 +141,15 @@ namespace WebAPI.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Properties_cities_CityId",
-                        column: x => x.CityId,
-                        principalTable: "cities",
+                        name: "FK_Properties_PropertyTypes_PropertyTypeId",
+                        column: x => x.PropertyTypeId,
+                        principalTable: "PropertyTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Properties_propertyTypes_PropertyTypeId",
-                        column: x => x.PropertyTypeId,
-                        principalTable: "propertyTypes",
+                        name: "FK_Properties_cities_CityId",
+                        column: x => x.CityId,
+                        principalTable: "cities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -142,6 +166,7 @@ namespace WebAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    PublicId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsPrimary = table.Column<bool>(type: "bit", nullable: false),
                     PropertyId = table.Column<int>(type: "int", nullable: false),
@@ -189,6 +214,9 @@ namespace WebAPI.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "familyDocuments");
+
+            migrationBuilder.DropTable(
                 name: "Photos");
 
             migrationBuilder.DropTable(
@@ -198,10 +226,10 @@ namespace WebAPI.Migrations
                 name: "FurnishingTypes");
 
             migrationBuilder.DropTable(
-                name: "cities");
+                name: "PropertyTypes");
 
             migrationBuilder.DropTable(
-                name: "propertyTypes");
+                name: "cities");
 
             migrationBuilder.DropTable(
                 name: "users");

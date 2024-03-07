@@ -12,8 +12,8 @@ using WebAPI.Data;
 namespace WebAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240223140226_init2")]
-    partial class init2
+    [Migration("20240307133914_init1")]
+    partial class init1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,6 +52,27 @@ namespace WebAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("cities");
+                });
+
+            modelBuilder.Entity("WebAPI.Models.FamilyDocuments", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PublicId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("familyDocuments");
                 });
 
             modelBuilder.Entity("WebAPI.Models.FurnishingType", b =>
@@ -103,6 +124,10 @@ namespace WebAPI.Migrations
                     b.Property<int>("PropertyId")
                         .HasColumnType("int");
 
+                    b.Property<string>("PublicId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("PropertyId");
@@ -131,7 +156,7 @@ namespace WebAPI.Migrations
                     b.Property<int>("BHK")
                         .HasColumnType("int");
 
-                    b.Property<int>("Building_flat")
+                    b.Property<int>("Bathroom")
                         .HasColumnType("int");
 
                     b.Property<int>("BuiltArea")
@@ -143,11 +168,32 @@ namespace WebAPI.Migrations
                     b.Property<int>("CityId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ContactCommission")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ContactCompany")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContactEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContactName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContactNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContactNumber2")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("EstPossessionOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("FlatNumber")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("FloorNo")
                         .HasColumnType("int");
@@ -200,8 +246,8 @@ namespace WebAPI.Migrations
                     b.Property<int>("TotalFloors")
                         .HasColumnType("int");
 
-                    b.Property<int>("Villa")
-                        .HasColumnType("int");
+                    b.Property<string>("VillaNumber")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -237,7 +283,7 @@ namespace WebAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("propertyTypes");
+                    b.ToTable("PropertyTypes");
                 });
 
             modelBuilder.Entity("WebAPI.Models.User", b =>
@@ -248,6 +294,9 @@ namespace WebAPI.Migrations
                         .HasColumnOrder(0);
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("bit");
 
                     b.Property<int>("LastUpdatedBy")
                         .HasColumnType("int");

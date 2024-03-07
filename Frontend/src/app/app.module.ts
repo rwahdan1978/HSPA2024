@@ -37,10 +37,11 @@ import { HttpErrorInterceptorService } from './services/httperor-interceptor.ser
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { PhotoEditorComponent } from './property/photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
-import { DetailsViewService, NavigationPaneService, ToolbarService } from '@syncfusion/ej2-angular-filemanager';
+import { FamilydocsComponent } from './FamilyDocuments/familydocs/familydocs.component';
 
 const appRoutes: Routes = [
   {path: '', component: PropertyListComponent},
+  {path: 'familydocuments', component: FamilydocsComponent},
   {path: 'buy-property', component: PropertyListComponent},
   {path: 'rent-property', component: PropertyListComponent},
   {path: 'add-property', component: AddPropertyComponent},
@@ -65,11 +66,10 @@ const appRoutes: Routes = [
       UploadComponent,
       FilterPipe,
       SortPipe,
-      PhotoEditorComponent
+      PhotoEditorComponent,
    ],
   
   imports: [
-    BrowserModule,
     NgxGalleryModule,
     NgxFileDropModule,
     MatCheckboxModule,
@@ -107,8 +107,7 @@ const appRoutes: Routes = [
     AlertifyService,
     AuthService,
     PropertyDetailResolverService,
-    GetVariableService,
-    NavigationPaneService, ToolbarService, DetailsViewService
+    GetVariableService
   ],
 
   bootstrap: [AppComponent]

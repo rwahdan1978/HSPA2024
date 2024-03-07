@@ -18,6 +18,8 @@ namespace WebAPI.Services
             cloudinary = new Cloudinary(account);
         }
 
+        // var assetFolderResult = cloudinary.ListResourcesByAssetFolder("Family_Documnets");
+
         public async Task<DeletionResult> DeletePhotoAsync(string publicId)
         {
             var deleteParams = new DeletionParams(publicId);
@@ -34,7 +36,24 @@ namespace WebAPI.Services
                 var uploadParams = new ImageUploadParams
                 {    
                     File = new FileDescription(photo.FileName, stream),
-                    PublicId = folder,
+                    Transformation = new Transformation()
+                        .Height(500).Width(800)
+                };
+                uploadResult = await cloudinary.UploadAsync(uploadParams);
+            }
+            return uploadResult;
+        }
+
+        public async Task<ImageUploadResult> UploadFamilyDocumentsAsync(IFormFile photo, string folder)
+        {
+            var uploadResult = new ImageUploadResult();
+            if(photo.Length > 0)
+            {
+                using var stream = photo.OpenReadStream();
+                var uploadParams = new ImageUploadParams
+                {    
+                    File = new FileDescription(photo.FileName, stream),
+                    Folder = "FamilyDocs",
                     Transformation = new Transformation()
                         .Height(500).Width(800)
                 };
