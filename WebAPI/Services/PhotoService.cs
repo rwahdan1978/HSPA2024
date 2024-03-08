@@ -51,8 +51,8 @@ namespace WebAPI.Services
                 var uploadParams = new ImageUploadParams
                 {    
                     File = new FileDescription(photo.FileName, stream),
-                    //UseFilenameAsDisplayName = true,
-                    //UseFilename = true,
+                    UseFilenameAsDisplayName = true,
+                    UseFilename = true,
                     //Folder = "FamilyDocs",
                     Transformation = new Transformation()
                         .Height(500).Width(800)
