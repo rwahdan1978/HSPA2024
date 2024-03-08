@@ -12,6 +12,7 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { DatePipe, HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { CommonModule } from "@angular/common";
 
 import { AppComponent } from './app.component';
 import { PropertycardComponent } from './property/property-card/property-card..component';
@@ -57,6 +58,7 @@ const appRoutes: Routes = [
     AppComponent,
     PropertycardComponent,
     PropertyListComponent,
+    FamilydocsComponent,
       NavBarComponent,
       AddPropertyComponent,
       PropertyDetailComponent,
@@ -70,6 +72,7 @@ const appRoutes: Routes = [
    ],
   
   imports: [
+    CommonModule,
     NgxGalleryModule,
     NgxFileDropModule,
     MatCheckboxModule,

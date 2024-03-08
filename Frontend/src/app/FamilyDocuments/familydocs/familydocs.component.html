@@ -1,0 +1,10 @@
+<!-- eslint-disable @angular-eslint/template/alt-text -->
+<div class="row">
+    <div class="col-4 p-3" *ngFor="let photo of allPhotos">
+        <table>
+            <ul> 
+                <img src="{{photo.imageUrl}}" title="{{photo.publicId}}" style="width: 100%;">
+            </ul>
+        </table>
+    </div>
+</div>

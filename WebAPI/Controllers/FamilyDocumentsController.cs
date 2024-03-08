@@ -2,6 +2,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Data;
+using WebAPI.Data.Repo;
 using WebAPI.Dtos;
 using WebAPI.Interfaces;
 using WebAPI.Models;
@@ -24,10 +25,7 @@ namespace WebAPI.Controllers
             this.uow = uow;
         }
 
-
-        // we need to work on this. make repository to get the photos
-        // familyDocuments/list/
-        [AllowAnonymous]
+        [Authorize]
         [HttpGet("list/")]
         public async Task<IActionResult> GetAllPhotos()
         {
@@ -41,7 +39,6 @@ namespace WebAPI.Controllers
         [Authorize]
         public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file)
         {
-            var theDate = DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss");
             var folder = "FamilyDocs";
             var result = await photoService.UploadFamilyDocumentsAsync(file,folder);
              if (result.Error != null)
@@ -50,13 +47,34 @@ namespace WebAPI.Controllers
             var photo = new FamilyDocuments
             {
                 ImageUrl = result.SecureUrl.AbsoluteUri,
-                PublicId = result.PublicId
+                PublicId = result.PublicId,
             };
 
             dc.familyDocuments.Add(photo);
             
             await uow.SaveAsync();    
             return Ok(200 + " Photo-Document uploaded successfully!");
+        }
+
+        [HttpDelete("delete-photo/{photoId}/{photoPublicId}")]
+        [Authorize]
+        public async Task<IActionResult> DeletePhoto(int photoId, string photoPublicId)
+        {
+            var photo = await uow.familyRepository.GetPhotoByIdAsync(photoId);
+
+            if (photo == null)
+                return BadRequest("No such photo exists");
+
+            var result = await photoService.DeletePhotoAsync(photoPublicId);
+            
+            if (result.Error != null) 
+                return BadRequest(result.Error.Message);
+
+            var delPhoto = uow.familyRepository.DeletePhoto(photo.PublicId);
+
+            if (await uow.SaveAsync()) return Ok();
+
+            return Ok("Photo Deleted!");
         }
     }
 }

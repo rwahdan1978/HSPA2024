@@ -56,7 +56,7 @@
             </a>
 
             <div class="dropdown-menu" *dropdownMenu>
-              <a *ngIf="loggedinUser === 'rwahdan'" (click)="onFamilyDocs()" class="dropdown-item">
+              <a *ngIf="loggedinUser === 'rwahdan'" routerLink="familydocuments" class="dropdown-item">
                 <i class="fa-solid fa-file"></i>Family Documents</a>
               <a (click)="onlogout()" class="dropdown-item">
                 <i class="fas fa-sign-out-alt"></i>Logout</a>

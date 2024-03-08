@@ -11,5 +11,6 @@ namespace WebAPI.Models
         public string PublicId { get; set; }
         [Required]
         public string ImageUrl { get; set; }
+        public string DisplayName { get; set; }
     }
 }
