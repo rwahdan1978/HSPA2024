@@ -22,10 +22,10 @@ namespace WebAPI.Data.Repo
             return null;
         }
 
-        public async Task<FamilyDocuments> GetPhotoByIdAsync(int id)
+        public async Task<FamilyDocuments> GetPhotoByIdAsync(string id)
         {
              var photo = await dc.familyDocuments
-            .Where(p => p.Id == id)
+            .Where(p => p.PublicId == id)
             .FirstOrDefaultAsync();
             return photo;
         }

@@ -47,7 +47,7 @@ namespace WebAPI.Controllers
             var photo = new FamilyDocuments
             {
                 ImageUrl = result.SecureUrl.AbsoluteUri,
-                PublicId = result.PublicId,
+                PublicId = result.PublicId
             };
 
             dc.familyDocuments.Add(photo);
@@ -56,11 +56,11 @@ namespace WebAPI.Controllers
             return Ok(200 + " Photo-Document uploaded successfully!");
         }
 
-        [HttpDelete("delete-photo/{photoId}/{photoPublicId}")]
+        [HttpDelete("delete-photo/{photoPublicId}")]
         [Authorize]
-        public async Task<IActionResult> DeletePhoto(int photoId, string photoPublicId)
+        public async Task<IActionResult> DeletePhoto(string photoPublicId)
         {
-            var photo = await uow.familyRepository.GetPhotoByIdAsync(photoId);
+            var photo = await uow.familyRepository.GetPhotoByIdAsync(photoPublicId);
 
             if (photo == null)
                 return BadRequest("No such photo exists");
@@ -74,7 +74,7 @@ namespace WebAPI.Controllers
 
             if (await uow.SaveAsync()) return Ok();
 
-            return Ok("Photo Deleted!");
+            return Ok();
         }
     }
 }

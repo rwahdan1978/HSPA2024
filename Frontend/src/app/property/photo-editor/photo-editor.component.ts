@@ -43,7 +43,6 @@ export class PhotoEditorComponent implements OnInit{
 
       });
     
-
       this.uploader.onAfterAddingFile = (file) => {
         file.withCredentials = false;
       };
@@ -55,7 +54,7 @@ export class PhotoEditorComponent implements OnInit{
             const photo = JSON.parse(respose);
             this.property.photos?.push(photo);
           }
-          window.location.reload();
+          //window.location.reload();
           //this.router.navigate(["/property-detail/" + String(this.property.id)]);
         }
   }
@@ -74,6 +73,7 @@ export class PhotoEditorComponent implements OnInit{
         if (p.publicId === photo.publicId) {p.isPrimary = true;}
       });
     });
+    window.location.reload();
   }
 
   deletePhoto(propertyId: number, photo: Photo)

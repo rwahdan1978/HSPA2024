@@ -2,10 +2,12 @@
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload';
 import { map, pipe } from 'rxjs';
 import { familydocuments } from 'src/app/model/familydocuments';
+import { HousingService } from 'src/app/services/housing.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -15,8 +17,11 @@ import { environment } from 'src/environments/environment';
 })
 export class FamilydocsComponent implements OnInit {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private housingService: HousingService,
+    private route: ActivatedRoute, private router: Router) {}
+
   allPhotos: familydocuments[] = [];
+  @Input() familyDocs: familydocuments[] = [];
   @Output() mainPhotoChangedEvent = new EventEmitter<string>();
   uploader: FileUploader;
   baseUrl = environment.baseUrl;
@@ -29,8 +34,8 @@ export class FamilydocsComponent implements OnInit {
                Authorization: 'Bearer ' + localStorage.getItem('token')
      })};
 
-    const photos:any = [];
-    this.http.get<{[key:string]: familydocuments}>(this.baseUrl + '/familydocuments/list/', httpOptions)
+    const photos:any[] = [];
+    this.http.get<{[key:string]: any}>(this.baseUrl + '/familydocuments/list/', httpOptions)
     
     .pipe(map((res) => {
       for(const key in res)
@@ -48,17 +53,15 @@ export class FamilydocsComponent implements OnInit {
     });
 
     this.initializeFileUploader();
-  }
 
+  }
 
   initializeFileUploader()
   {
-    
       this.uploader = new FileUploader({
         url: this.baseUrl + '/familydocuments/add/photo/',
         authToken: 'Bearer ' + localStorage.getItem('token'),
         isHTML5: true,
-        allowedFileType: ['image'],
         removeAfterUpload: true,
         autoUpload: true,
         maxFileSize: this.maxAllowedFileSize
@@ -66,24 +69,44 @@ export class FamilydocsComponent implements OnInit {
       });
 
       this.uploader.onAfterAddingFile = (file) => {
+        
+        // setTimeout(()=>
+        // {
+        //   window.location.reload();
+        // }, 5000);
+
         file.withCredentials = false;
+
       };
 
       this.uploader.onSuccessItem = (item,respose,status, header) => 
       {
           if (respose)
           {
-            const photo = JSON.parse(respose);
-            this.allPhotos.push(photo);
+              const photo = JSON.stringify(respose);
+              const photos = JSON.parse(photo);
+              this.allPhotos.push(photos);
+            
           }
+
+          setTimeout(()=>
+        {
           window.location.reload();
-          //this.router.navigate(["/property-detail/" + String(this.property.id)]);
-      }
+          this.router.navigate(["familydocuments"])
+        }, 8000);
+      };
   }
 
-  mainPhotoChanged(url: string)
+  deletePhoto(photoPublicId: string)
   {
-    this.mainPhotoChangedEvent.emit(url);
+    this.housingService.deleteFamilyPhoto(photoPublicId).subscribe(()=> {
+    this.familyDocs = this.familyDocs.filter(p=> 
+      p.publicId !== photoPublicId);
+      setTimeout(()=>
+        {
+          window.location.reload();
+          this.router.navigate(["familydocuments"])
+        }, 500);
+    });
   }
-
 }
