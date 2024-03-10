@@ -1,7 +1,13 @@
+<h3>To download a file click on it!</h3><br>
+
 <div class="row">
     <div class="col-2 mb-3" *ngFor="let photo of allPhotos">
-        <img src="{{photo.imageUrl}}" alt="{{photo.publicId}}" class="img-thumbnail">
-        
+        <a href="{{photo.imageUrl}}" target=”_blank”>
+            <img _ngcontent-ng-c346306970="" 
+            src="https://res.cloudinary.com/hspa2024/image/upload/c_thumb,h_500,w_800/{{photo.publicId}}.png"
+            alt="{{photo.publicId}}"
+            class="img-thumbnail" title="{{photo.publicId}}" class="img-thumbnail">
+        </a>
         <div class="text-center">
             <button class="btn btn-sm btn-danger"
             (click)="deletePhoto(photo.publicId)"><i class="fa-solid fa-trash"></i></button>

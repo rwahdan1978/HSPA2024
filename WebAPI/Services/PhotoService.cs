@@ -52,11 +52,15 @@ namespace WebAPI.Services
                 {    
                     File = new FileDescription(photo.FileName, stream),
                     UseFilenameAsDisplayName = true,
+                    AllowedFormats = ["png","pdf","jpg"],
                     UseFilename = true,
-                    //Folder = "FamilyDocs",
+                    PublicId = folder,
+                    
                     Transformation = new Transformation()
-                        .Height(500).Width(800)
+                    .Height(500).Width(800)
                 };
+
+                // cloudinary.Api.UrlImgUp.Transform(new Transformation()).BuildImageTag("test.pdf");
                 uploadResult = await cloudinary.UploadAsync(uploadParams);
             }
             return uploadResult;

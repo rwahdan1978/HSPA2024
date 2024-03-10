@@ -56,6 +56,10 @@ export class FamilydocsComponent implements OnInit {
 
   }
 
+  downloadFile(){
+    
+  }
+
   initializeFileUploader()
   {
       this.uploader = new FileUploader({
@@ -69,14 +73,7 @@ export class FamilydocsComponent implements OnInit {
       });
 
       this.uploader.onAfterAddingFile = (file) => {
-        
-        // setTimeout(()=>
-        // {
-        //   window.location.reload();
-        // }, 5000);
-
         file.withCredentials = false;
-
       };
 
       this.uploader.onSuccessItem = (item,respose,status, header) => 
@@ -93,7 +90,7 @@ export class FamilydocsComponent implements OnInit {
         {
           window.location.reload();
           this.router.navigate(["familydocuments"])
-        }, 8000);
+        }, 15000);
       };
   }
 

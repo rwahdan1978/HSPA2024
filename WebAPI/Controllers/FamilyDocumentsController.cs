@@ -39,15 +39,20 @@ namespace WebAPI.Controllers
         [Authorize]
         public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file)
         {
-            var folder = "FamilyDocs";
+            var thedate = DateTime.Now.ToString("dd_MM_yyyy__HH_mm_ss");
+            var folder = "FamilyDocs_"+ thedate;
             var result = await photoService.UploadFamilyDocumentsAsync(file,folder);
-             if (result.Error != null)
+
+            //var theUrl = "https://res.cloudinary.com/hspa2024/image/upload/c_thumb,h_500,w_800/" + result.PublicId;
+
+            if (result.Error != null)
                 return BadRequest(result.Error.Message);
 
             var photo = new FamilyDocuments
             {
+                DisplayName = result.DisplayName,
                 ImageUrl = result.SecureUrl.AbsoluteUri,
-                PublicId = result.PublicId
+                PublicId = result.PublicId,
             };
 
             dc.familyDocuments.Add(photo);
@@ -56,6 +61,7 @@ namespace WebAPI.Controllers
             return Ok(200 + " Photo-Document uploaded successfully!");
         }
 
+        // familyDocuments/delete-photo/pid
         [HttpDelete("delete-photo/{photoPublicId}")]
         [Authorize]
         public async Task<IActionResult> DeletePhoto(string photoPublicId)
