@@ -89,7 +89,7 @@ export class FamilydocsComponent implements OnInit {
           setTimeout(()=>
         {
           window.location.reload();
-          this.router.navigate(["familydocuments"])
+          //this.router.navigate(["familydocuments"])
         }, 15000);
       };
   }

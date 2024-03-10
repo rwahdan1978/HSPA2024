@@ -56,6 +56,10 @@ export class PhotoEditorComponent implements OnInit{
           }
           //window.location.reload();
           //this.router.navigate(["/property-detail/" + String(this.property.id)]);
+          setTimeout(()=>
+          {
+            window.location.reload();
+          }, 1000);
         }
   }
 
