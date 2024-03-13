@@ -45,27 +45,28 @@ export class PhotoEditorComponent implements OnInit{
     
       this.uploader.onAfterAddingFile = (file) => {
         file.withCredentials = false;
-      };
 
-        this.uploader.onSuccessItem = (item,respose,status, header) => 
-        {
-          if (respose)
-          {
-            const photo = JSON.parse(respose);
-            this.property.photos?.push(photo);
-          }
-          //window.location.reload();
-          //this.router.navigate(["/property-detail/" + String(this.property.id)]);
-          setTimeout(()=>
+        setTimeout(()=>
           {
             window.location.reload();
-          }, 1000);
+          }, 15000);
+
+      };
+
+        this.uploader.onSuccessItem = (item, respose, status, headers) => {
+          if (respose)
+          {
+            const photo = JSON.stringify(respose);
+            const photo2 = JSON.parse(photo);
+            this.property.photos?.push(photo2);
+          }
         }
   }
 
   mainPhotoChanged(url: string)
   {
     this.mainPhotoChangedEvent.emit(url);
+    window.location.reload();
   }
 
   setPrimaryPhoto(propertyId: number, photo: Photo)
@@ -77,7 +78,7 @@ export class PhotoEditorComponent implements OnInit{
         if (p.publicId === photo.publicId) {p.isPrimary = true;}
       });
     });
-    window.location.reload();
+   
   }
 
   deletePhoto(propertyId: number, photo: Photo)

@@ -56,10 +56,6 @@ export class FamilydocsComponent implements OnInit {
 
   }
 
-  downloadFile(){
-    
-  }
-
   initializeFileUploader()
   {
       this.uploader = new FileUploader({
