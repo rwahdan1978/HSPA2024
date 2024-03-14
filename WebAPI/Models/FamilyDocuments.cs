@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using WebAPI.Controllers;
 
 namespace WebAPI.Models
 {
@@ -11,6 +10,6 @@ namespace WebAPI.Models
         public string PublicId { get; set; }
         [Required]
         public string ImageUrl { get; set; }
-        public string DisplayName { get; set; }
+        public string ImageId { get; set; }
     }
 }

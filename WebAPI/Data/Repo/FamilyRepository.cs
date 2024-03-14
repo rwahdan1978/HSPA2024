@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Interfaces;
 using WebAPI.Models;
@@ -14,10 +13,10 @@ namespace WebAPI.Data.Repo
             this.dc = dc;
         }
 
-        public async Task<FamilyDocuments> DeletePhoto(string publicId)
+        public async Task<FamilyDocuments> DeletePhoto(string imageId)
         {
             var photo = await dc.familyDocuments
-            .Where(p => p.PublicId == publicId)
+            .Where(p => p.ImageId == imageId)
             .ExecuteDeleteAsync();
             return null;
         }
@@ -25,7 +24,6 @@ namespace WebAPI.Data.Repo
         public async Task<FamilyDocuments> GetPhotoByIdAsync(string id)
         {
              var photo = await dc.familyDocuments
-            .Where(p => p.PublicId == id)
             .FirstOrDefaultAsync();
             return photo;
         }

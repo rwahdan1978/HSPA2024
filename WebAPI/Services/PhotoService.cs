@@ -55,7 +55,6 @@ namespace WebAPI.Services
                     AllowedFormats = ["png","pdf","jpg"],
                     UseFilename = true,
                     PublicId = folder,
-                    
                     Transformation = new Transformation()
                     .Height(500).Width(800)
                 };

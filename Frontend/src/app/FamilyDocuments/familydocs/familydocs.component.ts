@@ -35,7 +35,7 @@ export class FamilydocsComponent implements OnInit {
      })};
 
     const photos:any[] = [];
-    this.http.get<{[key:string]: any}>(this.baseUrl + '/familydocuments/list/', httpOptions)
+    this.http.get<{[key:string]: familydocuments}>(this.baseUrl + '/familydocuments/list/', httpOptions)
     
     .pipe(map((res) => {
       for(const key in res)
@@ -90,16 +90,16 @@ export class FamilydocsComponent implements OnInit {
       };
   }
 
-  deletePhoto(photoPublicId: string)
+  deletePhoto(imageId: string)
   {
-    this.housingService.deleteFamilyPhoto(photoPublicId).subscribe(()=> {
+    this.housingService.deleteFamilyPhoto(imageId).subscribe(()=> {
     this.familyDocs = this.familyDocs.filter(p=> 
-      p.publicId !== photoPublicId);
+      p.imageId !== imageId);
       setTimeout(()=>
         {
           window.location.reload();
           this.router.navigate(["familydocuments"])
-        }, 500);
+        }, 1000);
     });
   }
 }

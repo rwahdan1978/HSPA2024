@@ -11,7 +11,7 @@ namespace WebAPI.Helpers
         {
             CreateMap<City, CityDto>().ReverseMap();
 
-            CreateMap<photoListDto, FamilyDocuments>().ReverseMap();
+            CreateMap<FamilyDocuments,photoListDto >().ReverseMap();
 
             CreateMap<City, CityUpdateDto>().ReverseMap();
 
