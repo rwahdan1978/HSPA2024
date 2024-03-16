@@ -124,6 +124,17 @@ export class HousingService
     return this.http.delete(this.baseUrl + '/familydocuments/delete-photo/' + imageId, httpOptions)
   }
 
+  deleteProperty(id: number)
+  {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      })
+    };
+
+    return this.http.delete(this.baseUrl + '/property/delete/' + id, httpOptions)
+  }
+
   // listFamilyPhoto()
   // {
   //   const httpOptions = {

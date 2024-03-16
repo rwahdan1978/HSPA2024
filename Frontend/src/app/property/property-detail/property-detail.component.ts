@@ -13,6 +13,7 @@ import { filter, first } from 'rxjs';
 import { HousingService } from 'src/app/services/housing.service';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import 'hammerjs';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-property-detail',
@@ -26,6 +27,7 @@ export class PropertyDetailComponent implements OnInit {
   deviveInfo: DeviceInfo;
   public urlPath: any;
   public theIndex: any = 0;
+  baseUrl = environment.baseUrl;
 
   @ViewChild('iframe') iframe: ElementRef
 
@@ -72,7 +74,8 @@ export class PropertyDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute, private alert: AlertifyService, 
               private fb: FormBuilder, private sanitizer: DomSanitizer, 
               private DDS: DeviceDetectorService, private router: Router,
-              private housingService: HousingService) {}
+              private housingService: HousingService,
+              private alertify: AlertifyService) {}
 
   ngOnInit() 
   {
@@ -191,14 +194,14 @@ export class PropertyDetailComponent implements OnInit {
     localStorage.setItem('lastTab', this.theIndex);
 
     if (!localStorage.getItem('userName') && 
-         (localStorage.getItem('lastTab')=== '3'))
+         ((localStorage.getItem('lastTab') === '3') || (localStorage.getItem('lastTab')=== '4')))
     {
       this.alert.error("You must be loggedIn as an Admin to add photos!");
       this.router.navigate(['/user/login']);
     }
 
     if (localStorage.getItem('userName') && 
-         (localStorage.getItem('lastTab')=== '3') 
+         ((localStorage.getItem('lastTab')=== '3') || (localStorage.getItem('lastTab')=== '4'))  
         && (localStorage.getItem('isAdmin') === 'false'))
     {
       this.alert.error("You must be loggedIn as an Admin to add photos!");
@@ -223,6 +226,16 @@ export class PropertyDetailComponent implements OnInit {
       localStorage.setItem(this.propidStr,JSON.stringify(data));
       window.location.reload();
     
+  }
+
+  delProperty(id: number)
+  {
+    this.housingService.deleteProperty(id).subscribe();
+    setTimeout(()=>
+        {
+          this.alert.success("property deleted!");
+          this.router.navigate(["familydocuments"]);
+        }, 5000);
   }
 
   async send(){

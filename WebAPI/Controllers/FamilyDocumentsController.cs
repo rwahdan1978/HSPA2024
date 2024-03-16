@@ -40,7 +40,7 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file)
         {
             var thedate = DateTime.Now.ToString("dd_MM_yyyy__HH_mm_ss");
-            var folder = "tester/FamilyDocs_"+ thedate;
+            var folder = "FamilyDocuments2024/"+ thedate;
             var result = await photoService.UploadFamilyDocumentsAsync(file,folder);
 
             if (result.Error != null)

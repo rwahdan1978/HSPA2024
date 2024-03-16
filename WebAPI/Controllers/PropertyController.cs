@@ -60,6 +60,16 @@ namespace WebAPI.Controllers
             return StatusCode(201);
         }
 
+        [HttpDelete("delete/{id}")]
+        [Authorize]
+        public async Task<IActionResult> DeleteProperty(int id)
+        {
+            var property = await uow.PropertyRepository.GetPropertyByIdAsync(id);
+            await uow.PropertyRepository.DeleteProperty(property.Id);
+            if (await uow.SaveAsync()) return Ok(200);
+            return Ok(201);
+        }
+
         [HttpPost("add/photo/{propId}")]
         [Authorize]
         public async Task<ActionResult<PhotoDto>> AddPropertyPhoto(IFormFile file, int propId)

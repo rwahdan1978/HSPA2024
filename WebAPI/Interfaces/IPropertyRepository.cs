@@ -9,6 +9,6 @@ namespace WebAPI.Interfaces
         Task<Property> GetPropertyDetailAsync(int id);
         Task<Property> GetPropertyByIdAsync(int id);
         void AddProperty(Property property);
-        void DeleteProperty(int id);
+        Task<Property> DeleteProperty(int id);
     }
 }

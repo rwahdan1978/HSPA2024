@@ -18,11 +18,6 @@ namespace WebAPI.Data.Repo
             dc.Properties.Add(property);
         }
 
-        public void DeleteProperty(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<IEnumerable<Property>> GetPropertiesAllAsync()
         {
             var properties = await dc.Properties
@@ -65,6 +60,15 @@ namespace WebAPI.Data.Repo
             .Where(p => p.Id == id)
             .FirstOrDefaultAsync();
             return properties;
+        }
+
+        public async Task<Property> DeleteProperty(int id)
+        {
+            var properties = await dc.Properties
+           
+            .Where(p => p.Id == id)
+            .ExecuteDeleteAsync();
+            return null;
         }
     }
 }

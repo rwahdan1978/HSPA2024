@@ -289,6 +289,19 @@
 
         </mat-tab>
 
+        <mat-tab label="Delete Property"> 
+          <br>
+          <h3>Delete property</h3>
+          <br>
+
+          <div class="card-footer">
+            <div class="btn-group d-flex">
+              <button class="btn btn-danger" (click)="delProperty(property.id)">Delete Property {{property.id}}</button>
+            </div>
+          </div>
+
+        </mat-tab>
+
         <mat-tab label="Contact">
 
           <div *ngIf="loggedinUser" class="card text-center" style="max-width: 100vw; min-height: 10vw;">

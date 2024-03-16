@@ -41,6 +41,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 };
         });
 
+builder.Services.AddDbContext<DbContext>(options =>
+                options.UseSqlServer
+                (builder.Configuration.GetSection("appsettings:ConnectionStrings").Value),
+             ServiceLifetime.Transient);
+
+builder.Services.AddDbContext<DbContext>(ServiceLifetime.Transient);
+
 builder.Services.AddScoped<IunitOfWork,UnitOfWork>();
 builder.Services.AddScoped<IPhotoService,PhotoService>();
 
