@@ -2,7 +2,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Data;
-using WebAPI.Data.Repo;
 using WebAPI.Dtos;
 using WebAPI.Interfaces;
 using WebAPI.Models;
@@ -40,7 +39,9 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file)
         {
             var thedate = DateTime.Now.ToString("dd_MM_yyyy__HH_mm_ss");
-            var folder = "FamilyDocuments2024/"+ thedate;
+            Random rnd = new Random();
+            int num = rnd.Next();
+            var folder = "FamilyDocuments2024/";
             var result = await photoService.UploadFamilyDocumentsAsync(file,folder);
 
             if (result.Error != null)
@@ -50,7 +51,7 @@ namespace WebAPI.Controllers
             { 
                 ImageUrl = result.SecureUrl.AbsoluteUri,
                 PublicId = result.PublicId,
-                ImageId =  thedate
+                ImageId =  thedate+"_"+ num
             };
 
             dc.familyDocuments.Add(photo);

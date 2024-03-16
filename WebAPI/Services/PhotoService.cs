@@ -27,6 +27,7 @@ namespace WebAPI.Services
 
         public async Task<ImageUploadResult> UploadPhotoAsync(IFormFile photo, string folder)
         {
+            cloudinary.RootFolders();
             var uploadResult = new ImageUploadResult();
             if(photo.Length > 0)
             {
@@ -54,7 +55,7 @@ namespace WebAPI.Services
                     UseFilenameAsDisplayName = true,
                     AllowedFormats = ["png","pdf","jpg"],
                     UseFilename = true,
-                    PublicId = folder,
+                    PublicId = folder + photo.FileName,
                     Transformation = new Transformation()
                     .Height(500).Width(800)
                 };

@@ -79,7 +79,6 @@ export class FamilydocsComponent implements OnInit {
               const photo = JSON.stringify(respose);
               const photos = JSON.parse(photo);
               this.allPhotos.push(photos);
-            
           }
 
           setTimeout(()=>
@@ -92,14 +91,12 @@ export class FamilydocsComponent implements OnInit {
 
   deletePhoto(imageId: string)
   {
-    this.housingService.deleteFamilyPhoto(imageId).subscribe(()=> {
-    this.familyDocs = this.familyDocs.filter(p=> 
-      p.imageId !== imageId);
-      setTimeout(()=>
+    this.housingService.deleteFamilyPhoto(imageId).subscribe();
+
+      setTimeout(() =>
         {
           window.location.reload();
           this.router.navigate(["familydocuments"])
         }, 1000);
-    });
   }
 }

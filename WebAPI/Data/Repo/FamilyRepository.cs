@@ -23,7 +23,8 @@ namespace WebAPI.Data.Repo
 
         public async Task<FamilyDocuments> GetPhotoByIdAsync(string id)
         {
-             var photo = await dc.familyDocuments
+            var photo = await dc.familyDocuments
+            .Where(p => p.ImageId == id)
             .FirstOrDefaultAsync();
             return photo;
         }
