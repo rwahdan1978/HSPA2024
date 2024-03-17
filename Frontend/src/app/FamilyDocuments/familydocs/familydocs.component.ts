@@ -26,8 +26,16 @@ export class FamilydocsComponent implements OnInit {
   uploader: FileUploader;
   baseUrl = environment.baseUrl;
   maxAllowedFileSize = 10*1024*1024;
+  ApiKey = environment.ApiKey;
+  ApiSecret = environment.ApiSecret;
+  test:any[]=[];
   
   ngOnInit() {
+
+    this.housingService.listFamilyFolders().subscribe(data => {
+      this.test.push(JSON.stringify(data));
+      console.log(this.test);
+    });
 
     const httpOptions = {
                 headers: new HttpHeaders({
@@ -51,7 +59,7 @@ export class FamilydocsComponent implements OnInit {
       console.log(photos);
       this.allPhotos = photos;
     });
-
+    
     this.initializeFileUploader();
 
   }

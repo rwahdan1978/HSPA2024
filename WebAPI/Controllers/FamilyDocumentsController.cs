@@ -1,4 +1,5 @@
 using AutoMapper;
+using CloudinaryDotNet;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Data;
@@ -24,6 +25,16 @@ namespace WebAPI.Controllers
             this.uow = uow;
         }
 
+        public class ValuesController : Controller
+        {
+            IConfiguration configuration;
+
+            public ValuesController(IConfiguration configuration)
+            {
+                this.configuration = configuration;
+            }
+        }
+
         [Authorize]
         [HttpGet("list/")]
         public async Task<IActionResult> GetAllPhotos()
@@ -31,6 +42,16 @@ namespace WebAPI.Controllers
             var photos = await uow.familyRepository.GetPhotosAllAsync();
             var photoListDTO = mapper.Map<IEnumerable<photoListDto>>(photos);
             return Ok(photoListDTO);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("folders/")]
+        public string GetFolders()
+        {
+            var cloudinary = 
+            new Cloudinary(cloudinaryUrl: "cloudinary://334819583972299:M6mwunz9g3seqhMcP_CGV0HCNvc@hspa2024");
+            var test = cloudinary.RootFolders().JsonObj.ToString();
+            return test;
         }
 
         // familyDocuments/add/photo/

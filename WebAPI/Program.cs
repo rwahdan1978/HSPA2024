@@ -29,7 +29,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 var secretKey = builder.Configuration.GetSection("AppSettings:Key").Value;
 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
-
+  
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         .AddJwtBearer(opt => {
                 opt.TokenValidationParameters = new TokenValidationParameters

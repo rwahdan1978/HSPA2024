@@ -135,6 +135,10 @@ export class HousingService
     return this.http.delete(this.baseUrl + '/property/delete/' + id, httpOptions)
   }
 
+  listFamilyFolders()
+  {
+    return this.http.get(this.baseUrl + '/familydocuments/folders');
+  }
   // listFamilyPhoto()
   // {
   //   const httpOptions = {
