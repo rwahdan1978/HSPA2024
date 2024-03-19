@@ -35,5 +35,13 @@ namespace WebAPI.Data.Repo
             .ToListAsync();
             return photos;
         }
+
+        public async Task<IEnumerable<FamilyDocuments>> GetPhotosAllFromFolderAsync(string folder)
+        {
+            var photos = await dc.familyDocuments
+            .Where(p => p.FolderName == folder)
+            .ToListAsync();
+            return photos;
+        }
     }
 }

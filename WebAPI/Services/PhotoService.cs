@@ -55,7 +55,7 @@ namespace WebAPI.Services
                     UseFilenameAsDisplayName = true,
                     AllowedFormats = ["png","pdf","jpg"],
                     UseFilename = true,
-                    PublicId = folder + photo.FileName,
+                    PublicId = folder + "/" + photo.FileName,
                     Transformation = new Transformation()
                     .Height(500).Width(800)
                 };

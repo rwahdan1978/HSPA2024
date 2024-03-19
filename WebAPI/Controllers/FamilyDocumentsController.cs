@@ -44,7 +44,16 @@ namespace WebAPI.Controllers
             return Ok(photoListDTO);
         }
 
-        [AllowAnonymous]
+        [Authorize]
+        [HttpGet("listwithfoldername/{folder}")]
+        public async Task<IActionResult> GetAllPhotos(string folder)
+        {
+            var photos = await uow.familyRepository.GetPhotosAllFromFolderAsync(folder);
+            var photoListDTO = mapper.Map<IEnumerable<photoListDto>>(photos);
+            return Ok(photoListDTO);
+        }
+
+        [Authorize]
         [HttpGet("folders/")]
         public string GetFolders()
         {
@@ -62,7 +71,7 @@ namespace WebAPI.Controllers
             var thedate = DateTime.Now.ToString("dd_MM_yyyy__HH_mm_ss");
             Random rnd = new Random();
             int num = rnd.Next();
-            var folder = "FamilyDocuments2024/";
+            var folder = "FamilyDocuments2024";
             var result = await photoService.UploadFamilyDocumentsAsync(file,folder);
 
             if (result.Error != null)
@@ -72,7 +81,8 @@ namespace WebAPI.Controllers
             { 
                 ImageUrl = result.SecureUrl.AbsoluteUri,
                 PublicId = result.PublicId,
-                ImageId =  thedate+"_"+ num
+                ImageId =  thedate+"_"+ num,
+                FolderName = folder
             };
 
             dc.familyDocuments.Add(photo);

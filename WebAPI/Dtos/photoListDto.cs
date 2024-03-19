@@ -5,5 +5,6 @@ namespace WebAPI.Dtos
         public string ImageUrl { get; set; }
         public string PublicId { get; set; }
         public string ImageId { get; set; }
+        public string FolderName { get; set; }
     }
 }

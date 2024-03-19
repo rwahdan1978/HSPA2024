@@ -28,40 +28,63 @@ export class FamilydocsComponent implements OnInit {
   maxAllowedFileSize = 10*1024*1024;
   ApiKey = environment.ApiKey;
   ApiSecret = environment.ApiSecret;
-  test:any[]=[];
+  test:any;
+  public test2:any;
+  values:any;
+  foldersName:any;
+  foldersPath:any;
+  thefolder:any;
   
   ngOnInit() {
 
     this.housingService.listFamilyFolders().subscribe(data => {
-      this.test.push(JSON.stringify(data));
-      console.log(this.test);
+      this.test = JSON.stringify(data,["folders","name","path"]);
+      const test2 = JSON.parse(this.test);
+      console.log(test2);
+
+      this.thefolder = localStorage.removeItem("chosenfolder");
+
+        this.foldersName = Object.keys(test2.folders)
+        .map(function (index) {
+            return test2.folders[index].name;
+        });
+
+        this.foldersPath = Object.keys(test2.folders)
+        .map(function (index) {
+            return test2.folders[index].path;
+        });
     });
 
+  }
+
+  testIt(item:any){
+    // here we will check all photos in family photos that belongs to the item and show them.
+    console.log(item);
+    localStorage.setItem('chosenfolder', item);
+    this.thefolder = localStorage.getItem("chosenfolder");
     const httpOptions = {
-                headers: new HttpHeaders({
-               Authorization: 'Bearer ' + localStorage.getItem('token')
-     })};
+      headers: new HttpHeaders({
+     Authorization: 'Bearer ' + localStorage.getItem('token')
+    })};
 
     const photos:any[] = [];
-    this.http.get<{[key:string]: familydocuments}>(this.baseUrl + '/familydocuments/list/', httpOptions)
-    
+    this.http.get<{[key:string]: familydocuments}>(this.baseUrl + '/familydocuments/listwithfoldername/'
+                                                                + this.thefolder, httpOptions)
+
     .pipe(map((res) => {
-      for(const key in res)
-      {
-        if(res.hasOwnProperty(key))
-        {  
-          photos.push({...res[key], id: key})
-        }
-      }
-      return photos;
+    for(const key in res)
+    {
+    if(res.hasOwnProperty(key))
+    {  
+    photos.push({...res[key], id: key})
+    }
+    }
+    return photos;
     }))
     .subscribe((photos) =>{
-      console.log(photos);
-      this.allPhotos = photos;
+    console.log(photos);
+    this.allPhotos = photos;
     });
-    
-    this.initializeFileUploader();
-
   }
 
   initializeFileUploader()

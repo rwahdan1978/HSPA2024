@@ -1,9 +1,27 @@
-<h3>Family Documnets</h3><br>
+<!-- eslint-disable @angular-eslint/template/eqeqeq -->
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<!-- eslint-disable @angular-eslint/template/elements-content -->
+<!-- eslint-disable @angular-eslint/template/alt-text -->
 
-<div  class="row">
+    <div class="row">
+
+        <div class="col-6" *ngFor="let item of foldersName">
+            
+            <img _ngcontent-ng-c346306970=""
+                src="https://res.cloudinary.com/hspa2024/image/upload/v1710794987/folder_fnjqpb.png" style="width: 5%;">
+                <a (click)="testIt(item)">{{item}}</a>
+
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+        <br>
     <div class="col-2 mb-3" *ngFor="let photo of allPhotos">
         
-            <img _ngcontent-ng-c346306970="" 
+            <img _ngcontent-ng-c346306970=""
             src="https://res.cloudinary.com/hspa2024/image/upload/c_thumb,h_500,w_800/{{photo.publicId}}.png"
             alt="{{photo.publicId}}"
             class="img-thumbnail" title="{{photo.publicId}}" class="img-thumbnail">
@@ -20,9 +38,8 @@
 
     </div>
 
-    <div *ngFor="let item of this.test" ng2FileDrop [uploader]="uploader" multiple class="card bg-faded p-3 text-center">
+    <div *ngIf="this.thefolder != null" ng2FileDrop [uploader]="uploader" multiple class="card bg-faded p-3 text-center">
         <i class="fa fa-upload fa-2x"></i>
         Drop photo here!
-        {{item}}
     </div>
 </div>

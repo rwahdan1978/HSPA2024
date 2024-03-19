@@ -137,7 +137,13 @@ export class HousingService
 
   listFamilyFolders()
   {
-    return this.http.get(this.baseUrl + '/familydocuments/folders');
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      })
+    };
+
+    return this.http.get(this.baseUrl + '/familydocuments/folders', httpOptions);
   }
   // listFamilyPhoto()
   // {

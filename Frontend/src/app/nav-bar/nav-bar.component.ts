@@ -33,13 +33,6 @@ export class NavBarComponent implements OnInit {
     }, 100);
   }
 
-  onFamilyDocs(){
-    window.open(
-      'http://angular-upload-files-2023-2024.s3-website.ap-south-1.amazonaws.com/',
-      '_self' // <- This is what makes it open in a new window.
-    );
-  }
-
   loggedin()
   {
     this.loggedinUser = localStorage.getItem('userName') || '';
@@ -49,10 +42,11 @@ export class NavBarComponent implements OnInit {
   onlogout()
   {
     localStorage.removeItem('token');
+    localStorage.removeItem('chosenfolder');
     localStorage.removeItem('userName');
     localStorage.removeItem('isAdmin');
     localStorage.removeItem('userId');
-    this.alertify.error("You are logged out!")
+    this.alertify.warning("You are logged out!")
     this.router.navigate(['/']);
   }
 }
