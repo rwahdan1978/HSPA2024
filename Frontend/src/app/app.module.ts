@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -13,6 +14,8 @@ import { NgxFileDropModule } from 'ngx-file-drop';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { DatePipe, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { CommonModule } from "@angular/common";
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from "@angular/material/form-field";
 
 import { AppComponent } from './app.component';
 import { PropertycardComponent } from './property/property-card/property-card..component';
@@ -39,6 +42,9 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { PhotoEditorComponent } from './property/photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { FamilydocsComponent } from './FamilyDocuments/familydocs/familydocs.component';
+import { MatDialogModule  } from '@angular/material/dialog';
+  import { MatDialogRef } from '@angular/material/dialog';
+  import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 const appRoutes: Routes = [
   {path: '', component: PropertyListComponent},
@@ -51,6 +57,11 @@ const appRoutes: Routes = [
   {path: 'user/register', component: UserRegisterComponent},
   {path: '**', component: PropertyListComponent}
 ]
+
+const dialogMock = {
+  close: () => { }
+  };
+
 
 @NgModule({
   
@@ -72,6 +83,10 @@ const appRoutes: Routes = [
    ],
   
   imports: [
+    MatDialogModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatDialogModule,
     CommonModule,
     NgxGalleryModule,
     NgxFileDropModule,
@@ -94,6 +109,9 @@ const appRoutes: Routes = [
   ],
 
   providers: [
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+    { provide: MatDialogRef, useValue: dialogMock },
+    
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptorService,

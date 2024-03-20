@@ -1,0 +1,32 @@
+
+#product_types  
+{
+    color: blue;
+    position: relative;
+}
+
+#product_types button:focus 
+{   
+    color: red; 
+    position: relative;
+}
+
+#thebutton 
+{
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .container {
+    position: relative;
+    text-align: center;
+    color: white;
+  }

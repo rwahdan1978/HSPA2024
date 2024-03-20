@@ -3,10 +3,11 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload';
-import { map, pipe } from 'rxjs';
+import { map } from 'rxjs';
 import { familydocuments } from 'src/app/model/familydocuments';
+import { AlertifyService } from 'src/app/services/alertify.service';
 import { HousingService } from 'src/app/services/housing.service';
 import { environment } from 'src/environments/environment';
 
@@ -15,10 +16,13 @@ import { environment } from 'src/environments/environment';
   templateUrl: './familydocs.component.html',
   styleUrls: ['./familydocs.component.css']
 })
+
 export class FamilydocsComponent implements OnInit {
 
-  constructor(private http: HttpClient, private housingService: HousingService,
-    private route: ActivatedRoute, private router: Router) {}
+  token:any;
+
+  constructor(private http: HttpClient, private housingService: HousingService, private alertify: AlertifyService,
+  private router: Router) {}
 
   allPhotos: familydocuments[] = [];
   @Input() familyDocs: familydocuments[] = [];
@@ -34,15 +38,16 @@ export class FamilydocsComponent implements OnInit {
   foldersName:any;
   foldersPath:any;
   thefolder:any;
+  public folderName: string;
   
   ngOnInit() {
 
-    this.housingService.listFamilyFolders().subscribe(data => {
-      this.test = JSON.stringify(data,["folders","name","path"]);
+    this.token = localStorage.getItem("token");
+
+    this.housingService.listFamilyFolders().subscribe(thedata => {
+      this.test = JSON.stringify(thedata,["folders","name","path"]);
       const test2 = JSON.parse(this.test);
       console.log(test2);
-
-      this.thefolder = localStorage.removeItem("chosenfolder");
 
         this.foldersName = Object.keys(test2.folders)
         .map(function (index) {
@@ -55,10 +60,15 @@ export class FamilydocsComponent implements OnInit {
         });
     });
 
+    this.thefolder = localStorage.getItem("chosenfolder");
+    this.testIt(this.thefolder);
+    this.initializeFileUploader();
+
   }
 
-  testIt(item:any){
-    // here we will check all photos in family photos that belongs to the item and show them.
+  testIt(item:any)
+  {
+
     console.log(item);
     localStorage.setItem('chosenfolder', item);
     this.thefolder = localStorage.getItem("chosenfolder");
@@ -85,12 +95,28 @@ export class FamilydocsComponent implements OnInit {
     console.log(photos);
     this.allPhotos = photos;
     });
+
+    this.initializeFileUploader();
+
+  }
+
+  createFolder()
+  {
+
+    this.folderName = (<HTMLInputElement>document.getElementById("thefoldername")).value;
+    this.housingService.addFolder(this.folderName).subscribe();
+
+    setTimeout(() =>
+        {
+          window.location.reload();
+          this.router.navigate(["familydocuments/list"])
+        }, 3000);
   }
 
   initializeFileUploader()
   {
       this.uploader = new FileUploader({
-        url: this.baseUrl + '/familydocuments/add/photo/',
+        url: this.baseUrl + '/familydocuments/add/photo/' + this.thefolder,
         authToken: 'Bearer ' + localStorage.getItem('token'),
         isHTML5: true,
         removeAfterUpload: true,
@@ -115,19 +141,24 @@ export class FamilydocsComponent implements OnInit {
           setTimeout(()=>
         {
           window.location.reload();
-          //this.router.navigate(["familydocuments"])
+          this.router.navigate(["familydocuments"])
         }, 15000);
       };
   }
 
   deletePhoto(imageId: string)
   {
-    this.housingService.deleteFamilyPhoto(imageId).subscribe();
+    this.housingService.deleteFamilyPhoto(imageId).subscribe(()=> {
+      this.familyDocs = this.familyDocs.filter(p=> 
+        p.imageId !== imageId);
+        //this.router.navigate(["/property-detail/" + String(this.property.id)]);
+        window.location.reload();
+      });
 
-      setTimeout(() =>
-        {
-          window.location.reload();
-          this.router.navigate(["familydocuments"])
-        }, 1000);
+      // setTimeout(() =>
+      //   {
+      //     window.location.reload();
+      //     this.router.navigate(["familydocuments"])
+      //   }, 3000);
   }
 }

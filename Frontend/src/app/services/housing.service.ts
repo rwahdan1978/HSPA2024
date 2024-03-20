@@ -51,6 +51,16 @@ export class HousingService
     return this.http.post(this.baseUrl + "/property/add", property, httpOptions);
   }
 
+  addFolder(folder: string) 
+  {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      })
+    };
+    return this.http.post(this.baseUrl + "/familydocuments/createfolders/" + folder, null,httpOptions);
+  }
+
   newPropID()
   {
     if (localStorage.getItem('PID'))
@@ -120,7 +130,7 @@ export class HousingService
         Authorization: 'Bearer ' + localStorage.getItem('token')
       })
     };
-
+    
     return this.http.delete(this.baseUrl + '/familydocuments/delete-photo/' + imageId, httpOptions)
   }
 

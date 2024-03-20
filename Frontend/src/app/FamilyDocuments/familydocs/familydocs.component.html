@@ -4,37 +4,59 @@
 <!-- eslint-disable @angular-eslint/template/elements-content -->
 <!-- eslint-disable @angular-eslint/template/alt-text -->
 
+    <h3 *ngIf="token">Family Documents</h3>
+    <hr>
+
+    <div *ngIf="token !== null" class="row">
+
+        <div class="col-12">
+            <form>
+                <input id="thefoldername" > &nbsp;
+                <img _ngcontent-ng-c346306970=""
+                src="https://res.cloudinary.com/hspa2024/image/upload/v1710794987/folder_fnjqpb.png" style="width: 3%;">
+                <a (click)="createFolder()" style="color: red;"> Create Folder</a>
+            </form>
+        </div>
+
+        <hr>
+
+        
+    </div>
+    
     <div class="row">
 
-        <div class="col-6" *ngFor="let item of foldersName">
+        <div id="product_types" class="col-2" *ngFor="let item of foldersName">
             
             <img _ngcontent-ng-c346306970=""
-                src="https://res.cloudinary.com/hspa2024/image/upload/v1710794987/folder_fnjqpb.png" style="width: 5%;">
-                <a (click)="testIt(item)">{{item}}</a>
+                src="https://res.cloudinary.com/hspa2024/image/upload/v1710794987/folder_fnjqpb.png" style="width: 15%;">
+                <button id="thebutton" (click)="testIt(item)">{{item}}</button>
 
         </div>
+
+        <hr>
+
     </div>
 
     <br>
 
     <div class="row">
         <br>
-    <div class="col-2 mb-3" *ngFor="let photo of allPhotos">
+    <div class="col-3 mb-8" *ngFor="let photo of allPhotos">
         
             <img _ngcontent-ng-c346306970=""
             src="https://res.cloudinary.com/hspa2024/image/upload/c_thumb,h_500,w_800/{{photo.publicId}}.png"
-            alt="{{photo.publicId}}"
+            alt="{{photo.publicId}}" style="width: 40%;"
             class="img-thumbnail" title="{{photo.publicId}}" class="img-thumbnail">
         
-        <div class="text-center">
+        
             <button class="btn btn-sm btn-danger" title="Delete"
             (click)="deletePhoto(photo.imageId)"><i class="fa-solid fa-trash"></i></button>
-            &nbsp;&nbsp;
+            &nbsp;
             <a href="{{photo.imageUrl}}" download="{{photo.imageUrl}}" target="_blank">
                 <button class="btn btn-sm btn-primary" title="Download"
                 ><i class="fa-solid fa-download"></i></button>
             </a>
-        </div>
+        
 
     </div>
 

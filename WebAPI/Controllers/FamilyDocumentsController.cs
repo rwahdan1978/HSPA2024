@@ -9,6 +9,7 @@ using WebAPI.Models;
 
 namespace WebAPI.Controllers
 {
+    [Authorize]
     public class FamilyDocumentsController : BaseController
     {
         private readonly DataContext dc;
@@ -35,7 +36,7 @@ namespace WebAPI.Controllers
             }
         }
 
-        [Authorize]
+        
         [HttpGet("list/")]
         public async Task<IActionResult> GetAllPhotos()
         {
@@ -44,7 +45,7 @@ namespace WebAPI.Controllers
             return Ok(photoListDTO);
         }
 
-        [Authorize]
+       
         [HttpGet("listwithfoldername/{folder}")]
         public async Task<IActionResult> GetAllPhotos(string folder)
         {
@@ -53,7 +54,7 @@ namespace WebAPI.Controllers
             return Ok(photoListDTO);
         }
 
-        [Authorize]
+        
         [HttpGet("folders/")]
         public string GetFolders()
         {
@@ -63,15 +64,24 @@ namespace WebAPI.Controllers
             return test;
         }
 
+      
+        [HttpPost("createfolders/{folder}")]
+        public string CreateFolder(string folder)
+        {
+            var cloudinary = 
+            new Cloudinary(cloudinaryUrl: "cloudinary://334819583972299:M6mwunz9g3seqhMcP_CGV0HCNvc@hspa2024");
+            var test = cloudinary.CreateFolder(folder).JsonObj.ToString();
+            return test;
+        }
+
         // familyDocuments/add/photo/
-        [HttpPost("add/photo")]
-        [Authorize]
-        public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file)
+        [HttpPost("add/photo/{folder}")]
+        
+        public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file, string folder)
         {
             var thedate = DateTime.Now.ToString("dd_MM_yyyy__HH_mm_ss");
             Random rnd = new Random();
             int num = rnd.Next();
-            var folder = "FamilyDocuments2024";
             var result = await photoService.UploadFamilyDocumentsAsync(file,folder);
 
             if (result.Error != null)
@@ -93,7 +103,7 @@ namespace WebAPI.Controllers
 
         // familyDocuments/delete-photo/imageId/pid
         [HttpDelete("delete-photo/{imageId}")]
-        [Authorize]
+       
         public async Task<IActionResult> DeletePhoto(string imageId)
         {
             var photo = await uow.familyRepository.GetPhotoByIdAsync(imageId);
@@ -106,7 +116,7 @@ namespace WebAPI.Controllers
             if (result.Error != null) 
                 return BadRequest(result.Error.Message);
 
-            var delPhoto = uow.familyRepository.DeletePhoto(imageId);
+            await uow.familyRepository.DeletePhoto(imageId);
 
             if (await uow.SaveAsync()) return Ok();
 
