@@ -9,7 +9,7 @@ import { AlertifyService } from 'src/app/services/alertify.service';
 import { DomSanitizer} from '@angular/platform-browser';
 import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import { filter, first } from 'rxjs';
+import { filter, first, timer } from 'rxjs';
 import { HousingService } from 'src/app/services/housing.service';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import 'hammerjs';
@@ -82,9 +82,9 @@ export class PropertyDetailComponent implements OnInit {
 
     this.token = localStorage.getItem("token");
 
-    console.log(this.token.expired);
+    timer(0, 600000).subscribe(() => { 
 
-    const parseJwt = (this.token);        
+      const parseJwt = (this.token);        
       const decode = JSON.parse(atob(this.token.split('.')[1]));
       console.log(decode);
       if (decode.exp * 1000 < new Date().getTime()) 
@@ -97,6 +97,8 @@ export class PropertyDetailComponent implements OnInit {
         this.router.navigate(["user/login"]);
         this.alertify.error("Session Expired!")
       }
+      
+    });
 
     const savedTabIndex = localStorage.getItem('lastTab');
     this.selectedIndex= savedTabIndex;

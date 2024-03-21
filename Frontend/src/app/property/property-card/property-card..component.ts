@@ -3,6 +3,7 @@ import { IPropertyBase } from 'src/app/model/ipropertybase';
 import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { Router } from '@angular/router';
+import { timer } from 'rxjs';
 
 @Component({
 
@@ -30,9 +31,9 @@ export class PropertycardComponent implements OnInit
 
       this.token = localStorage.getItem("token");
 
-    console.log(this.token.expired);
+    timer(0, 600000).subscribe(() => { 
 
-    const parseJwt = (this.token);        
+      const parseJwt = (this.token);        
       const decode = JSON.parse(atob(this.token.split('.')[1]));
       console.log(decode);
       if (decode.exp * 1000 < new Date().getTime()) 
@@ -45,6 +46,8 @@ export class PropertycardComponent implements OnInit
         this.router.navigate(["user/login"]);
         this.alertify.error("Session Expired!")
       }
+      
+    });
       
         window.matchMedia("(orientation:portrait)").addEventListener("change", (e: MediaQueryListEvent) => { 
             const portrait: boolean = e.matches; 

@@ -6,6 +6,7 @@ import { IPropertyBase } from 'src/app/model/ipropertybase';
 import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
 import { LocationStrategy } from '@angular/common';
 import { AlertifyService } from 'src/app/services/alertify.service';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-property-list',
@@ -54,7 +55,9 @@ export class PropertyListComponent implements OnInit{
 
     console.log(this.token.expired);
 
-    const parseJwt = (this.token);        
+    timer(0, 600000).subscribe(() => { 
+
+      const parseJwt = (this.token);        
       const decode = JSON.parse(atob(this.token.split('.')[1]));
       console.log(decode);
       if (decode.exp * 1000 < new Date().getTime()) 
@@ -67,6 +70,8 @@ export class PropertyListComponent implements OnInit{
         this.router.navigate(["user/login"]);
         this.alertify.error("Session Expired!")
       }
+      
+    });
 
       this.deviveInfo = this.DDS.getDeviceInfo();
 

@@ -10,6 +10,8 @@ import { familydocuments } from 'src/app/model/familydocuments';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { HousingService } from 'src/app/services/housing.service';
 import { environment } from 'src/environments/environment';
+import {timer} from 'rxjs';
+
 
 @Component({
   selector: 'app-familydocs',
@@ -42,11 +44,12 @@ export class FamilydocsComponent implements OnInit {
   
   ngOnInit() {
 
+
     this.token = localStorage.getItem("token");
 
-    console.log(this.token.expired);
+    timer(0, 600000).subscribe(() => { 
 
-    const parseJwt = (this.token);        
+      const parseJwt = (this.token);        
       const decode = JSON.parse(atob(this.token.split('.')[1]));
       console.log(decode);
       if (decode.exp * 1000 < new Date().getTime()) 
@@ -59,6 +62,8 @@ export class FamilydocsComponent implements OnInit {
         this.router.navigate(["user/login"]);
         this.alertify.error("Session Expired!")
       }
+      
+    });
 
     this.housingService.listFamilyFolders().subscribe(thedata => {
       this.test = JSON.stringify(thedata,["folders","name","path"]);

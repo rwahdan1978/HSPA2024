@@ -12,6 +12,8 @@ import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
 import { Ikeyvaluepair } from 'src/app/model/ikeyvaluepair';
 import { DatePipe } from '@angular/common';
 
+import {timer} from 'rxjs';
+
 @Component({
   selector: 'app-add-property',
   templateUrl: './add-property.component.html',
@@ -80,7 +82,9 @@ export class AddPropertyComponent implements OnInit {
 
     this.token = localStorage.getItem("token");
 
-    const parseJwt = (this.token);        
+    timer(0, 600000).subscribe(() => { 
+
+      const parseJwt = (this.token);        
       const decode = JSON.parse(atob(this.token.split('.')[1]));
       console.log(decode);
       if (decode.exp * 1000 < new Date().getTime()) 
@@ -93,6 +97,9 @@ export class AddPropertyComponent implements OnInit {
         this.router.navigate(["user/login"]);
         this.alertify.error("Session Expired!")
       }
+      
+    });
+
 
     if (!localStorage.getItem('token') || localStorage.getItem('isAdmin') === 'false')
     {
