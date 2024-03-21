@@ -35,6 +35,7 @@ export class AddPropertyComponent implements OnInit {
   property = new Property();
   test:any;
   loggedinUser:any;
+  token:any;
   
   // Will come from masters
   propertyTypes: Ikeyvaluepair[]; 
@@ -76,6 +77,22 @@ export class AddPropertyComponent implements OnInit {
 
   ngOnInit() 
   {
+
+    this.token = localStorage.getItem("token");
+
+    const parseJwt = (this.token);        
+      const decode = JSON.parse(atob(this.token.split('.')[1]));
+      console.log(decode);
+      if (decode.exp * 1000 < new Date().getTime()) 
+      {
+        localStorage.removeItem('token');
+        localStorage.removeItem('chosenfolder');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('isAdmin');
+        localStorage.removeItem('userId');
+        this.router.navigate(["user/login"]);
+        this.alertify.error("Session Expired!")
+      }
 
     if (!localStorage.getItem('token') || localStorage.getItem('isAdmin') === 'false')
     {

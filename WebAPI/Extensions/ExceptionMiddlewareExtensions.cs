@@ -35,7 +35,8 @@ namespace WebAPI.Middlewares
                 {
                     statusCode = HttpStatusCode.Forbidden;
                     message = "You are not authorized";
-                } else
+                } 
+                else
                 {
                     statusCode = HttpStatusCode.InternalServerError;
                     message = "Some unknown error occoured";

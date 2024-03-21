@@ -15,7 +15,28 @@ import { environment } from 'src/environments/environment';
 })
 export class PhotoEditorComponent implements OnInit{
 
+  token: any;
+
   ngOnInit(): void {
+
+    this.token = localStorage.getItem("token");
+
+    console.log(this.token.expired);
+
+    const parseJwt = (this.token);        
+      const decode = JSON.parse(atob(this.token.split('.')[1]));
+      console.log(decode);
+      if (decode.exp * 1000 < new Date().getTime()) 
+      {
+        localStorage.removeItem('token');
+        localStorage.removeItem('chosenfolder');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('isAdmin');
+        localStorage.removeItem('userId');
+        this.router.navigate(["user/login"]);
+        this.alertify.error("Session Expired!")
+      }
+      
       this.initializeFileUploader();
 }
 

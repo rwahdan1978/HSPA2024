@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IPropertyBase } from 'src/app/model/ipropertybase';
 import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
+import { AlertifyService } from 'src/app/services/alertify.service';
+import { Router } from '@angular/router';
 
 @Component({
 
@@ -15,13 +17,34 @@ import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
 
 export class PropertycardComponent implements OnInit
 { 
+    token:any;
     deviveInfo: DeviceInfo;
     @Input() property : IPropertyBase;
     @Input() hideIcons: boolean;
 
-    constructor(private DDS: DeviceDetectorService) { }
+    constructor(private DDS: DeviceDetectorService,
+                private alertify: AlertifyService,
+                private router: Router) { }
 
     ngOnInit() {
+
+      this.token = localStorage.getItem("token");
+
+    console.log(this.token.expired);
+
+    const parseJwt = (this.token);        
+      const decode = JSON.parse(atob(this.token.split('.')[1]));
+      console.log(decode);
+      if (decode.exp * 1000 < new Date().getTime()) 
+      {
+        localStorage.removeItem('token');
+        localStorage.removeItem('chosenfolder');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('isAdmin');
+        localStorage.removeItem('userId');
+        this.router.navigate(["user/login"]);
+        this.alertify.error("Session Expired!")
+      }
       
         window.matchMedia("(orientation:portrait)").addEventListener("change", (e: MediaQueryListEvent) => { 
             const portrait: boolean = e.matches; 

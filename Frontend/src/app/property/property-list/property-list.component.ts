@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-inferrable-types */
 import { Component, OnInit } from '@angular/core';
 import { HousingService } from 'src/app/services/housing.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IPropertyBase } from 'src/app/model/ipropertybase';
 import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
 import { LocationStrategy } from '@angular/common';
+import { AlertifyService } from 'src/app/services/alertify.service';
 
 @Component({
   selector: 'app-property-list',
@@ -27,11 +28,14 @@ export class PropertyListComponent implements OnInit{
 
   collection:any = [];
   p:any = 0;
+  token:any;
 
-  constructor(private route: ActivatedRoute, 
+  constructor(private route: ActivatedRoute,
+              private router: Router,
               private housingService: HousingService,
               private DDS: DeviceDetectorService,
-              private location: LocationStrategy) { 
+              private location: LocationStrategy,
+              private alertify: AlertifyService) { 
 
                 history.pushState(null, '', window.location.href);  
                 this.location.onPopState(() => {
@@ -45,6 +49,24 @@ export class PropertyListComponent implements OnInit{
   }
 
   ngOnInit(): void{
+
+    this.token = localStorage.getItem("token");
+
+    console.log(this.token.expired);
+
+    const parseJwt = (this.token);        
+      const decode = JSON.parse(atob(this.token.split('.')[1]));
+      console.log(decode);
+      if (decode.exp * 1000 < new Date().getTime()) 
+      {
+        localStorage.removeItem('token');
+        localStorage.removeItem('chosenfolder');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('isAdmin');
+        localStorage.removeItem('userId');
+        this.router.navigate(["user/login"]);
+        this.alertify.error("Session Expired!")
+      }
 
       this.deviveInfo = this.DDS.getDeviceInfo();
 

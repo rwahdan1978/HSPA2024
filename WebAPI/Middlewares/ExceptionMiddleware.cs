@@ -39,7 +39,7 @@ namespace WebAPI.Middlewares
                 else
                 {
                     statusCode = HttpStatusCode.InternalServerError;
-                    message = "Rami, Some unknown error occured!";
+                    message = "Online, Some unknown error occured!";
                 }
 
                 if(env.IsDevelopment())

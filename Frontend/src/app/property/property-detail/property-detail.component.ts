@@ -80,6 +80,24 @@ export class PropertyDetailComponent implements OnInit {
   ngOnInit() 
   {
 
+    this.token = localStorage.getItem("token");
+
+    console.log(this.token.expired);
+
+    const parseJwt = (this.token);        
+      const decode = JSON.parse(atob(this.token.split('.')[1]));
+      console.log(decode);
+      if (decode.exp * 1000 < new Date().getTime()) 
+      {
+        localStorage.removeItem('token');
+        localStorage.removeItem('chosenfolder');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('isAdmin');
+        localStorage.removeItem('userId');
+        this.router.navigate(["user/login"]);
+        this.alertify.error("Session Expired!")
+      }
+
     const savedTabIndex = localStorage.getItem('lastTab');
     this.selectedIndex= savedTabIndex;
 
@@ -88,7 +106,6 @@ export class PropertyDetailComponent implements OnInit {
     this.deviveInfo = this.DDS.getDeviceInfo();
     this.form.controls['subject'].disable();
     this.form1.controls['subject1'].disable();
-    this.token = localStorage.getItem('token');
     
     this.propertyId = +this.route.snapshot.params['id'];
     this.route.data.subscribe(

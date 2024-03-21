@@ -44,15 +44,21 @@ export class FamilydocsComponent implements OnInit {
 
     this.token = localStorage.getItem("token");
 
-    if (this.token.expired)
-    {  
-      console.log("expired!");
-    }
-    else
-    {
-      console.log("it is ok");
-    }
+    console.log(this.token.expired);
 
+    const parseJwt = (this.token);        
+      const decode = JSON.parse(atob(this.token.split('.')[1]));
+      console.log(decode);
+      if (decode.exp * 1000 < new Date().getTime()) 
+      {
+        localStorage.removeItem('token');
+        localStorage.removeItem('chosenfolder');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('isAdmin');
+        localStorage.removeItem('userId');
+        this.router.navigate(["user/login"]);
+        this.alertify.error("Session Expired!")
+      }
 
     this.housingService.listFamilyFolders().subscribe(thedata => {
       this.test = JSON.stringify(thedata,["folders","name","path"]);
@@ -172,3 +178,4 @@ export class FamilydocsComponent implements OnInit {
       //   }, 3000);
   }
 }
+
