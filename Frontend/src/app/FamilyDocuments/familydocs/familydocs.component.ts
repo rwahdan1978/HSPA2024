@@ -44,6 +44,16 @@ export class FamilydocsComponent implements OnInit {
 
     this.token = localStorage.getItem("token");
 
+    if (this.token.expired)
+    {  
+      console.log("expired!");
+    }
+    else
+    {
+      console.log("it is ok");
+    }
+
+
     this.housingService.listFamilyFolders().subscribe(thedata => {
       this.test = JSON.stringify(thedata,["folders","name","path"]);
       const test2 = JSON.parse(this.test);

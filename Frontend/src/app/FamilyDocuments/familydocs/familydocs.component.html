@@ -4,7 +4,7 @@
 <!-- eslint-disable @angular-eslint/template/elements-content -->
 <!-- eslint-disable @angular-eslint/template/alt-text -->
 
-    <h3 *ngIf="token">Family Documents</h3>
+    <h3 *ngIf="token !== null">Family Documents</h3>
     <hr>
 
     <div *ngIf="token !== null" class="row">
@@ -13,8 +13,8 @@
             <form>
                 <input id="thefoldername" > &nbsp;
                 <img _ngcontent-ng-c346306970=""
-                src="https://res.cloudinary.com/hspa2024/image/upload/v1710794987/folder_fnjqpb.png" style="width: 3%;">
-                <a (click)="createFolder()" style="color: red;"> Create Folder</a>
+                src="https://res.cloudinary.com/hspa2024/image/upload/v1710794987/folder_fnjqpb.png" style="width: 10%;">
+                <a (click)="createFolder()" style="color: red; position: relative; left: -108px; top: 3px"> Create Folder</a>
             </form>
         </div>
 
@@ -28,7 +28,7 @@
         <div id="product_types" class="col-2" *ngFor="let item of foldersName">
             
             <img _ngcontent-ng-c346306970=""
-                src="https://res.cloudinary.com/hspa2024/image/upload/v1710794987/folder_fnjqpb.png" style="width: 15%;">
+                src="https://res.cloudinary.com/hspa2024/image/upload/v1710794987/folder_fnjqpb.png" style="width: 25%;">
                 <button id="thebutton" (click)="testIt(item)">{{item}}</button>
 
         </div>

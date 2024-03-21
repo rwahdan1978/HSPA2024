@@ -8,7 +8,6 @@ import { HousingService } from 'src/app/services/housing.service';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { HttpClient } from '@angular/common/http';
-import {GetVariableService} from '../getVariable.service';
 import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
 import { Ikeyvaluepair } from 'src/app/model/ikeyvaluepair';
 import { DatePipe } from '@angular/common';
@@ -50,7 +49,7 @@ export class AddPropertyComponent implements OnInit {
     propertyType: null as any,
     furnishingType: null as any,
     bhk: null as any,
-    bathroom: null as number,
+    bathroom: 0 as number,
     builtArea: null as any,
     city: '' as any,
     readyToMove: false as boolean,
@@ -63,7 +62,7 @@ export class AddPropertyComponent implements OnInit {
   constructor(
     private datePipe: DatePipe,
     private fb: FormBuilder,
-    private router: Router, private getVariable: GetVariableService,
+    private router: Router,
     private housingService: HousingService,
     private alertify: AlertifyService, private http: HttpClient,
     private DDS: DeviceDetectorService) 
@@ -78,7 +77,7 @@ export class AddPropertyComponent implements OnInit {
   ngOnInit() 
   {
 
-    if (!localStorage.getItem('userName') || localStorage.getItem('isAdmin') === 'false')
+    if (!localStorage.getItem('token') || localStorage.getItem('isAdmin') === 'false')
     {
       this.alertify.error("You must be loggedIn as an Admin to add a peroperty!");
       this.router.navigate(['/user/login']);

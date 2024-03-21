@@ -30,8 +30,6 @@ import { AlertifyService } from './services/alertify.service';
 import { AuthService } from './services/authService';
 import { PropertyDetailResolverService } from './property/property-detail/property-detail-resolver.service';
 import { DemoDirective } from './demo.directive';
-import { UploadComponent } from './upload/upload.component';
-import {GetVariableService} from '../app/property/getVariable.service';
 import { FilterPipe } from './Pipes/filter.pipe';
 import { SortPipe } from './Pipes/sort.pipe';
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -76,7 +74,6 @@ const dialogMock = {
       UserRegisterComponent,
       UserLoginComponent,
       DemoDirective,
-      UploadComponent,
       FilterPipe,
       SortPipe,
       PhotoEditorComponent,
@@ -128,7 +125,6 @@ const dialogMock = {
     AlertifyService,
     AuthService,
     PropertyDetailResolverService,
-    GetVariableService
   ],
 
   bootstrap: [AppComponent]
