@@ -5,8 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { IPropertyBase } from 'src/app/model/ipropertybase';
 import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
 import { LocationStrategy } from '@angular/common';
-import { AlertifyService } from 'src/app/services/alertify.service';
-import { timer } from 'rxjs';
+import { ServiceService } from 'src/app/services/service.service';
 
 @Component({
   selector: 'app-property-list',
@@ -26,17 +25,27 @@ export class PropertyListComponent implements OnInit{
   SortbyParam = '';
   SearchCar = '';
   SortDirection = 'asc';
+  theDisply:any;
 
   collection:any = [];
   p:any = 0;
   token:any;
+  timeLeft:any;
+  minutes:any;
+  seconds:any;
+  interval:any;
+  flag:any;
+  public minutesleft:number = 6;
+  testing:any;
+  display:any;
+  timer:any;
 
   constructor(private route: ActivatedRoute,
-              private router: Router,
               private housingService: HousingService,
               private DDS: DeviceDetectorService,
               private location: LocationStrategy,
-              private alertify: AlertifyService) { 
+              private tokenAuth: ServiceService,
+              private router: Router) { 
 
                 history.pushState(null, '', window.location.href);  
                 this.location.onPopState(() => {
@@ -48,31 +57,17 @@ export class PropertyListComponent implements OnInit{
     }
 
   }
+  
+  ngOnInit(): void
+  {
 
-  ngOnInit(): void{
-
-    this.token = localStorage.getItem("token");
-
-    console.log(this.token.expired);
-
-    timer(0, 600000).subscribe(() => { 
-
-      const parseJwt = (this.token);        
-      const decode = JSON.parse(atob(this.token.split('.')[1]));
-      console.log(decode);
-      if (decode.exp * 1000 < new Date().getTime()) 
-      {
-        localStorage.removeItem('token');
-        localStorage.removeItem('chosenfolder');
-        localStorage.removeItem('userName');
-        localStorage.removeItem('isAdmin');
-        localStorage.removeItem('userId');
-        this.router.navigate(["user/login"]);
-        this.alertify.error("Session Expired!")
-      }
-      
-    });
-
+    if ((localStorage.getItem("theflag") === '2') && (sessionStorage.getItem("userName") !== null)) 
+    { 
+      localStorage.setItem('theflag', '1');
+      location.reload();
+    }
+    
+      this.tokenAuth.TokenAuth();
       this.deviveInfo = this.DDS.getDeviceInfo();
 
       window.matchMedia("(orientation:portrait)").addEventListener("change", (e: MediaQueryListEvent) => { 
@@ -140,3 +135,7 @@ export class PropertyListComponent implements OnInit{
   }
 
 }
+function ionViewWillEnter() {
+  throw new Error('Function not implemented.');
+}
+

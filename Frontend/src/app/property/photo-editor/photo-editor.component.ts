@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, EventEmitter, OnInit,Input, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -17,30 +18,20 @@ import { environment } from 'src/environments/environment';
 export class PhotoEditorComponent implements OnInit{
 
   token: any;
+  public minutesleft: number = 6;
 
   ngOnInit(): void {
 
-    this.token = localStorage.getItem("token");
+    if (!sessionStorage.getItem('foo')) { 
+      sessionStorage.setItem('foo', 'no reload') 
+      window.location.reload() 
+    } else {
+      sessionStorage.removeItem('foo')
+    }
+
+    this.token = sessionStorage.getItem("token");
 
     console.log(this.token.expired);
-
-    timer(0, 600000).subscribe(() => { 
-
-      const parseJwt = (this.token);        
-      const decode = JSON.parse(atob(this.token.split('.')[1]));
-      console.log(decode);
-      if (decode.exp * 1000 < new Date().getTime()) 
-      {
-        localStorage.removeItem('token');
-        localStorage.removeItem('chosenfolder');
-        localStorage.removeItem('userName');
-        localStorage.removeItem('isAdmin');
-        localStorage.removeItem('userId');
-        this.router.navigate(["user/login"]);
-        this.alertify.error("Session Expired!")
-      }
-      
-    });
       
       this.initializeFileUploader();
 }
@@ -60,7 +51,7 @@ export class PhotoEditorComponent implements OnInit{
     
       this.uploader = new FileUploader({
         url: this.baseUrl + '/property/add/photo/' + String(this.property.id),
-        authToken: 'Bearer ' + localStorage.getItem('token'),
+        authToken: 'Bearer ' + sessionStorage.getItem('token'),
         isHTML5: true,
         allowedFileType: ['image'],
         removeAfterUpload: true,

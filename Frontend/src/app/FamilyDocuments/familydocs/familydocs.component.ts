@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 /* eslint-disable @typescript-eslint/no-empty-function */
@@ -10,7 +11,6 @@ import { familydocuments } from 'src/app/model/familydocuments';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { HousingService } from 'src/app/services/housing.service';
 import { environment } from 'src/environments/environment';
-import {timer} from 'rxjs';
 
 
 @Component({
@@ -23,8 +23,8 @@ export class FamilydocsComponent implements OnInit {
 
   token:any;
 
-  constructor(private http: HttpClient, private housingService: HousingService, private alertify: AlertifyService,
-  private router: Router) {}
+  constructor(private http: HttpClient, private housingService: HousingService,
+                                        private router: Router) {}
 
   allPhotos: familydocuments[] = [];
   @Input() familyDocs: familydocuments[] = [];
@@ -41,29 +41,17 @@ export class FamilydocsComponent implements OnInit {
   foldersPath:any;
   thefolder:any;
   public folderName: string;
-  
+
   ngOnInit() {
 
+    if (!sessionStorage.getItem('foo')) { 
+      sessionStorage.setItem('foo', 'no reload') 
+      //location.reload() 
+    } else {
+      sessionStorage.removeItem('foo') 
+    }
 
-    this.token = localStorage.getItem("token");
-
-    timer(0, 600000).subscribe(() => { 
-
-      const parseJwt = (this.token);        
-      const decode = JSON.parse(atob(this.token.split('.')[1]));
-      console.log(decode);
-      if (decode.exp * 1000 < new Date().getTime()) 
-      {
-        localStorage.removeItem('token');
-        localStorage.removeItem('chosenfolder');
-        localStorage.removeItem('userName');
-        localStorage.removeItem('isAdmin');
-        localStorage.removeItem('userId');
-        this.router.navigate(["user/login"]);
-        this.alertify.error("Session Expired!")
-      }
-      
-    });
+    this.token = sessionStorage.getItem("token");
 
     this.housingService.listFamilyFolders().subscribe(thedata => {
       this.test = JSON.stringify(thedata,["folders","name","path"]);
@@ -81,7 +69,7 @@ export class FamilydocsComponent implements OnInit {
         });
     });
 
-    this.thefolder = localStorage.getItem("chosenfolder");
+    this.thefolder = sessionStorage.getItem("chosenfolder");
     this.testIt(this.thefolder);
     this.initializeFileUploader();
 
@@ -91,11 +79,11 @@ export class FamilydocsComponent implements OnInit {
   {
 
     console.log(item);
-    localStorage.setItem('chosenfolder', item);
-    this.thefolder = localStorage.getItem("chosenfolder");
+    sessionStorage.setItem('chosenfolder', item);
+    this.thefolder = sessionStorage.getItem("chosenfolder");
     const httpOptions = {
       headers: new HttpHeaders({
-     Authorization: 'Bearer ' + localStorage.getItem('token')
+     Authorization: 'Bearer ' + sessionStorage.getItem('token')
     })};
 
     const photos:any[] = [];
@@ -138,7 +126,7 @@ export class FamilydocsComponent implements OnInit {
   {
       this.uploader = new FileUploader({
         url: this.baseUrl + '/familydocuments/add/photo/' + this.thefolder,
-        authToken: 'Bearer ' + localStorage.getItem('token'),
+        authToken: 'Bearer ' + sessionStorage.getItem('token'),
         isHTML5: true,
         removeAfterUpload: true,
         autoUpload: true,

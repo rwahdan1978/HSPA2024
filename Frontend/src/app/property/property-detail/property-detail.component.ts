@@ -70,6 +70,7 @@ export class PropertyDetailComponent implements OnInit {
   _activatedRoute: any;
   transactionTabIndex: any;
   loggedinUser: string;
+  public minutesleft:number = 6;
    
   constructor(private route: ActivatedRoute, private alert: AlertifyService, 
               private fb: FormBuilder, private sanitizer: DomSanitizer, 
@@ -80,30 +81,19 @@ export class PropertyDetailComponent implements OnInit {
   ngOnInit() 
   {
 
-    this.token = localStorage.getItem("token");
+    if (!sessionStorage.getItem('foo')) { 
+      sessionStorage.setItem('foo', 'no reload') 
+      window.location.reload() 
+    } else {
+      sessionStorage.removeItem('foo')
+    }
 
-    timer(0, 600000).subscribe(() => { 
+    this.token = sessionStorage.getItem("token");
 
-      const parseJwt = (this.token);        
-      const decode = JSON.parse(atob(this.token.split('.')[1]));
-      console.log(decode);
-      if (decode.exp * 1000 < new Date().getTime()) 
-      {
-        localStorage.removeItem('token');
-        localStorage.removeItem('chosenfolder');
-        localStorage.removeItem('userName');
-        localStorage.removeItem('isAdmin');
-        localStorage.removeItem('userId');
-        this.router.navigate(["user/login"]);
-        this.alertify.error("Session Expired!")
-      }
-      
-    });
-
-    const savedTabIndex = localStorage.getItem('lastTab');
+    const savedTabIndex = sessionStorage.getItem('lastTab');
     this.selectedIndex= savedTabIndex;
 
-    this.loggedinUser = localStorage.getItem('userName') || '';
+    this.loggedinUser = sessionStorage.getItem('userName') || '';
 
     this.deviveInfo = this.DDS.getDeviceInfo();
     this.form.controls['subject'].disable();
@@ -125,13 +115,13 @@ export class PropertyDetailComponent implements OnInit {
         first()
       )
       .subscribe(() => {
-        localStorage.removeItem('lastTab');
+        sessionStorage.removeItem('lastTab');
       });
 
     this.propid = this.propertyId;
     this.propidStr = "nums" + this.propid.toString()
 
-    let data2:any = localStorage.getItem(this.propidStr);
+    let data2:any = sessionStorage.getItem(this.propidStr);
     this.likes = JSON.parse(data2);
 
     setTimeout(() => {
@@ -208,30 +198,30 @@ export class PropertyDetailComponent implements OnInit {
 
   tabChanged(tabChangeEvent: MatTabChangeEvent): void {
 
-    localStorage.removeItem('lastTab');
+    sessionStorage.removeItem('lastTab');
     this.theIndex = tabChangeEvent.index;
-    localStorage.setItem('lastTab', this.theIndex);
+    sessionStorage.setItem('lastTab', this.theIndex);
 
-    if (!localStorage.getItem('userName') && 
-         ((localStorage.getItem('lastTab') === '3') || (localStorage.getItem('lastTab')=== '4')))
+    if (!sessionStorage.getItem('userName') && 
+         ((sessionStorage.getItem('lastTab') === '3') || (sessionStorage.getItem('lastTab')=== '4')))
     {
       this.alert.error("You must be loggedIn as an Admin to add photos!");
-      this.router.navigate(['/user/login']);
+      this.router.navigate(['user/login']);
     }
 
-    if (localStorage.getItem('userName') && 
-         ((localStorage.getItem('lastTab')=== '3') || (localStorage.getItem('lastTab')=== '4'))  
-        && (localStorage.getItem('isAdmin') === 'false'))
+    if (sessionStorage.getItem('userName') && 
+         ((sessionStorage.getItem('lastTab')=== '3') || (sessionStorage.getItem('lastTab')=== '4'))  
+        && (sessionStorage.getItem('isAdmin') === 'false'))
     {
       this.alert.error("You must be loggedIn as an Admin to add photos!");
-      this.router.navigate(['/user/login']);
+      this.router.navigate(['user/login']);
     }
 
-    if ((localStorage.getItem('userId') != this.property.postedBy) && 
-       (localStorage.getItem('lastTab')=== '3'))
+    if ((sessionStorage.getItem('userId') != this.property.postedBy) && 
+       (sessionStorage.getItem('lastTab')=== '3'))
     {
       this.alert.error("You are not authorized to add photos to this property!");
-      this.router.navigate(['/user/login']);
+      this.router.navigate(['user/login']);
     }
 
   }
@@ -242,7 +232,7 @@ export class PropertyDetailComponent implements OnInit {
     
       this.likes += 1;
       let data = element.textContent = this.likes;
-      localStorage.setItem(this.propidStr,JSON.stringify(data));
+      sessionStorage.setItem(this.propidStr,JSON.stringify(data));
       window.location.reload();
     
   }

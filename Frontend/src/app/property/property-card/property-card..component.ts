@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 import { Component, Input, OnInit } from '@angular/core';
 import { IPropertyBase } from 'src/app/model/ipropertybase';
 import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
@@ -19,6 +20,7 @@ import { timer } from 'rxjs';
 export class PropertycardComponent implements OnInit
 { 
     token:any;
+    public minutesleft:number = 6;
     deviveInfo: DeviceInfo;
     @Input() property : IPropertyBase;
     @Input() hideIcons: boolean;
@@ -29,25 +31,14 @@ export class PropertycardComponent implements OnInit
 
     ngOnInit() {
 
-      this.token = localStorage.getItem("token");
-
-    timer(0, 600000).subscribe(() => { 
-
-      const parseJwt = (this.token);        
-      const decode = JSON.parse(atob(this.token.split('.')[1]));
-      console.log(decode);
-      if (decode.exp * 1000 < new Date().getTime()) 
-      {
-        localStorage.removeItem('token');
-        localStorage.removeItem('chosenfolder');
-        localStorage.removeItem('userName');
-        localStorage.removeItem('isAdmin');
-        localStorage.removeItem('userId');
-        this.router.navigate(["user/login"]);
-        this.alertify.error("Session Expired!")
+      if (!sessionStorage.getItem('foo')) { 
+        sessionStorage.setItem('foo', 'no reload') 
+        window.location.reload() 
+      } else {
+        sessionStorage.removeItem('foo')
       }
-      
-    });
+
+      this.token = sessionStorage.getItem("token");
       
         window.matchMedia("(orientation:portrait)").addEventListener("change", (e: MediaQueryListEvent) => { 
             const portrait: boolean = e.matches; 

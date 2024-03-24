@@ -1,17 +1,16 @@
 <!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-
-
 <body>
 
 <nav *ngIf="(deviveInfo.deviceType=== 'mobile' && deviveInfo.orientation=== 'landscape')
               || deviveInfo.deviceType !== 'mobile'" class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
   <div class="container-fluid">
-    <a style="color: blue;" class="navbar-brand" href="/"> All Properties </a>
+    <a style="color: blue;" class="navbar-brand" routerLinkActive="active" routerLink="/"> All Properties </a>
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -20,14 +19,15 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active" routerLink="/buy-property">Buy</a>
+          <a class="nav-link" aria-current="page" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active" routerLink="buy-property">Buy</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" routerLink="/rent-property">Rent</a>
+          <a class="nav-link" routerLinkActive="active" [routerLink]='["/rent-property"]'>Rent</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" routerLink="/add-property">List Property (Admin)</a>
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['/add-property']">Add New Property</a>
         </li>
+        
       </ul>
 
       <div>
@@ -51,12 +51,12 @@
 
           <div *ngIf="loggedin()" class="dropdown" dropdown>
 
-            <a herf="#" class="dropdown-toggle text-light" dropdownToggle (click)="false">
-                Welcome {{ loggedinUser }}
+            <a  class="dropdown-toggle text-light" dropdownToggle (click)="false">
+                Welcome {{ loggedinUser }} 
             </a>
 
             <div class="dropdown-menu" *dropdownMenu>
-              <a *ngIf="loggedinUser === 'rwahdan'" routerLink="familydocuments" class="dropdown-item">
+              <a href="" *ngIf="loggedinUser === 'rwahdan'" routerLink="familydocuments" class="dropdown-item">
                 <i class="fa-solid fa-file"></i>Family Documents</a>
               <a (click)="onlogout()" class="dropdown-item">
                 <i class="fas fa-sign-out-alt"></i>Logout</a>

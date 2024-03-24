@@ -38,14 +38,24 @@ export class UserLoginComponent implements OnInit {
     this.authServive.authUser(loginForm.value).subscribe(
       
       (response: UserForLogin|any) => {
+
+        //  if (!sessionStorage.getItem('foo')) { 
+        //   sessionStorage.setItem('foo', 'no reload') 
+        //   //window.location.reload() 
+        // } else {
+        //   sessionStorage.removeItem('foo')
+        // }
+
         console.log(response);
         const user = response;
-        localStorage.setItem('token', user.token);
-        localStorage.setItem('userName', user.userName);
-        localStorage.setItem('isAdmin', user.isAdmin);
-        localStorage.setItem('userId', user.userId);
+        sessionStorage.setItem('token', user.token);
+        sessionStorage.setItem('userName', user.userName);
+        sessionStorage.setItem('isAdmin', user.isAdmin);
+        sessionStorage.setItem('userId', user.userId);
         this.alertify.success("You have loged-in successfully!");
-        this.router.navigate(['/']);
+        this.router.navigate(["/"]); 
+        //window.location.reload();
+        
       }
   );
   }

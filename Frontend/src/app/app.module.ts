@@ -29,7 +29,6 @@ import { UserLoginComponent } from './user/user-login/user-login.component';
 import { AlertifyService } from './services/alertify.service';
 import { AuthService } from './services/authService';
 import { PropertyDetailResolverService } from './property/property-detail/property-detail-resolver.service';
-import { DemoDirective } from './demo.directive';
 import { FilterPipe } from './Pipes/filter.pipe';
 import { SortPipe } from './Pipes/sort.pipe';
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -54,6 +53,7 @@ const appRoutes: Routes = [
   {path: 'user/login', component: UserLoginComponent},
   {path: 'user/register', component: UserRegisterComponent},
   {path: '**', component: PropertyListComponent}
+  
 ]
 
 const dialogMock = {
@@ -73,7 +73,6 @@ const dialogMock = {
       PropertyDetailComponent,
       UserRegisterComponent,
       UserLoginComponent,
-      DemoDirective,
       FilterPipe,
       SortPipe,
       PhotoEditorComponent,

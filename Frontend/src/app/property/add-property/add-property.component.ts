@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Property } from 'src/app/model/property';
@@ -11,8 +12,6 @@ import { HttpClient } from '@angular/common/http';
 import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
 import { Ikeyvaluepair } from 'src/app/model/ikeyvaluepair';
 import { DatePipe } from '@angular/common';
-
-import {timer} from 'rxjs';
 
 @Component({
   selector: 'app-add-property',
@@ -38,6 +37,7 @@ export class AddPropertyComponent implements OnInit {
   test:any;
   loggedinUser:any;
   token:any;
+  public minutesleft: number = 6;
   
   // Will come from masters
   propertyTypes: Ikeyvaluepair[]; 
@@ -70,9 +70,11 @@ export class AddPropertyComponent implements OnInit {
     private alertify: AlertifyService, private http: HttpClient,
     private DDS: DeviceDetectorService) 
     {
+
       this.datePickerConfig = Object.assign({},{customTodayClass: 'custom-today-class',
       containerClass: 'theme-dark-blue', dateInputFormat: 'DD-MM-YYYY', 
       showWeekNumbers:false,showTodayButton: true
+      
     });
 
     }
@@ -80,31 +82,25 @@ export class AddPropertyComponent implements OnInit {
   ngOnInit() 
   {
 
-    this.token = localStorage.getItem("token");
+    // if (!sessionStorage.getItem('foo')) { 
+    //   sessionStorage.setItem('foo', 'no reload') 
+    //   //window.location.reload() 
+    // } else {
+    //   sessionStorage.removeItem('foo')
+    // }
+    
+    this.token = sessionStorage.getItem("token");
 
-    timer(0, 600000).subscribe(() => { 
+    // if (!sessionStorage.getItem('token'))
+    // {
+    //   this.alertify.error("You must be loggedIn as an Admin to add a peroperty!");
+    //   this.router.navigate(['user/login']);
+    // }
 
-      const parseJwt = (this.token);        
-      const decode = JSON.parse(atob(this.token.split('.')[1]));
-      console.log(decode);
-      if (decode.exp * 1000 < new Date().getTime()) 
-      {
-        localStorage.removeItem('token');
-        localStorage.removeItem('chosenfolder');
-        localStorage.removeItem('userName');
-        localStorage.removeItem('isAdmin');
-        localStorage.removeItem('userId');
-        this.router.navigate(["user/login"]);
-        this.alertify.error("Session Expired!")
-      }
-      
-    });
-
-
-    if (!localStorage.getItem('token') || localStorage.getItem('isAdmin') === 'false')
+    if (!sessionStorage.getItem('token') || sessionStorage.getItem('isAdmin') === 'false')
     {
       this.alertify.error("You must be loggedIn as an Admin to add a peroperty!");
-      this.router.navigate(['/user/login']);
+      this.router.navigate(['user/login']);
     }
 
     this.housingService.getAllCities().subscribe(data => {
@@ -119,14 +115,14 @@ export class AddPropertyComponent implements OnInit {
       this.furnishTypes = data;
     });
 
-      window.matchMedia("(orientation:portrait)").addEventListener("change", (e: MediaQueryListEvent) => { 
-        const portrait: boolean = e.matches; 
-        if (portrait) { 
-          location.reload(); 
-        } else { 
-          location.reload(); 
-        } 
-      });
+      // window.matchMedia("(orientation:portrait)").addEventListener("change", (e: MediaQueryListEvent) => { 
+      //   const portrait: boolean = e.matches; 
+      //   if (portrait) { 
+      //     location.reload(); 
+      //   } else { 
+      //     location.reload(); 
+      //   } 
+      // });
 
     this.housingService.getAllCities().subscribe(data => {
       this.cityList = data;
@@ -134,7 +130,7 @@ export class AddPropertyComponent implements OnInit {
     });
 
     this.deviveInfo = this.DDS.getDeviceInfo();
-    this.loggedinUser = localStorage.getItem('userName') || '';
+    this.loggedinUser = sessionStorage.getItem('userName') || '';
 
     this.myDateValue = new Date();
     const thesave = document.getElementById("saveIT");
@@ -353,9 +349,9 @@ export class AddPropertyComponent implements OnInit {
   //#endregion
 //#endregion
 
-  onBack() {
-    this.router.navigate(['/']);
-  }
+  // onBack() {
+  //   this.router.navigate(['/']);
+  // }
 
   onSubmit() {
     // add a way to create a folder
@@ -375,7 +371,7 @@ export class AddPropertyComponent implements OnInit {
             {
               this.test = "ok";
               this.alertify.success('Congrats, your property listed successfully on our website');
-              this.router.navigate(['/rent-property']);
+              this.router.navigate(['rent-property']);
             }, 12000);
             
           } else { 
@@ -383,7 +379,7 @@ export class AddPropertyComponent implements OnInit {
             {
               this.test = "ok";
               this.alertify.success('Congrats, your property listed successfully on our website');
-              this.router.navigate(['/buy-property']);
+              this.router.navigate(['buy-property']);
             }, 12000);
             
           }

@@ -82,7 +82,7 @@ namespace WebAPI.Controllers
 
             var tokenDescriptor = new SecurityTokenDescriptor{
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddMinutes(10),
+                Expires = DateTime.UtcNow.AddMinutes(8),
                 SigningCredentials = signingCredentials
             };
 

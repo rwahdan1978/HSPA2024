@@ -45,7 +45,7 @@ export class HousingService
   {
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + localStorage.getItem('token')
+        Authorization: 'Bearer ' + sessionStorage.getItem('token')
       })
     };
     return this.http.post(this.baseUrl + "/property/add", property, httpOptions);
@@ -55,7 +55,7 @@ export class HousingService
   {
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + localStorage.getItem('token')
+        Authorization: 'Bearer ' + sessionStorage.getItem('token')
       })
     };
     return this.http.post(this.baseUrl + "/familydocuments/createfolders/" + folder, null,httpOptions);
@@ -63,14 +63,14 @@ export class HousingService
 
   newPropID()
   {
-    if (localStorage.getItem('PID'))
+    if (sessionStorage.getItem('PID'))
       {
-        localStorage.setItem('PID', String(+localStorage.getItem('PID') + 1));
-        return +localStorage.getItem('PID');
+        sessionStorage.setItem('PID', String(+sessionStorage.getItem('PID') + 1));
+        return +sessionStorage.getItem('PID');
       }
       else
       {
-        localStorage.setItem('PID', '101');
+        sessionStorage.setItem('PID', '101');
         return 101;
       }
   }
@@ -105,7 +105,7 @@ export class HousingService
   {
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + localStorage.getItem('token')
+        Authorization: 'Bearer ' + sessionStorage.getItem('token')
       })
     };
 
@@ -116,7 +116,7 @@ export class HousingService
   {
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + localStorage.getItem('token')
+        Authorization: 'Bearer ' + sessionStorage.getItem('token')
       })
     };
 
@@ -127,7 +127,7 @@ export class HousingService
   {
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + localStorage.getItem('token')
+        Authorization: 'Bearer ' + sessionStorage.getItem('token')
       })
     };
     
@@ -138,7 +138,7 @@ export class HousingService
   {
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + localStorage.getItem('token')
+        Authorization: 'Bearer ' + sessionStorage.getItem('token')
       })
     };
 
@@ -149,7 +149,7 @@ export class HousingService
   {
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + localStorage.getItem('token')
+        Authorization: 'Bearer ' + sessionStorage.getItem('token')
       })
     };
 
@@ -159,7 +159,7 @@ export class HousingService
   // {
   //   const httpOptions = {
   //     headers: new HttpHeaders({
-  //       Authorization: 'Bearer ' + localStorage.getItem('token')
+  //       Authorization: 'Bearer ' + sessionStorage.getItem('token')
   //     })
   //   };
 
