@@ -14,6 +14,13 @@ export class NavBarComponent implements OnInit {
   public today = Date.now();
   loggedinUser: string;
   display: any;
+  token:any;
+  minute:any;
+  seconds:any;
+  textSec:any;
+  statSec:any;
+  prefix:any;
+  timer:any;
 
   constructor(private alertify: AlertifyService, private router: Router, 
     private DDS: DeviceDetectorService) {}
@@ -22,17 +29,33 @@ export class NavBarComponent implements OnInit {
 
     this.deviveInfo = this.DDS.getDeviceInfo();
 
-    // window.matchMedia("(orientation:portrait)").addEventListener("change", (e: MediaQueryListEvent) => { 
-    //   const portrait: boolean = e.matches; 
-    //   if (portrait) { 
-    //     location.reload(); 
-    //   } else { 
-    //     location.reload(); 
-    //   } 
-    // });
-    // setInterval(() => {
-    //   this.today = Date.now();
-    // }, 100);
+    this.token = sessionStorage.getItem("token");
+ 
+    this.minute = 10;
+    this.seconds = this.minute * 60;
+    this.textSec = "0";
+    this.statSec = 60;
+    
+   this.prefix = this.minute < 10 ? "0" : "";
+ 
+   this.timer = setInterval(() => {
+ 
+   this.seconds--;
+   if (this.statSec != 0) this.statSec--;
+   else this.statSec = 59;
+ 
+   if (this.statSec < 10) {
+     this.textSec = "0" + this.statSec;
+   } else this.textSec = this.statSec.toString();
+ 
+   this.display = `${this.prefix}${Math.floor(this.seconds / 60)}:${this.textSec}`;
+ 
+   if (this.seconds == 0) {
+     console.log("finished");
+     clearInterval(this.timer);
+   }
+   }, 1000);
+   
   }
 
   ClearAllIntervals() 
@@ -50,12 +73,7 @@ export class NavBarComponent implements OnInit {
 
   onlogout()
   {
-    // if (!sessionStorage.getItem('foo')) { 
-    //   sessionStorage.setItem('foo', 'no reload') 
-    //   window.location.reload() 
-    // } else {
-    //   sessionStorage.removeItem('foo')
-    // }
+    
     localStorage.setItem('theflag', '2')
     this.ClearAllIntervals();
     sessionStorage.removeItem('token');

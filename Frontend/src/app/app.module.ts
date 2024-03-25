@@ -43,7 +43,8 @@ import { MatDialogModule  } from '@angular/material/dialog';
   import { MatDialogRef } from '@angular/material/dialog';
   import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-const appRoutes: Routes = [
+
+  const appRoutes: Routes = [
   {path: '', component: PropertyListComponent},
   {path: 'familydocuments', component: FamilydocsComponent},
   {path: 'buy-property', component: PropertyListComponent},
@@ -128,4 +129,4 @@ const dialogMock = {
 
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

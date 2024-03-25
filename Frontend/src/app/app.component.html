@@ -1,9 +1,5 @@
 <!-- eslint-disable @angular-eslint/template/eqeqeq -->
 <app-nav-bar></app-nav-bar>
 <div class="container" style="margin-top: 70px;">
-    
-    <router-outlet>
-        <h3 *ngIf="token != null">Session Active: {{display}}</h3>
-        <h3 *ngIf="token == null">No Active Sessions</h3>
-    </router-outlet>
+    <router-outlet></router-outlet>
 </div>

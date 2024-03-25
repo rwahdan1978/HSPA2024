@@ -21,13 +21,7 @@ import { DatePipe } from '@angular/common';
 export class AddPropertyComponent implements OnInit {
 
   deviveInfo: DeviceInfo;
-  // mall: any;
-  // fastFood: any;
-  // zoo:any;
-  // beach:any;
-  // school:any;
-  // mosque:any;
-
+ 
   @ViewChild('formTabs') formTabs: TabsetComponent;
   datePickerConfig: Partial<BsDatepickerConfig>;
   addPropertyForm: FormGroup;
@@ -81,53 +75,38 @@ export class AddPropertyComponent implements OnInit {
 
   ngOnInit() 
   {
-
-    // if (!sessionStorage.getItem('foo')) { 
-    //   sessionStorage.setItem('foo', 'no reload') 
-    //   //window.location.reload() 
-    // } else {
-    //   sessionStorage.removeItem('foo')
-    // }
     
     this.token = sessionStorage.getItem("token");
-
-    // if (!sessionStorage.getItem('token'))
-    // {
-    //   this.alertify.error("You must be loggedIn as an Admin to add a peroperty!");
-    //   this.router.navigate(['user/login']);
-    // }
 
     if (!sessionStorage.getItem('token') || sessionStorage.getItem('isAdmin') === 'false')
     {
       this.alertify.error("You must be loggedIn as an Admin to add a peroperty!");
       this.router.navigate(['user/login']);
     }
-
-    this.housingService.getAllCities().subscribe(data => {
-      this.cityList = data;
-    });
-
-    this.housingService.getPropertyTypes().subscribe(data => {
-      this.propertyTypes = data;
-    });
-
-    this.housingService.getFurnishingTypes().subscribe(data => {
-      this.furnishTypes = data;
-    });
-
-      // window.matchMedia("(orientation:portrait)").addEventListener("change", (e: MediaQueryListEvent) => { 
-      //   const portrait: boolean = e.matches; 
-      //   if (portrait) { 
-      //     location.reload(); 
-      //   } else { 
-      //     location.reload(); 
-      //   } 
-      // });
-
-    this.housingService.getAllCities().subscribe(data => {
-      this.cityList = data;
-      console.log(data);
-    });
+    else
+    {
+      this.housingService.getAllCities().subscribe(data => {
+        this.cityList = data;
+      });
+  
+      this.housingService.getPropertyTypes().subscribe(data => {
+        this.propertyTypes = data;
+      });
+  
+      this.housingService.getFurnishingTypes().subscribe(data => {
+        this.furnishTypes = data;
+      });
+  
+    }
+    
+      window.matchMedia("(orientation:portrait)").addEventListener("change", (e: MediaQueryListEvent) => { 
+        const portrait: boolean = e.matches; 
+        if (portrait) { 
+          location.reload(); 
+        } else { 
+          location.reload(); 
+        } 
+      });
 
     this.deviveInfo = this.DDS.getDeviceInfo();
     this.loggedinUser = sessionStorage.getItem('userName') || '';
@@ -177,12 +156,6 @@ export class AddPropertyComponent implements OnInit {
         Gated: [false],
         MainEntrance: [null],
         Description: [null],
-        // mall:[null],
-        // fastFood:[null],
-        // zoo:[null],
-        // beach:[null],
-        // school:[null],
-        // mosque:[null]
       }),
 
       sellerInfo: this.fb.group({
@@ -195,7 +168,6 @@ export class AddPropertyComponent implements OnInit {
       })
 
       });
-      
   }
 
 //#region <Getter Methods>
@@ -318,10 +290,6 @@ export class AddPropertyComponent implements OnInit {
          return this.OtherInfo.controls['Description'] as FormControl;
        }
 
-      // get Interests() {
-      //   return this.OtherInfo.controls['Interests'] as FormControl;
-      // }
-
       get ContactCompany() {
         return this.sellerInfo.controls['ContactCompany'] as FormControl;
       }
@@ -349,9 +317,9 @@ export class AddPropertyComponent implements OnInit {
   //#endregion
 //#endregion
 
-  // onBack() {
-  //   this.router.navigate(['/']);
-  // }
+  onBack() {
+    this.router.navigate(['/']);
+  }
 
   onSubmit() {
     // add a way to create a folder
@@ -427,38 +395,7 @@ export class AddPropertyComponent implements OnInit {
     this.property.contactNumber2 = this.ContactNumber2.value;
     this.property.contactEmail = this.ContactEmail.value;
     
-    // this.property.mall = this.mall;
-    // this.property.zoo = this.zoo;
-    // this.property.fastFood = this.fastFood;
-    // this.property.beach = this.beach;
-    // this.property.school = this.school;
-    // this.property.mosque = this.mosque;
-    
   }
-
-  // checkCheckBoxvalue1(event:any){
-  //   this.mall = event.checked;
-  // }
-
-  // checkCheckBoxvalue2(event:any){
-  //   this.zoo = event.checked;
-  // }
-
-  // checkCheckBoxvalue3(event:any){
-  //   this.fastFood = event.checked;
-  // }
-
-  // checkCheckBoxvalue4(event:any){
-  //   this.beach = event.checked;
-  // }
-
-  // checkCheckBoxvalue5(event:any){
-  //   this.school = event.checked;
-  // }
-
-  // checkCheckBoxvalue6(event:any){
-  //   this.mosque = event.checked;
-  // }
 
   allTabsValid(): boolean {
     if (this.BasicInfo.invalid) {

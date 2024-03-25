@@ -6,6 +6,7 @@ import { IPropertyBase } from 'src/app/model/ipropertybase';
 import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
 import { LocationStrategy } from '@angular/common';
 import { ServiceService } from 'src/app/services/service.service';
+import { Ikeyvaluepair } from 'src/app/model/ikeyvaluepair';
 
 @Component({
   selector: 'app-property-list',

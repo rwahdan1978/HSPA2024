@@ -24,9 +24,6 @@
         <li class="nav-item">
           <a class="nav-link" routerLinkActive="active" [routerLink]='["/rent-property"]'>Rent</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" [routerLink]="['/add-property']">Add New Property</a>
-        </li>
         
       </ul>
 
@@ -52,14 +49,17 @@
           <div *ngIf="loggedin()" class="dropdown" dropdown>
 
             <a  class="dropdown-toggle text-light" dropdownToggle (click)="false">
-                Welcome {{ loggedinUser }} 
+                Welcome {{ loggedinUser }}  - {{display}}
             </a>
 
             <div class="dropdown-menu" *dropdownMenu>
-              <a href="" *ngIf="loggedinUser === 'rwahdan'" routerLink="familydocuments" class="dropdown-item">
+              <a *ngIf="loggedinUser === 'rwahdan'" routerLink="familydocuments" class="dropdown-item">
                 <i class="fa-solid fa-file"></i>Family Documents</a>
+                <a *ngIf="loggedinUser === 'rwahdan'" routerLink="add-property" class="dropdown-item">
+                  <i class="fas fa-house"></i>Add New Property</a>
               <a (click)="onlogout()" class="dropdown-item">
                 <i class="fas fa-sign-out-alt"></i>Logout</a>
+              
             </div>
 
           </div>
