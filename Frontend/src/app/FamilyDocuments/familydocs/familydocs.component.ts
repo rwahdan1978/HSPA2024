@@ -44,13 +44,7 @@ export class FamilydocsComponent implements OnInit {
 
   ngOnInit() {
 
-    if (!sessionStorage.getItem('foo')) { 
-      sessionStorage.setItem('foo', 'no reload') 
-      //location.reload() 
-    } else {
-      sessionStorage.removeItem('foo') 
-    }
-
+   
     this.token = sessionStorage.getItem("token");
 
     this.housingService.listFamilyFolders().subscribe(thedata => {
@@ -147,11 +141,11 @@ export class FamilydocsComponent implements OnInit {
               this.allPhotos.push(photos);
           }
 
-          setTimeout(()=>
-        {
-          window.location.reload();
-          this.router.navigate(["familydocuments"])
-        }, 15000);
+        // setTimeout(()=>
+        // {
+        //   window.location.reload();
+        //   this.router.navigate(["familydocuments"])
+        // }, 15000);
       };
   }
 
@@ -160,15 +154,13 @@ export class FamilydocsComponent implements OnInit {
     this.housingService.deleteFamilyPhoto(imageId).subscribe(()=> {
       this.familyDocs = this.familyDocs.filter(p=> 
         p.imageId !== imageId);
-        //this.router.navigate(["/property-detail/" + String(this.property.id)]);
         window.location.reload();
       });
 
-      // setTimeout(() =>
-      //   {
-      //     window.location.reload();
-      //     this.router.navigate(["familydocuments"])
-      //   }, 3000);
+      setTimeout(() =>
+        {
+          window.location.reload();
+        }, 3000);
   }
 }
 

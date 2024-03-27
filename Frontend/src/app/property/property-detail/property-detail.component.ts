@@ -81,12 +81,7 @@ export class PropertyDetailComponent implements OnInit {
   ngOnInit() 
   {
 
-    if (!sessionStorage.getItem('foo')) { 
-      sessionStorage.setItem('foo', 'no reload') 
-      window.location.reload() 
-    } else {
-      sessionStorage.removeItem('foo')
-    }
+   
 
     this.token = sessionStorage.getItem("token");
 
@@ -243,7 +238,7 @@ export class PropertyDetailComponent implements OnInit {
     setTimeout(()=>
         {
           this.alert.success("property deleted!");
-          this.router.navigate(["familydocuments"]);
+          this.router.navigate(["/"]);
         }, 5000);
   }
 

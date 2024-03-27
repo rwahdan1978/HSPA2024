@@ -8,13 +8,14 @@ import { AlertifyService } from './alertify.service';
 export class ServiceService {
 
   display:any;
+  minutesleft:any;
 
 constructor(private router: Router, private alertify: AlertifyService) { }
 
   TokenAuth()
   {
     const token = sessionStorage.getItem("token");
-    let minutesleft = 8;
+    this.minutesleft = 8;
   
     setInterval (() => { 
   
@@ -33,16 +34,14 @@ constructor(private router: Router, private alertify: AlertifyService) { }
         }
         else
         {
-          minutesleft = minutesleft - 2;
-          if (minutesleft != 2)
-          {
-            this.alertify.warning("Session will expire in " + minutesleft + " minutes");
-          }
-          else if (minutesleft == 2)
-          {
-            this.alertify.warning("Final warning, session will expire in " + minutesleft + " minutes");
-          }
+          this.minutesleft = this.minutesleft - 2;
         }
+
+          if (this.minutesleft === 2)
+          {
+            this.alertify.warning("!!!WARNING!!!, Session will expire in " + this.minutesleft + " minutes");
+          }
+          
         
       }, 120000);
   }

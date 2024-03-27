@@ -1,6 +1,7 @@
+/* eslint-disable no-useless-escape */
 /* eslint-disable @typescript-eslint/no-inferrable-types */
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { Property } from 'src/app/model/property';
 import {FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { TabsetComponent } from 'ngx-bootstrap/tabs/public_api';
@@ -12,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
 import { Ikeyvaluepair } from 'src/app/model/ikeyvaluepair';
 import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-add-property',
@@ -32,6 +34,15 @@ export class AddPropertyComponent implements OnInit {
   loggedinUser:any;
   token:any;
   public minutesleft: number = 6;
+  count =0;
+  minute:any;
+  seconds:any;
+  textSec:any;
+  statSec: any;
+  prefix:any;
+  timer:any;
+  display:any;
+
   
   // Will come from masters
   propertyTypes: Ikeyvaluepair[]; 
@@ -75,6 +86,20 @@ export class AddPropertyComponent implements OnInit {
 
   ngOnInit() 
   {
+
+          this.deviveInfo = this.DDS.getDeviceInfo();
+
+          
+
+      // window.addEventListener("beforeunload", function (e) {
+      //   const confirmationMessage = "ok?";
+      //   e.returnValue = confirmationMessage;
+      //   return false;
+      // });
+
+      // window.addEventListener("unload", function (e) {
+      //   return false;
+      // });
     
     this.token = sessionStorage.getItem("token");
 
@@ -168,6 +193,7 @@ export class AddPropertyComponent implements OnInit {
       })
 
       });
+
   }
 
 //#region <Getter Methods>
@@ -197,7 +223,7 @@ export class AddPropertyComponent implements OnInit {
 
       get ProjectName() {
         return this.BasicInfo.controls['ProjectName'] as FormControl;
-  }
+      }
       get SellRent() {
         return this.BasicInfo.controls['SellRent'] as FormControl;
       }

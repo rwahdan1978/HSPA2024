@@ -31,12 +31,7 @@ export class PropertycardComponent implements OnInit
 
     ngOnInit() {
 
-      if (!sessionStorage.getItem('foo')) { 
-        sessionStorage.setItem('foo', 'no reload') 
-        window.location.reload() 
-      } else {
-        sessionStorage.removeItem('foo')
-      }
+     
 
       this.token = sessionStorage.getItem("token");
       

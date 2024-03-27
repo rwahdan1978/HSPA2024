@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-inferrable-types */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input, HostListener, OnDestroy } from '@angular/core';
 import { HousingService } from 'src/app/services/housing.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IPropertyBase } from 'src/app/model/ipropertybase';
 import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
 import { LocationStrategy } from '@angular/common';
 import { ServiceService } from 'src/app/services/service.service';
-import { Ikeyvaluepair } from 'src/app/model/ikeyvaluepair';
+import { AlertifyService } from 'src/app/services/alertify.service';
 
 @Component({
   selector: 'app-property-list',
@@ -31,43 +31,81 @@ export class PropertyListComponent implements OnInit{
   collection:any = [];
   p:any = 0;
   token:any;
-  timeLeft:any;
-  minutes:any;
-  seconds:any;
-  interval:any;
-  flag:any;
   public minutesleft:number = 6;
   testing:any;
   display:any;
   timer:any;
+  context:any;
+  minute:any;
+  seconds:any;
+  textSec:any;
+  statSec:any;
+  prefix:any;
+
 
   constructor(private route: ActivatedRoute,
               private housingService: HousingService,
               private DDS: DeviceDetectorService,
               private location: LocationStrategy,
               private tokenAuth: ServiceService,
-              private router: Router) { 
+              private alertify:AlertifyService) 
+              { 
 
                 history.pushState(null, '', window.location.href);  
                 this.location.onPopState(() => {
                 history.pushState(null, '', window.location.href);
-              });  
+                });  
 
-    for (let i:number = 0; i<=1000; i++){
-      this.collection.push(i as never);
-    }
+                for (let i:number = 0; i<=1000; i++){
+                  this.collection.push(i as never);
+                }
 
-  }
-  
+              }
+
   ngOnInit(): void
   {
 
-    if ((localStorage.getItem("theflag") === '2') && (sessionStorage.getItem("userName") !== null)) 
-    { 
-      localStorage.setItem('theflag', '1');
-      location.reload();
-    }
+    // this.minute = 8;
     
+    // this.seconds = this.minute * 60;
+    // this.textSec = "0";
+    // this.statSec = 60;
+    
+    //   this.prefix = this.minute < 10 ? "0" : "";
+    
+    //   this.timer = setInterval(() => {
+    
+    //   this.seconds--;
+    //   if (this.statSec != 0) this.statSec--;
+    //   else this.statSec = 59;
+    
+    //   if (this.statSec < 10) {
+    //     this.textSec = "0" + this.statSec;
+    //   } else this.textSec = this.statSec.toString();
+    
+    //   this.display = `${this.prefix}${Math.floor(this.seconds / 60)}:${this.textSec}`;
+
+    //   localStorage.setItem("display", this.display);
+    
+    //   if (this.seconds == 0) {
+    //     console.log("finished");
+    //     clearInterval(this.timer);
+    //     this.alertify.error("Session Ended!");
+    //   }
+    //   }, 1000);
+
+    if ((localStorage.getItem("theflag") === "2") && (sessionStorage.getItem("userName")))
+    {
+      localStorage.setItem("theflag","1");
+      window.location.reload();
+    }
+
+    // this will do the trick to change the value of theflag on exit!
+    this.context = this;
+    window.addEventListener("beforeunload", function (e) {
+        this.localStorage.setItem("theflag","2");
+    });
+
       this.tokenAuth.TokenAuth();
       this.deviveInfo = this.DDS.getDeviceInfo();
 
@@ -100,7 +138,7 @@ export class PropertyListComponent implements OnInit{
       {
         this.housingService.getAllProperties1().subscribe(
           data=> {
-                this.properties = data;
+                this.properties = data; 
           }, error => {
             console.log(error);
           }
@@ -135,8 +173,10 @@ export class PropertyListComponent implements OnInit{
     }
   }
 
-}
-function ionViewWillEnter() {
-  throw new Error('Function not implemented.');
+  changeLocalStorage()
+  {
+    localStorage.setItem("theflag","2");
+  }
+
 }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { AlertifyService } from '../services/alertify.service';
 import { Router } from '@angular/router';
 import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
@@ -13,9 +13,9 @@ export class NavBarComponent implements OnInit {
   deviveInfo: DeviceInfo;
   public today = Date.now();
   loggedinUser: string;
-  display: any;
+  display = "";
   token:any;
-  minute:any;
+  minute =0;
   seconds:any;
   textSec:any;
   statSec:any;
@@ -30,31 +30,6 @@ export class NavBarComponent implements OnInit {
     this.deviveInfo = this.DDS.getDeviceInfo();
 
     this.token = sessionStorage.getItem("token");
- 
-    this.minute = 10;
-    this.seconds = this.minute * 60;
-    this.textSec = "0";
-    this.statSec = 60;
-    
-   this.prefix = this.minute < 10 ? "0" : "";
- 
-   this.timer = setInterval(() => {
- 
-   this.seconds--;
-   if (this.statSec != 0) this.statSec--;
-   else this.statSec = 59;
- 
-   if (this.statSec < 10) {
-     this.textSec = "0" + this.statSec;
-   } else this.textSec = this.statSec.toString();
- 
-   this.display = `${this.prefix}${Math.floor(this.seconds / 60)}:${this.textSec}`;
- 
-   if (this.seconds == 0) {
-     console.log("finished");
-     clearInterval(this.timer);
-   }
-   }, 1000);
    
   }
 
@@ -73,7 +48,7 @@ export class NavBarComponent implements OnInit {
 
   onlogout()
   {
-    
+    clearInterval(this.timer);
     localStorage.setItem('theflag', '2')
     this.ClearAllIntervals();
     sessionStorage.removeItem('token');

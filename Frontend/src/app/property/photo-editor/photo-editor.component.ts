@@ -22,12 +22,7 @@ export class PhotoEditorComponent implements OnInit{
 
   ngOnInit(): void {
 
-    if (!sessionStorage.getItem('foo')) { 
-      sessionStorage.setItem('foo', 'no reload') 
-      window.location.reload() 
-    } else {
-      sessionStorage.removeItem('foo')
-    }
+   
 
     this.token = sessionStorage.getItem("token");
 

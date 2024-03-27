@@ -39,12 +39,7 @@ export class UserLoginComponent implements OnInit {
       
       (response: UserForLogin|any) => {
 
-        //  if (!sessionStorage.getItem('foo')) { 
-        //   sessionStorage.setItem('foo', 'no reload') 
-        //   //window.location.reload() 
-        // } else {
-        //   sessionStorage.removeItem('foo')
-        // }
+       
 
         console.log(response);
         const user = response;
