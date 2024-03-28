@@ -15,6 +15,9 @@ import { AlertifyService } from "./services/alertify.service";
 
 export class AppComponent implements OnInit
 {
+
+  constructor(private alertify: AlertifyService) {}
+
   title = 'my-first-app'; 
   token = sessionStorage.getItem("token");
 
@@ -40,7 +43,7 @@ export class AppComponent implements OnInit
           sessionStorage.removeItem('userName');
           sessionStorage.removeItem('isAdmin');
           sessionStorage.removeItem('userId');
-          alert("user is idle for long time, you have been logged out!");
+          this.alertify.error("You have not shown any activity for 2 minutes, Session Expired!")
         }
         else
         {

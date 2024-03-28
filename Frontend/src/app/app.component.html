@@ -1,13 +1,10 @@
 <!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- (mousemove) = "onUserAction()"-->
 <!-- eslint-disable @angular-eslint/template/eqeqeq -->
 <app-nav-bar></app-nav-bar>
 <div class="container" style="margin-top: 70px;"
-
-    (mousemove) = "onUserAction()"
     (click) = "onUserAction()"
-    (keypress) = "onUserAction()"
-    
-    >
+    (keypress) = "onUserAction()">
 
     <!-- <h3>Session Time: {{display}}</h3> -->
     <router-outlet></router-outlet>

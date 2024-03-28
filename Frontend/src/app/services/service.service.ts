@@ -18,7 +18,7 @@ constructor(private router: Router, private alertify: AlertifyService) { }
   TokenAuth()
   {
     const token = sessionStorage.getItem("token");
-    this.minutesleft = 8;
+    this.minutesleft = 10;
   
     setInterval (() => { 
   
