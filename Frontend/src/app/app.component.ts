@@ -13,30 +13,41 @@ import { AlertifyService } from "./services/alertify.service";
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent implements OnInit, OnDestroy
+export class AppComponent implements OnInit
 {
   title = 'my-first-app'; 
+  token = sessionStorage.getItem("token");
 
   idelService = inject(IdleService);
   private idelSubscription?: Subscription;
 
   ngOnInit(): void
   {
-    this.idelSubscription = this.idelService.getIdleState().subscribe((isIdel:any) => 
+
+    if (this.token !== null)
     {
-      if (isIdel)
+
+      this.idelSubscription = this.idelService.getIdleState().subscribe((isIdel:any) => 
       {
-        alert("user is idle!");
-      }
-    }); 
-  }
+        if (isIdel)
+        {
+          this.idelSubscription.unsubscribe();
+          localStorage.setItem('theflag', '2')
+          sessionStorage.removeItem('token');
+          sessionStorage.removeItem('tokenexpiry');
+          localStorage.removeItem('display');
+          sessionStorage.removeItem('chosenfolder');
+          sessionStorage.removeItem('userName');
+          sessionStorage.removeItem('isAdmin');
+          sessionStorage.removeItem('userId');
+          alert("user is idle for long time, you have been logged out!");
+        }
+        else
+        {
+          console.log("active");
+        }
+      }); 
 
-  ngOnDestroy(): void 
-  {
-
-    if (this.idelSubscription)
-    {
-      this.idelSubscription.unsubscribe();
     }
     
   }
