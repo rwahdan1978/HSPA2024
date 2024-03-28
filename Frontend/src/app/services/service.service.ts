@@ -9,13 +9,16 @@ export class ServiceService {
 
   display:any;
   minutesleft:any;
+  token:any;
+  yourTokenTimer:any;
+  myToken: any;
 
 constructor(private router: Router, private alertify: AlertifyService) { }
 
   TokenAuth()
   {
     const token = sessionStorage.getItem("token");
-    this.minutesleft = 8;
+    this.minutesleft = 4;
   
     setInterval (() => { 
   

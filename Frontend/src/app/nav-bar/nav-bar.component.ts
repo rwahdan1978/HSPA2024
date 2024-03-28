@@ -52,6 +52,8 @@ export class NavBarComponent implements OnInit {
     localStorage.setItem('theflag', '2')
     this.ClearAllIntervals();
     sessionStorage.removeItem('token');
+    sessionStorage.removeItem('tokenexpiry');
+    localStorage.removeItem('display');
     sessionStorage.removeItem('chosenfolder');
     sessionStorage.removeItem('userName');
     sessionStorage.removeItem('isAdmin');

@@ -77,7 +77,7 @@
 
 <div class="row" *ngIf="(deviveInfo.deviceType=== 'mobile' && deviveInfo.orientation=== 'landscape') || deviveInfo.deviceType !== 'mobile'">
     <div *ngFor="let property of properties|filter:SearchCity:SearchCar|sort:[SortbyParam,SortDirection]| paginate:{ itemsPerPage: 4,
-      currentPage: p}"class="col-sm-6">
+      currentPage: p}"class="col-sm-4">
       <div class="shadow-lg p-3 mb-4">
         <app-property-card [property]="property"></app-property-card>
       </div>

@@ -295,6 +295,7 @@
           <br>
 
           <div class="card-footer">
+            <img *ngIf="mainPhotoUrl" src={{mainPhotoUrl}} title="{{property.projectName}} - {{property.villaNumber}}" style="width: 50%; margin-left: 160px;"><br><br>
             <div class="btn-group d-flex">
               <button class="btn btn-danger" (click)="delProperty(property.id)">Delete Property {{property.id}}</button>
             </div>

@@ -65,35 +65,6 @@ export class PropertyListComponent implements OnInit{
   ngOnInit(): void
   {
 
-    // this.minute = 8;
-    
-    // this.seconds = this.minute * 60;
-    // this.textSec = "0";
-    // this.statSec = 60;
-    
-    //   this.prefix = this.minute < 10 ? "0" : "";
-    
-    //   this.timer = setInterval(() => {
-    
-    //   this.seconds--;
-    //   if (this.statSec != 0) this.statSec--;
-    //   else this.statSec = 59;
-    
-    //   if (this.statSec < 10) {
-    //     this.textSec = "0" + this.statSec;
-    //   } else this.textSec = this.statSec.toString();
-    
-    //   this.display = `${this.prefix}${Math.floor(this.seconds / 60)}:${this.textSec}`;
-
-    //   localStorage.setItem("display", this.display);
-    
-    //   if (this.seconds == 0) {
-    //     console.log("finished");
-    //     clearInterval(this.timer);
-    //     this.alertify.error("Session Ended!");
-    //   }
-    //   }, 1000);
-
     if ((localStorage.getItem("theflag") === "2") && (sessionStorage.getItem("userName")))
     {
       localStorage.setItem("theflag","1");
@@ -107,6 +78,7 @@ export class PropertyListComponent implements OnInit{
     });
 
       this.tokenAuth.TokenAuth();
+      
       this.deviveInfo = this.DDS.getDeviceInfo();
 
       window.matchMedia("(orientation:portrait)").addEventListener("change", (e: MediaQueryListEvent) => { 

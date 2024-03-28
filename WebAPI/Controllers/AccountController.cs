@@ -1,6 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using WebAPI.Dtos;
@@ -8,6 +9,7 @@ using WebAPI.Errors;
 using WebAPI.Extensions;
 using WebAPI.Interfaces;
 using WebAPI.Models;
+using WebAPI.Services;
 
 namespace WebAPI.Controllers
 {
@@ -82,7 +84,7 @@ namespace WebAPI.Controllers
 
             var tokenDescriptor = new SecurityTokenDescriptor{
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddMinutes(8),
+                Expires = DateTime.UtcNow.AddMinutes(4),
                 SigningCredentials = signingCredentials
             };
 
