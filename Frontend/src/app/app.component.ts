@@ -6,6 +6,7 @@ import { Component, Inject, OnDestroy, OnInit, inject } from "@angular/core";
 import { IdleService } from './services/Idle.service'
 import { Subscription } from "rxjs";
 import { AlertifyService } from "./services/alertify.service";
+import { HousingService } from "./services/housing.service";
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,7 @@ import { AlertifyService } from "./services/alertify.service";
 export class AppComponent implements OnInit
 {
 
-  constructor(private alertify: AlertifyService) {}
+  constructor(private alertify: AlertifyService, private housingService: HousingService) {}
 
   title = 'my-first-app'; 
   token = sessionStorage.getItem("token");
@@ -45,10 +46,13 @@ export class AppComponent implements OnInit
           sessionStorage.removeItem('userId');
           this.alertify.error("You have not shown any activity for 2 minutes, Session Expired!")
         }
-        else
-        {
-          console.log("active");
-        }
+        // else
+        // {
+        //     this.housingService.getNewToken().subscribe( res => {
+        //       const token = JSON.stringify(res);
+        //       console.log(token);
+        //     });
+        // }
       }); 
 
     }

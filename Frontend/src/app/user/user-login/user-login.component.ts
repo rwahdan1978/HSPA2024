@@ -41,15 +41,13 @@ export class UserLoginComponent implements OnInit {
       (response: UserForLogin|any) => {
 
         const user = response;
-        const token = user.token;
-        const myToken = jwtDecode(token);
-        sessionStorage.setItem('token', user.token);
-        sessionStorage.setItem('tokenexpiry', JSON.stringify(jwtDecode(token).exp));
+        const token = user.accessToken;
+        sessionStorage.setItem('token', token);
         sessionStorage.setItem('userName', user.userName);
         sessionStorage.setItem('isAdmin', user.isAdmin);
         sessionStorage.setItem('userId', user.userId);
         this.alertify.success("You have loged-in successfully!");
-        console.log(myToken);
+        //console.log(myToken);
         this.router.navigate(["/"]); 
         //window.location.reload();
         

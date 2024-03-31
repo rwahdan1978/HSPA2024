@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Property } from '../model/property';
 import { environment } from '../../environments/environment';
 import { Ikeyvaluepair } from '../model/ikeyvaluepair';
+import { UserLoginComponent } from '../user/user-login/user-login.component';
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +51,17 @@ export class HousingService
     };
     return this.http.post(this.baseUrl + "/property/add", property, httpOptions);
   }
+
+  // getNewToken()
+  // {
+  // const httpOptions = {
+  //   headers: new HttpHeaders({
+  //     Authorization: 'Bearer ' + sessionStorage.getItem("token")
+  //   })
+  // };
+
+  // return this.http.post(this.baseUrl + "/account/refreshtoken/", httpOptions);
+  // }
 
   addFolder(folder: string) 
   {

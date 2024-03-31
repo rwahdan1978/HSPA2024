@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertifyService } from './alertify.service';
+import { HousingService } from './housing.service';
+import { UserForLogin } from '../model/user';
 
 @Injectable({
   providedIn: 'root'
@@ -13,18 +15,18 @@ export class ServiceService {
   yourTokenTimer:any;
   myToken: any;
 
-constructor(private router: Router, private alertify: AlertifyService) { }
+constructor(private router: Router, private alertify: AlertifyService,
+            private housingService: HousingService) { }
 
   TokenAuth()
   {
     const token = sessionStorage.getItem("token");
-    this.minutesleft = 10;
+    this.minutesleft = 4;
   
     setInterval (() => { 
   
         const parseJwt = (token);        
         const decode = JSON.parse(atob(token.split('.')[1]));
-        console.log(decode);
         if (decode.exp * 1000 < new Date().getTime()) 
         {
           sessionStorage.removeItem('token');
@@ -42,6 +44,8 @@ constructor(private router: Router, private alertify: AlertifyService) { }
 
           if (this.minutesleft === 2)
           {
+            
+            // replace the alert to renew the token from api            
             this.alertify.warning("!!!WARNING!!!, Session will expire in " + this.minutesleft + " minutes");
           }
           
