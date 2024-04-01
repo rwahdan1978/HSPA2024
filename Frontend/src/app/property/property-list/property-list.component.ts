@@ -6,7 +6,8 @@ import { IPropertyBase } from 'src/app/model/ipropertybase';
 import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
 import { LocationStrategy } from '@angular/common';
 import { ServiceService } from 'src/app/services/service.service';
-import { AlertifyService } from 'src/app/services/alertify.service';
+import { AuthService } from 'src/app/services/authService';
+import { TokenApiModel } from 'src/app/model/token.api.model';
 
 @Component({
   selector: 'app-property-list',
@@ -41,14 +42,15 @@ export class PropertyListComponent implements OnInit{
   textSec:any;
   statSec:any;
   prefix:any;
-
+  access:any;
+  refresh:any;
 
   constructor(private route: ActivatedRoute,
               private housingService: HousingService,
               private DDS: DeviceDetectorService,
               private location: LocationStrategy,
               private tokenAuth: ServiceService,
-              private alertify:AlertifyService) 
+              private auth:AuthService) 
               { 
 
                 history.pushState(null, '', window.location.href);  
@@ -78,7 +80,6 @@ export class PropertyListComponent implements OnInit{
     });
 
       this.tokenAuth.TokenAuth();
-      
       this.deviveInfo = this.DDS.getDeviceInfo();
 
       window.matchMedia("(orientation:portrait)").addEventListener("change", (e: MediaQueryListEvent) => { 

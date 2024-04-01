@@ -4,6 +4,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using WebAPI.Data;
 using WebAPI.Dtos;
@@ -28,42 +29,27 @@ namespace WebAPI.Controllers
             this.configuration = configuration;
         }
 
-        //need to work on this! it is getting new token
-        [HttpPost("refreshtoken")]
-        [Authorize] // unauthorized users won't get here without token
-        public IActionResult getRefreshToken()
-        {
-            // var claim = HttpContext.User.Claims.First(c => c.Type == "Name");
-            // var user = claim.Value;
-            var user = User.Identity.Name;
-            var myToken = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
-            var principal = GetPrincipalFromExpiredToken(myToken).ToString();
-             
-            return Ok(principal.ToString());
-        }
-
-         private ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
-        {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("AppSettings:Key").Value));
+        //  private ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
+        // {
+        //     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("AppSettings:Key").Value));
             
-            var tokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                        ValidateIssuer = false,
-                        ValidateAudience = false,
-                        IssuerSigningKey = key,
-                        ValidateLifetime = false
-            };
+        //     var tokenValidationParameters = new TokenValidationParameters
+        //     {
+        //         ValidateIssuerSigningKey = true,
+        //                 ValidateIssuer = false,
+        //                 ValidateAudience = false,
+        //                 IssuerSigningKey = key
+        //     };
 
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken securityToken);
+        //     var tokenHandler = new JwtSecurityTokenHandler();
+        //     var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken securityToken);
             
-            if (securityToken is not JwtSecurityToken jwtSecurityToken || 
-            !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256Signature, StringComparison.CurrentCultureIgnoreCase))
-                throw new SecurityTokenException("Invalid token");
+        //     if (securityToken is not JwtSecurityToken jwtSecurityToken || 
+        //     !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.CurrentCultureIgnoreCase))
+        //         throw new SecurityTokenException("Invalid token");
 
-            return principal;
-        }
+        //     return principal;
+        // }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginReqDto loginReq)
@@ -83,9 +69,10 @@ namespace WebAPI.Controllers
             loginRes.UserName = user.Username;
             loginRes.Token = CreateJWT(user);
             loginRes.AccessToken = loginRes.Token;
-            loginRes.RefreshToken = CreateRefreshToken(); 
-            user.RefreshToken = loginRes.RefreshToken;
-            await dataContext.SaveChangesAsync();
+            // loginRes.RefreshToken = CreateRefreshToken(); 
+            // user.RefreshToken = loginRes.RefreshToken;
+            // user.RefreshTokenExpiryTime = DateTime.Now.AddMinutes(1);
+            // await dataContext.SaveChangesAsync();
             loginRes.IsAdmin = user.IsAdmin;
             loginRes.UserId = user.Id;
             return Ok(loginRes);
@@ -120,8 +107,8 @@ namespace WebAPI.Controllers
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
 
             var claims = new Claim[] {
-                new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+                new(ClaimTypes.Name, user.Username),
+                new(ClaimTypes.NameIdentifier, user.Id.ToString())
             };
 
             var signingCredentials = new SigningCredentials(
@@ -129,7 +116,7 @@ namespace WebAPI.Controllers
 
             var tokenDescriptor = new SecurityTokenDescriptor{
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddMinutes(10),
+                Expires = DateTime.Now.AddMinutes(15),
                 SigningCredentials = signingCredentials
             };
 
@@ -139,20 +126,50 @@ namespace WebAPI.Controllers
             return tokenHandler.WriteToken(token);
         }
 
-        private string CreateRefreshToken()
-        {
-            var tokenBytes = RandomNumberGenerator.GetBytes(64);
-            var refreshToken = Convert.ToBase64String(tokenBytes);
+        // private string CreateRefreshToken()
+        // {
+        //     var tokenBytes = RandomNumberGenerator.GetBytes(64);
+        //     var refreshToken = Convert.ToBase64String(tokenBytes);
 
-            var tokenInUser = dataContext.users
-            .Any(a => a.RefreshToken == refreshToken);
+        //     var tokenInUser = dataContext.users
+        //     .Any(a => a.RefreshToken == refreshToken);
 
-            if (tokenInUser)
-            {
-                return CreateRefreshToken();
-            }
-            return refreshToken;
-        }
+        //     if (tokenInUser)
+        //     {
+        //         return CreateRefreshToken();
+        //     }
+        //     return refreshToken;
+        // }
+
+        //  [AllowAnonymous]
+        // [HttpPost("refresh")]
+        // public async Task<IActionResult> Refresh(LoginResDto loginResDto)
+        // {
+        //     if (loginResDto is null)
+        //         return BadRequest("Invalid Client Request!");
+        //     string accessToken = loginResDto.AccessToken;
+        //     string refreshToken = loginResDto.RefreshToken;
+        //     var principal = GetPrincipalFromExpiredToken(accessToken);
+        //     var userName = principal.Identity.Name;
+        //     var user = await dataContext.users.FirstOrDefaultAsync(u => u.Username == userName);
+
+        //     if (user is null || user.RefreshToken != refreshToken || user.RefreshTokenExpiryTime <= DateTime.Now)
+        //         return BadRequest("Invalid Request!");
+            
+        //     var newAccessToken = CreateJWT(user);
+        //     var newRefrshToken = CreateRefreshToken();
+        //     loginResDto.AccessToken = newAccessToken;
+        //     loginResDto.Token = newAccessToken;
+        //     loginResDto.RefreshToken = newRefrshToken;
+        //     user.RefreshToken = newRefrshToken;
+        //     await dataContext.SaveChangesAsync();
+        //     return Ok(new LoginResDto()
+        //         {
+        //             Token = newAccessToken,
+        //             AccessToken = newAccessToken,
+        //             RefreshToken = newRefrshToken
+        //         });
+        // }
 
     }
 }

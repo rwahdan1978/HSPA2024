@@ -29,7 +29,7 @@ export class NavBarComponent implements OnInit {
 
     this.deviveInfo = this.DDS.getDeviceInfo();
 
-    this.token = sessionStorage.getItem("token");
+    this.token = sessionStorage.getItem("accessToken");
    
   }
 
@@ -51,7 +51,8 @@ export class NavBarComponent implements OnInit {
     clearInterval(this.timer);
     localStorage.setItem('theflag', '2')
     this.ClearAllIntervals();
-    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('refreshToken');
+    sessionStorage.removeItem('accessToken');
     sessionStorage.removeItem('tokenexpiry');
     localStorage.removeItem('display');
     sessionStorage.removeItem('chosenfolder');

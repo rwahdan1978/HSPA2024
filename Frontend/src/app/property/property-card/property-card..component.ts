@@ -33,7 +33,7 @@ export class PropertycardComponent implements OnInit
 
      
 
-      this.token = sessionStorage.getItem("token");
+      this.token = sessionStorage.getItem("accessToken");
       
         window.matchMedia("(orientation:portrait)").addEventListener("change", (e: MediaQueryListEvent) => { 
             const portrait: boolean = e.matches; 

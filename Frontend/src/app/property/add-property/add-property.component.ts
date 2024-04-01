@@ -87,23 +87,11 @@ export class AddPropertyComponent implements OnInit {
   ngOnInit() 
   {
 
-          this.deviveInfo = this.DDS.getDeviceInfo();
-
-          
-
-      // window.addEventListener("beforeunload", function (e) {
-      //   const confirmationMessage = "ok?";
-      //   e.returnValue = confirmationMessage;
-      //   return false;
-      // });
-
-      // window.addEventListener("unload", function (e) {
-      //   return false;
-      // });
+    this.deviveInfo = this.DDS.getDeviceInfo();
     
-    this.token = sessionStorage.getItem("token");
+    this.token = sessionStorage.getItem("accessToken");
 
-    if (!sessionStorage.getItem('token') || sessionStorage.getItem('isAdmin') === 'false')
+    if (!sessionStorage.getItem('accessToken') || sessionStorage.getItem('isAdmin') === 'false')
     {
       this.alertify.error("You must be loggedIn as an Admin to add a peroperty!");
       this.router.navigate(['user/login']);

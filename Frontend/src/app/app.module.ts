@@ -34,14 +34,16 @@ import { SortPipe } from './Pipes/sort.pipe';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { NgxPaginationModule } from 'ngx-pagination'; 
 import {MatTabsModule} from '@angular/material/tabs';
-import { HttpErrorInterceptorService } from './services/httperor-interceptor.service';
+// import { HttpErrorInterceptorService } from './services/httperor-interceptor.service';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { PhotoEditorComponent } from './property/photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { FamilydocsComponent } from './FamilyDocuments/familydocs/familydocs.component';
 import { MatDialogModule  } from '@angular/material/dialog';
-  import { MatDialogRef } from '@angular/material/dialog';
-  import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { HttpErrorInterceptorService } from './services/httperor-interceptor.service';
+// import { TokenInterceptor } from '../../src/app/services/token.interceptor'
 
 
   const appRoutes: Routes = [
@@ -114,6 +116,13 @@ const dialogMock = {
       useClass: HttpErrorInterceptorService,
       multi: true
     },
+
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: TokenInterceptor,
+    //   multi: true
+    // },
+
     DatePipe,
     {provide: LocationStrategy, useClass: HashLocationStrategy},
 

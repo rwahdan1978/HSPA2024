@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { Property } from '../model/property';
 import { environment } from '../../environments/environment';
 import { Ikeyvaluepair } from '../model/ikeyvaluepair';
-import { UserLoginComponent } from '../user/user-login/user-login.component';
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +45,7 @@ export class HousingService
   {
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+        Authorization: 'Bearer ' + sessionStorage.getItem('accessToken')
       })
     };
     return this.http.post(this.baseUrl + "/property/add", property, httpOptions);
@@ -67,7 +66,7 @@ export class HousingService
   {
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+        Authorization: 'Bearer ' + sessionStorage.getItem('accessToken')
       })
     };
     return this.http.post(this.baseUrl + "/familydocuments/createfolders/" + folder, null,httpOptions);
@@ -117,7 +116,7 @@ export class HousingService
   {
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+        Authorization: 'Bearer ' + sessionStorage.getItem('accessToken')
       })
     };
 
@@ -128,7 +127,7 @@ export class HousingService
   {
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+        Authorization: 'Bearer ' + sessionStorage.getItem('accessToken')
       })
     };
 
@@ -139,7 +138,7 @@ export class HousingService
   {
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+        Authorization: 'Bearer ' + sessionStorage.getItem('accessToken')
       })
     };
     
@@ -150,7 +149,7 @@ export class HousingService
   {
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+        Authorization: 'Bearer ' + sessionStorage.getItem('accessToken')
       })
     };
 
@@ -161,21 +160,11 @@ export class HousingService
   {
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+        Authorization: 'Bearer ' + sessionStorage.getItem('accessToken')
       })
     };
 
     return this.http.get(this.baseUrl + '/familydocuments/folders', httpOptions);
   }
-  // listFamilyPhoto()
-  // {
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({
-  //       Authorization: 'Bearer ' + sessionStorage.getItem('token')
-  //     })
-  //   };
-
-  //   return this.http.get(this.baseUrl + '/familydocuments/list/', httpOptions)
-  // }
 
 }

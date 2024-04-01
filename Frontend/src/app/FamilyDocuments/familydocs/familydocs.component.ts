@@ -8,7 +8,6 @@ import {  Router } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload';
 import { map } from 'rxjs';
 import { familydocuments } from 'src/app/model/familydocuments';
-import { AlertifyService } from 'src/app/services/alertify.service';
 import { HousingService } from 'src/app/services/housing.service';
 import { environment } from 'src/environments/environment';
 
@@ -45,7 +44,7 @@ export class FamilydocsComponent implements OnInit {
   ngOnInit() {
 
    
-    this.token = sessionStorage.getItem("token");
+    this.token = sessionStorage.getItem("accessToken");
 
     this.housingService.listFamilyFolders().subscribe(thedata => {
       this.test = JSON.stringify(thedata,["folders","name","path"]);
@@ -64,9 +63,11 @@ export class FamilydocsComponent implements OnInit {
     });
 
     this.thefolder = sessionStorage.getItem("chosenfolder");
-    this.testIt(this.thefolder);
-    this.initializeFileUploader();
-
+    if (this.thefolder != null)
+    {
+      this.testIt(this.thefolder);
+      this.initializeFileUploader();
+    }
   }
 
   testIt(item:any)
@@ -77,7 +78,7 @@ export class FamilydocsComponent implements OnInit {
     this.thefolder = sessionStorage.getItem("chosenfolder");
     const httpOptions = {
       headers: new HttpHeaders({
-     Authorization: 'Bearer ' + sessionStorage.getItem('token')
+     Authorization: 'Bearer ' + sessionStorage.getItem('accessToken')
     })};
 
     const photos:any[] = [];
@@ -112,7 +113,7 @@ export class FamilydocsComponent implements OnInit {
     setTimeout(() =>
         {
           window.location.reload();
-          this.router.navigate(["familydocuments/list"])
+          //this.router.navigate(["familydocuments/list"])
         }, 3000);
   }
 

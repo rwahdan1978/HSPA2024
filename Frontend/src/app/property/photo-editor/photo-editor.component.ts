@@ -22,9 +22,8 @@ export class PhotoEditorComponent implements OnInit{
 
   ngOnInit(): void {
 
-   
 
-    this.token = sessionStorage.getItem("token");
+    this.token = sessionStorage.getItem("accessToken");
 
     console.log(this.token.expired);
       
@@ -46,7 +45,7 @@ export class PhotoEditorComponent implements OnInit{
     
       this.uploader = new FileUploader({
         url: this.baseUrl + '/property/add/photo/' + String(this.property.id),
-        authToken: 'Bearer ' + sessionStorage.getItem('token'),
+        authToken: 'Bearer ' + sessionStorage.getItem('accessToken'),
         isHTML5: true,
         allowedFileType: ['image'],
         removeAfterUpload: true,

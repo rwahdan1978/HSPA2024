@@ -41,8 +41,10 @@ export class UserLoginComponent implements OnInit {
       (response: UserForLogin|any) => {
 
         const user = response;
-        const token = user.accessToken;
-        sessionStorage.setItem('token', token);
+        const accesstoken = user.accessToken;
+        // const refreshtoken = user.refreshToken;
+        // sessionStorage.setItem('refreshToken', refreshtoken);
+        sessionStorage.setItem('accessToken', accesstoken);
         sessionStorage.setItem('userName', user.userName);
         sessionStorage.setItem('isAdmin', user.isAdmin);
         sessionStorage.setItem('userId', user.userId);

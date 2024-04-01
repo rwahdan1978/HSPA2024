@@ -11,5 +11,6 @@ export interface UserForLogin {
     userId: number;
     userName: string;
     password: string;
-    token: string;
+    acessToken:string;
+    refreshToken:string;
 }

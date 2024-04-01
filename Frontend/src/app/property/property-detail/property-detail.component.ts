@@ -83,7 +83,7 @@ export class PropertyDetailComponent implements OnInit {
 
    
 
-    this.token = sessionStorage.getItem("token");
+    this.token = sessionStorage.getItem("accessToken");
 
     const savedTabIndex = sessionStorage.getItem('lastTab');
     this.selectedIndex= savedTabIndex;
