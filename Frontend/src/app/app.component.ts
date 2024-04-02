@@ -8,6 +8,10 @@ import { Subscription } from "rxjs";
 import { AlertifyService } from "./services/alertify.service";
 import { HousingService } from "./services/housing.service";
 import { AuthService } from "./services/authService";
+import { CountdownConfig, CountdownEvent } from 'ngx-countdown';
+
+const KEY = 'time'
+const DEFAULT = 900
 
 @Component({
   selector: 'app-root',
@@ -17,6 +21,10 @@ import { AuthService } from "./services/authService";
 
 export class AppComponent implements OnInit
 {
+
+  token:any;
+  //notify 1 not to display in localstorage and 0 to display!
+  config: CountdownConfig = {leftTime: DEFAULT, notify: 0}
 
   constructor(private alertify: AlertifyService, private housingService: HousingService,
               private auth: AuthService) {}
@@ -29,6 +37,19 @@ export class AppComponent implements OnInit
 
   ngOnInit(): void
   {
+    this.token = sessionStorage.getItem("accessToken");
+    if (this.token !== null)
+    {
+      const KEY = 'time'
+      const DEFAULT = 900
+      let value = +localStorage.getItem(KEY) ?? DEFAULT;
+      if (value <= 0) value = DEFAULT
+      this.config = {...this.config, leftTime: value }
+    }
+    else{
+      localStorage.removeItem("time");
+    }
+
 
     if (this.myToken !== null)
     {
@@ -55,6 +76,14 @@ export class AppComponent implements OnInit
 
     }
     
+  }
+
+  handleEvent(ev: CountdownEvent) {
+    console.log(ev)
+    if (ev.action === 'notify') {
+      // Save current value
+      localStorage.setItem(KEY, `${ev.left / 1000}`);
+    }
   }
 
   onUserAction()

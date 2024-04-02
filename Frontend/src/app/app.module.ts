@@ -16,6 +16,7 @@ import { DatePipe, HashLocationStrategy, LocationStrategy } from '@angular/commo
 import { CommonModule } from "@angular/common";
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { CountdownModule } from 'ngx-countdown';
 
 import { AppComponent } from './app.component';
 import { PropertycardComponent } from './property/property-card/property-card..component';
@@ -43,6 +44,7 @@ import { MatDialogModule  } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HttpErrorInterceptorService } from './services/httperor-interceptor.service';
+import { timer } from 'rxjs';
 // import { TokenInterceptor } from '../../src/app/services/token.interceptor'
 
 
@@ -77,11 +79,14 @@ const dialogMock = {
       UserRegisterComponent,
       UserLoginComponent,
       FilterPipe,
+      
       SortPipe,
       PhotoEditorComponent,
    ],
   
   imports: [
+    BrowserModule, 
+    CountdownModule,
     MatDialogModule,
     MatInputModule,
     MatFormFieldModule,

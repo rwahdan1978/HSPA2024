@@ -55,6 +55,7 @@ export class NavBarComponent implements OnInit {
     sessionStorage.removeItem('accessToken');
     sessionStorage.removeItem('tokenexpiry');
     localStorage.removeItem('display');
+    localStorage.removeItem('time');
     sessionStorage.removeItem('chosenfolder');
     sessionStorage.removeItem('userName');
     sessionStorage.removeItem('isAdmin');

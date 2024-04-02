@@ -18,8 +18,8 @@ export class TokenInterceptor implements HttpInterceptor {
 
   constructor(private auth: AuthService, private toast: NgToastService, private router: Router) {}
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
-    const myToken = this.auth.getToken();
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const myToken = this.auth.getToken()
     console.log("token is ok...")
 
     // this.start.load();

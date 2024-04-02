@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Injectable } from '@angular/core';
-import { getTime } from 'ngx-bootstrap/chronos/utils/date-getters';
 import {Subject, Observable, interval, Subscription } from 'rxjs';
 import { throttle } from 'rxjs/operators';
 

@@ -121,7 +121,7 @@ export class FamilydocsComponent implements OnInit {
   {
       this.uploader = new FileUploader({
         url: this.baseUrl + '/familydocuments/add/photo/' + this.thefolder,
-        authToken: 'Bearer ' + sessionStorage.getItem('token'),
+        authToken: 'Bearer ' + sessionStorage.getItem('accessToken'),
         isHTML5: true,
         removeAfterUpload: true,
         autoUpload: true,
@@ -142,11 +142,11 @@ export class FamilydocsComponent implements OnInit {
               this.allPhotos.push(photos);
           }
 
-        // setTimeout(()=>
-        // {
-        //   window.location.reload();
-        //   this.router.navigate(["familydocuments"])
-        // }, 15000);
+        setTimeout(()=>
+        {
+          window.location.reload();
+          this.router.navigate(["familydocuments"])
+        }, 15000);
       };
   }
 
