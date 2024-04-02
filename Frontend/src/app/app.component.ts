@@ -45,7 +45,7 @@ export class AppComponent implements OnInit
           sessionStorage.removeItem('userName');
           sessionStorage.removeItem('isAdmin');
           sessionStorage.removeItem('userId');
-          this.alertify.error("You have not shown any activity for 2 minutes, Session Expired!")
+          this.alertify.error("You have not shown any activity for 3 minutes, Session Expired!")
         }
         else
         {
