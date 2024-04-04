@@ -37,8 +37,12 @@ constructor(private router: Router, private alertify: AlertifyService,
             sessionStorage.removeItem('userName');
             sessionStorage.removeItem('isAdmin');
             sessionStorage.removeItem('userId');
-            this.alertify.error("Session Expired!")
-            this.router.navigate(["/"]);
+            this.alertify.error("Session Expired!");
+            setTimeout(()=>
+            {
+              location.reload();
+              this.router.navigate(["/"]);
+            }, 3000);
           }
       }, 5000);
     }

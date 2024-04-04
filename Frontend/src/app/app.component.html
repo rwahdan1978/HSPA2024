@@ -8,7 +8,7 @@
     (keypress) = "onUserAction()">
 
     <br>
-    <h3 *ngIf="token != null" style="color: blue;">Session timeout after:
+    <h3 id="timer" *ngIf="token != null" style="color: blue;">Session timeout after (approximately):
     <countdown [config]="config" (event)="handleEvent($event)"></countdown>
     </h3>
     <!-- <h3>Session Time: {{display}}</h3> -->
