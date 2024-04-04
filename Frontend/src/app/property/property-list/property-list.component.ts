@@ -79,7 +79,6 @@ export class PropertyListComponent implements OnInit{
         this.localStorage.setItem("theflag","2");
     });
 
-      this.tokenAuth.TokenAuth();
       this.deviveInfo = this.DDS.getDeviceInfo();
 
       window.matchMedia("(orientation:portrait)").addEventListener("change", (e: MediaQueryListEvent) => { 

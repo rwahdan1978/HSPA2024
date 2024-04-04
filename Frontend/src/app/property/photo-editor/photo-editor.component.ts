@@ -21,13 +21,7 @@ export class PhotoEditorComponent implements OnInit{
   public minutesleft: number = 6;
 
   ngOnInit(): void {
-
-
-    this.token = sessionStorage.getItem("accessToken");
-
-    console.log(this.token.expired);
-      
-      this.initializeFileUploader();
+    this.initializeFileUploader();
 }
 
   @Input() property: Property;

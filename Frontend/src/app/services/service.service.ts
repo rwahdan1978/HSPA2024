@@ -10,7 +10,6 @@ import { AuthService } from './authService';
 export class ServiceService {
 
   display:any;
-  minutesleft:any;
   token:any;
   yourTokenTimer:any;
   myToken: any;
@@ -22,45 +21,27 @@ constructor(private router: Router, private alertify: AlertifyService,
 
   TokenAuth()
   {
-    const token = sessionStorage.getItem("accessToken");
-    this.minutesleft = 15;
-  
-    setInterval (() => { 
-  
-        const parseJwt = (token);        
-        const decode = JSON.parse(atob(token.split('.')[1]));
-        if (decode.exp * 1000 < new Date().getTime()) 
-        {
-
-                // const myToken = this.auth.getToken();
-                // const tokeApiModel = new TokenApiModel();
-                // tokeApiModel.accessToken = this.auth.getToken()!;
-                // tokeApiModel.refreshToken = this.auth.getRefreshToken()!;
-                // return this.auth.renewToken(tokeApiModel)
-                // .pipe(
-                // switchMap((data:TokenApiModel)=>{
-                //     this.auth.storeRefreshToken(data.refreshToken);
-                //     this.auth.storeToken(data.accessToken);
-                //     return "data";
-                //   }),
-                
-                //   )
-          sessionStorage.removeItem('accessToken');
-          // sessionStorage.removeItem('refreshToken');
-          sessionStorage.removeItem('chosenfolder');
-          sessionStorage.removeItem('userName');
-          sessionStorage.removeItem('isAdmin');
-          sessionStorage.removeItem('userId');
-          // this.router.navigate(["user/login"]);
-          this.alertify.error("Session Expired!")
-        }
-        else
-        {
-          this.minutesleft = this.minutesleft - 3;
-          this.alertify.warning("!!!WARNING!!!, Session will expire in " + this.minutesleft + " minutes");
-        } 
-        
-      }, 180000);
+    this.token = sessionStorage.getItem("accessToken");
+    
+    if (this.token != null)
+    {
+      setInterval (() => 
+      { 
+          const parseJwt = (this.token);        
+          const decode = JSON.parse(atob(this.token.split('.')[1]));
+          if (decode.exp * 1000 < new Date().getTime()) 
+          {
+            sessionStorage.removeItem('accessToken');
+            localStorage.removeItem("time");
+            sessionStorage.removeItem('chosenfolder');
+            sessionStorage.removeItem('userName');
+            sessionStorage.removeItem('isAdmin');
+            sessionStorage.removeItem('userId');
+            this.alertify.error("Session Expired!")
+            this.router.navigate(["/"]);
+          }
+      }, 5000);
+    }
   }
 
 }
