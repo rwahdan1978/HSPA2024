@@ -9,13 +9,16 @@ export class FilterPipe implements PipeTransform {
 
     const resultArray = [];
 
-    if (value.length === 0 || filterString === '' || propName === ''){
-      return value;
-    }
+    if (value)
+    {
+      if (value.length === 0 || filterString === '' || propName === ''){
+        return value;
+      }
 
-    for (const item of value){
-      if (item[propName].toLocaleLowerCase().indexOf(filterString.toLocaleLowerCase()) != -1) {     
-        resultArray.push(item);
+      for (const item of value){
+        if (item[propName].toLocaleLowerCase().indexOf(filterString.toLocaleLowerCase()) != -1) {     
+          resultArray.push(item);
+        }
       }
     }
 

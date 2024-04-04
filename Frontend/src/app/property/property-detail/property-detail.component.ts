@@ -116,7 +116,7 @@ export class PropertyDetailComponent implements OnInit {
     this.propid = this.propertyId;
     this.propidStr = "nums" + this.propid.toString()
 
-    let data2:any = sessionStorage.getItem(this.propidStr);
+    let data2:any = localStorage.getItem(this.propidStr);
     this.likes = JSON.parse(data2);
 
     setTimeout(() => {
@@ -227,7 +227,7 @@ export class PropertyDetailComponent implements OnInit {
     
       this.likes += 1;
       let data = element.textContent = this.likes;
-      sessionStorage.setItem(this.propidStr,JSON.stringify(data));
+      localStorage.setItem(this.propidStr,JSON.stringify(data));
       window.location.reload();
     
   }
