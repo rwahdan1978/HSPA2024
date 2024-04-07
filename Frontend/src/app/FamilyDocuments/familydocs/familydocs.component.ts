@@ -45,6 +45,8 @@ export class FamilydocsComponent implements OnInit {
   folderName2:any;
 
   ngOnInit() {
+
+    localStorage.removeItem("photos");
    
     this.token = sessionStorage.getItem("accessToken");
 
@@ -68,6 +70,7 @@ export class FamilydocsComponent implements OnInit {
 
   testIt(item:any)
   {
+    localStorage.removeItem("photos");
     this.thefolder = item;
     const httpOptions = {
       headers: new HttpHeaders({
@@ -91,6 +94,17 @@ export class FamilydocsComponent implements OnInit {
     .subscribe((photos) =>{
     console.log(photos);
     this.allPhotos = photos;
+    
+      if (this.allPhotos.length === 0)
+        {
+          localStorage.setItem("photos","no items");
+        }
+      
+      if (this.allPhotos.length > 0)
+        {
+          localStorage.setItem("photos","have items");
+        }
+
     });
 
     this.initializeFileUploader();
@@ -102,11 +116,15 @@ export class FamilydocsComponent implements OnInit {
 
     this.folderName = (<HTMLInputElement>document.getElementById("thefoldername")).value;
     this.housingService.addFolder(this.folderName).subscribe();
+    
+    this.alert.success("Folder " + this.folderName + " has been created!");   
 
     setTimeout(() =>
-        {
-          window.location.reload();
-        }, 3000);
+    {
+      location.reload();
+    }, 2000);
+
+        
   }
 
   deleteFolder(foldername:string)
@@ -114,21 +132,34 @@ export class FamilydocsComponent implements OnInit {
 
     this.folderName2 = foldername;
 
-    if (this.folderName2 === "properties2023")
+    if (localStorage.getItem("photos") !== null)
     {
-      this.alert.error("Can't delete properties2023 folder!")
+      if (localStorage.getItem("photos") !== "have items")
+      {
+        if (this.folderName2 === "properties2023")
+          {
+            this.alert.error("Can't delete properties2023 folder!")
+          }
+          else
+          {
+            this.housingService.deleteFolder(this.folderName2).subscribe();
+            this.alert.success("Folder " + this.folderName2 + " has been deleted!");    
+          }
+      }
+      else
+      {
+        this.alert.error("You cannot delete this Folder because it is not empty!");  
+      }
     }
     else
     {
-      console.log("this is foldername: " + this.folderName2)
-      this.housingService.deleteFolder(this.folderName2).subscribe();
-
-      setTimeout(() =>
-          {
-            window.location.reload();
-            
-          }, 3000);
+      this.alert.error("You need to select a Folder");  
     }
+
+    setTimeout(() =>
+      {
+        location.reload();
+      }, 2000);
 
   }
 

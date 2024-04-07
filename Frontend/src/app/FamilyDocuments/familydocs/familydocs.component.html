@@ -25,7 +25,7 @@
     
     <div class="row">
 
-        <table>
+        <table class="center" style="width: 50%;">
 
             <tr>
               <th>Image</th>
@@ -53,7 +53,7 @@
         <table class="center" style="width: 50%;">
 
             <tr>
-              <th>class</th>
+              <th>Image</th>
               <th>Actionss</th>
             </tr>
             <br>
@@ -63,11 +63,14 @@
                     alt="{{photo.publicId}}" style="width: 25%;"
                     class="img-thumbnail" title="{{photo.publicId}}" class="img-thumbnail">
                 <td style="padding-bottom: 1em;">
+
                     <button class="btn btn-sm btn-danger" title="Delete"
-                    (click)="deletePhoto(photo.imageId)"><i class="fa-solid fa-trash"></i></button>
-                    <a href="{{photo.imageUrl}}" download="{{photo.imageUrl}}" target="_blank">
+                    (click)="deletePhoto(photo.imageId)"><i class="fa-solid fa-trash"></i></button> 
+
+                    <a href="{{photo.imageUrl}}" download="{{photo.imageUrl}}" target="_blank" style="padding-left: 1.5px;">
                     <button class="btn btn-sm btn-primary" title="Download"
                     ><i class="fa-solid fa-download"></i></button>
+
                     </a>
                 </td>
             </tr>
