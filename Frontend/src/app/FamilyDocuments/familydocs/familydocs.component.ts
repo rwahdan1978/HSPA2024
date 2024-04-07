@@ -8,6 +8,7 @@ import {  Router } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload';
 import { map } from 'rxjs';
 import { familydocuments } from 'src/app/model/familydocuments';
+import { AlertifyService } from 'src/app/services/alertify.service';
 import { HousingService } from 'src/app/services/housing.service';
 import { environment } from 'src/environments/environment';
 
@@ -23,7 +24,7 @@ export class FamilydocsComponent implements OnInit {
   token:any;
 
   constructor(private http: HttpClient, private housingService: HousingService,
-                                        private router: Router) {}
+                                        private router: Router, private alert: AlertifyService) {}
 
   allPhotos: familydocuments[] = [];
   @Input() familyDocs: familydocuments[] = [];
@@ -40,9 +41,10 @@ export class FamilydocsComponent implements OnInit {
   foldersPath:any;
   thefolder:any;
   public folderName: string;
+  context:any;
+  folderName2:any;
 
   ngOnInit() {
-
    
     this.token = sessionStorage.getItem("accessToken");
 
@@ -62,20 +64,11 @@ export class FamilydocsComponent implements OnInit {
         });
     });
 
-    this.thefolder = sessionStorage.getItem("chosenfolder");
-    if (this.thefolder != null)
-    {
-      this.testIt(this.thefolder);
-      this.initializeFileUploader();
-    }
   }
 
   testIt(item:any)
   {
-
-    console.log(item);
-    sessionStorage.setItem('chosenfolder', item);
-    this.thefolder = sessionStorage.getItem("chosenfolder");
+    this.thefolder = item;
     const httpOptions = {
       headers: new HttpHeaders({
      Authorization: 'Bearer ' + sessionStorage.getItem('accessToken')
@@ -113,8 +106,30 @@ export class FamilydocsComponent implements OnInit {
     setTimeout(() =>
         {
           window.location.reload();
-          //this.router.navigate(["familydocuments/list"])
         }, 3000);
+  }
+
+  deleteFolder(foldername:string)
+  {
+
+    this.folderName2 = foldername;
+
+    if (this.folderName2 === "properties2023")
+    {
+      this.alert.error("Can't delete properties2023 folder!")
+    }
+    else
+    {
+      console.log("this is foldername: " + this.folderName2)
+      this.housingService.deleteFolder(this.folderName2).subscribe();
+
+      setTimeout(() =>
+          {
+            window.location.reload();
+            
+          }, 3000);
+    }
+
   }
 
   initializeFileUploader()

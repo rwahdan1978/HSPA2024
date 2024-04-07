@@ -14,7 +14,7 @@
                 <input id="thefoldername" > &nbsp;
                 <img _ngcontent-ng-c346306970=""
                 src="https://res.cloudinary.com/hspa2024/image/upload/v1710794987/folder_fnjqpb.png" style="width: 10%;">
-                <a (click)="createFolder()" style="color: red; position: relative; left: -108px; top: 3px"> Create Folder</a>
+                <a (click)="createFolder()" style="color: red; position: relative; left: -120px; top: 3px"> Create Folder</a>
             </form>
         </div>
 
@@ -25,13 +25,21 @@
     
     <div class="row">
 
-        <div id="product_types" class="col-2" *ngFor="let item of foldersName">
-            
-            <img _ngcontent-ng-c346306970=""
-                src="https://res.cloudinary.com/hspa2024/image/upload/v1710794987/folder_fnjqpb.png" style="width: 25%;">
-                <button id="thebutton" (click)="testIt(item)">{{item}}</button>
+        <table>
 
-        </div>
+            <tr>
+              <th>Image</th>
+              <th>Delete</th>
+            </tr>
+
+            <tr *ngFor="let item of foldersName">
+              <td><img _ngcontent-ng-c346306970=""
+                src="https://res.cloudinary.com/hspa2024/image/upload/v1710794987/folder_fnjqpb.png" style="width: 5%;">
+              <button id="thebutton" (click)="testIt(item)">{{item}} &nbsp;</button></td>
+              <td><button (click)="deleteFolder(item)"><i class="far fa-trash-o"></i></button></td>
+            </tr>
+
+        </table>
 
         <hr>
 
@@ -41,24 +49,30 @@
 
     <div class="row">
         <br>
-    <div class="col-3 mb-8" *ngFor="let photo of allPhotos">
-        
-            <img _ngcontent-ng-c346306970=""
-            src="https://res.cloudinary.com/hspa2024/image/upload/c_thumb,h_500,w_800/{{photo.publicId}}.png"
-            alt="{{photo.publicId}}" style="width: 40%;"
-            class="img-thumbnail" title="{{photo.publicId}}" class="img-thumbnail">
-        
-        
-            <button class="btn btn-sm btn-danger" title="Delete"
-            (click)="deletePhoto(photo.imageId)"><i class="fa-solid fa-trash"></i></button>
-            &nbsp;
-            <a href="{{photo.imageUrl}}" download="{{photo.imageUrl}}" target="_blank">
-                <button class="btn btn-sm btn-primary" title="Download"
-                ><i class="fa-solid fa-download"></i></button>
-            </a>
-        
 
-    </div>
+        <table class="center" style="width: 50%;">
+
+            <tr>
+              <th>class</th>
+              <th>Actionss</th>
+            </tr>
+            <br>
+            <tr *ngFor="let photo of allPhotos">
+                <td style="padding-bottom: 1em;"><img _ngcontent-ng-c346306970=""
+                    src="https://res.cloudinary.com/hspa2024/image/upload/c_thumb,h_500,w_800/{{photo.publicId}}.png"
+                    alt="{{photo.publicId}}" style="width: 25%;"
+                    class="img-thumbnail" title="{{photo.publicId}}" class="img-thumbnail">
+                <td style="padding-bottom: 1em;">
+                    <button class="btn btn-sm btn-danger" title="Delete"
+                    (click)="deletePhoto(photo.imageId)"><i class="fa-solid fa-trash"></i></button>
+                    <a href="{{photo.imageUrl}}" download="{{photo.imageUrl}}" target="_blank">
+                    <button class="btn btn-sm btn-primary" title="Download"
+                    ><i class="fa-solid fa-download"></i></button>
+                    </a>
+                </td>
+            </tr>
+            
+        </table>
 
     <div *ngIf="this.thefolder != null" ng2FileDrop [uploader]="uploader" multiple class="card bg-faded p-3 text-center">
         <i class="fa fa-upload fa-2x"></i>

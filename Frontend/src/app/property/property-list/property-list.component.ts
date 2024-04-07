@@ -77,6 +77,7 @@ export class PropertyListComponent implements OnInit{
     this.context = this;
     window.addEventListener("beforeunload", function (e) {
         this.localStorage.setItem("theflag","2");
+        this.sessionStorage.removeItem("chosenfolder");
     });
 
       this.deviveInfo = this.DDS.getDeviceInfo();

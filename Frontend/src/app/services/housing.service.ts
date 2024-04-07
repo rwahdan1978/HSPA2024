@@ -72,6 +72,16 @@ export class HousingService
     return this.http.post(this.baseUrl + "/familydocuments/createfolders/" + folder, null,httpOptions);
   }
 
+  deleteFolder(folder: string) 
+  {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + sessionStorage.getItem('accessToken')
+      })
+    };
+    return this.http.delete(this.baseUrl + "/familydocuments/deletefolders/" + folder, httpOptions);
+  }
+
   newPropID()
   {
     if (sessionStorage.getItem('PID'))

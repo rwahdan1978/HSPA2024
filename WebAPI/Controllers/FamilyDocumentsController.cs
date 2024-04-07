@@ -74,6 +74,15 @@ namespace WebAPI.Controllers
             return test;
         }
 
+        [HttpDelete("deletefolders/{folder}")]
+        public string DeleteFolder(string folder)
+        {
+            var cloudinary = 
+            new Cloudinary(cloudinaryUrl: "cloudinary://334819583972299:M6mwunz9g3seqhMcP_CGV0HCNvc@hspa2024");
+            var test = cloudinary.DeleteFolder(folder).JsonObj.ToString();
+            return test;
+        }
+
         // familyDocuments/add/photo/
         [HttpPost("add/photo/{folder}")]
         
