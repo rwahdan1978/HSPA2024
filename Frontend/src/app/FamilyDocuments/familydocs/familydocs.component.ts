@@ -43,10 +43,12 @@ export class FamilydocsComponent implements OnInit {
   public folderName: string;
   context:any;
   folderName2:any;
+  selectedfolder:any;
 
   ngOnInit() {
 
     localStorage.removeItem("photos");
+    localStorage.removeItem("theFolder")
    
     this.token = sessionStorage.getItem("accessToken");
 
@@ -70,6 +72,7 @@ export class FamilydocsComponent implements OnInit {
 
   testIt(item:any)
   {
+    localStorage.setItem("theFolder", item);
     localStorage.removeItem("photos");
     this.thefolder = item;
     const httpOptions = {
@@ -115,15 +118,19 @@ export class FamilydocsComponent implements OnInit {
   {
 
     this.folderName = (<HTMLInputElement>document.getElementById("thefoldername")).value;
-    this.housingService.addFolder(this.folderName).subscribe();
+    if (this.folderName !== "")
+      {
+        this.housingService.addFolder(this.folderName).subscribe();
     
-    this.alert.success("Folder " + this.folderName + " has been created!");   
+        this.alert.success("Folder " + this.folderName + " has been created!");   
 
-    setTimeout(() =>
-    {
-      location.reload();
-    }, 2000);
-
+        setTimeout(() =>
+        {
+          location.reload();
+        }, 2000);
+      }
+    else
+      this.alert.error("Folder name cannot be empty!")
         
   }
 
@@ -132,7 +139,7 @@ export class FamilydocsComponent implements OnInit {
 
     this.folderName2 = foldername;
 
-    if (localStorage.getItem("photos") !== null)
+    if (localStorage.getItem("photos") !== null && localStorage.getItem("theFolder") === foldername) 
     {
       if (localStorage.getItem("photos") !== "have items")
       {
@@ -143,7 +150,11 @@ export class FamilydocsComponent implements OnInit {
           else
           {
             this.housingService.deleteFolder(this.folderName2).subscribe();
-            this.alert.success("Folder " + this.folderName2 + " has been deleted!");    
+            this.alert.success("Folder " + this.folderName2 + " has been deleted!"); 
+            setTimeout(() =>
+              {
+                location.reload();
+              }, 2000);   
           }
       }
       else
@@ -155,11 +166,6 @@ export class FamilydocsComponent implements OnInit {
     {
       this.alert.error("You need to select a Folder");  
     }
-
-    setTimeout(() =>
-      {
-        location.reload();
-      }, 2000);
 
   }
 
