@@ -48,6 +48,7 @@ export class CallbackComponent implements OnInit {
     {
       this.alert.success("Thank you " + this.fname + ", we will call you at " + this.phone + " in 2 hours!");
       this.router.navigate(["/"]);
+      this.ngOnInit();
     }
     else
     {
