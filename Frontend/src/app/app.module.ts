@@ -45,6 +45,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HttpErrorInterceptorService } from './services/httperor-interceptor.service';
 // import { TokenInterceptor } from '../../src/app/services/token.interceptor'
+import { CallbackComponent } from './callback/callback.component';
 
 
   const appRoutes: Routes = [
@@ -56,6 +57,7 @@ import { HttpErrorInterceptorService } from './services/httperor-interceptor.ser
   {path: 'property-detail/:id', component: PropertyDetailComponent, resolve: {prp: PropertyDetailResolverService}},
   {path: 'user/login', component: UserLoginComponent},
   {path: 'user/register', component: UserRegisterComponent},
+  {path: 'callback', component: CallbackComponent},
   {path: '**', component: PropertyListComponent}
   
 ]
@@ -67,7 +69,7 @@ const dialogMock = {
 
 @NgModule({
   
-  declarations: [	
+  declarations: [		
     AppComponent,
     PropertycardComponent,
     PropertyListComponent,
@@ -81,6 +83,7 @@ const dialogMock = {
       
       SortPipe,
       PhotoEditorComponent,
+      CallbackComponent
    ],
   
   imports: [

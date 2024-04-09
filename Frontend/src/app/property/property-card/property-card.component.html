@@ -5,7 +5,8 @@
                 <img *ngIf="!property.photo" class="card-img-top" src="https://res.cloudinary.com/hspa2024/image/upload/v1709295557/house_default_kfgrot.png"/>
                 <ul *ngIf="!hideIcons" class="list-inline text-center member-icons animate">
                     <li class="list-inline-item">
-                        <button class="btn btn-primary" routerLink="/property-detail/{{property.id}}"><i class="far fa-edit" title="View Property"></i></button>
+                        <button class="btn btn-primary" routerLink="/property-detail/{{property.id}}"><i style="font-size:24px" class="far fa-edit" title="View Property"></i></button>
+                        &nbsp; <button class="btn btn-primary" routerLink="callback"><i class="fa fa-phone" style="font-size:24px" title="Call Me Back Service"></i></button>
                     </li>
                    
                 </ul>
