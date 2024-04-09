@@ -57,7 +57,7 @@ import { CallbackComponent } from './callback/callback.component';
   {path: 'property-detail/:id', component: PropertyDetailComponent, resolve: {prp: PropertyDetailResolverService}},
   {path: 'user/login', component: UserLoginComponent},
   {path: 'user/register', component: UserRegisterComponent},
-  {path: 'callback', component: CallbackComponent},
+  {path: 'callback/:id', component: CallbackComponent, resolve: {prp2: PropertyDetailResolverService}},
   {path: '**', component: PropertyListComponent}
   
 ]

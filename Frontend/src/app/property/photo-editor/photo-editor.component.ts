@@ -3,7 +3,6 @@
 import { Component, EventEmitter, OnInit,Input, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload';
-import { timer } from 'rxjs';
 import { Photo } from 'src/app/model/photo';
 import { Property } from 'src/app/model/property';
 import { AlertifyService } from 'src/app/services/alertify.service';

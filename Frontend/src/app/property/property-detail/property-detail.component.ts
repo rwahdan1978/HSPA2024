@@ -75,8 +75,7 @@ export class PropertyDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute, private alert: AlertifyService, 
               private fb: FormBuilder, private sanitizer: DomSanitizer, 
               private DDS: DeviceDetectorService, private router: Router,
-              private housingService: HousingService,
-              private alertify: AlertifyService) {}
+              private housingService: HousingService) {}
 
   ngOnInit() 
   {

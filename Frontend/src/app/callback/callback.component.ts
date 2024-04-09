@@ -1,8 +1,9 @@
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AlertifyService } from '../services/alertify.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Property } from '../model/property';
 
 @Component({
   selector: 'app-callback',
@@ -11,17 +12,47 @@ import { Router } from '@angular/router';
 })
 export class CallbackComponent implements OnInit {
 
-  constructor(private alert: AlertifyService, private router: Router){}
+  @ViewChild('iframe') iframe: ElementRef
 
-  phone:any;
-  fname:any;
+  property: any = new Property();
+  phone = "";
+  fname = "";
+  propType:any;
+  public propertyId: number;
 
-  ngOnInit() {}
+  constructor(private alert: AlertifyService, private router: Router,
+              private route: ActivatedRoute){}
+
+  ngOnInit() {
+    this.propertyId = +this.route.snapshot.params['id'];
+    this.route.data.subscribe(
+      (data: any) => {
+        this.property = data['prp2'];
+      }
+    )
+
+    if (this.property.sellRent === 1)
+    {
+      this.propType = "For Sale";
+    }
+    else
+    {
+      this.propType = "For Rent";
+    }
+
+  }
 
   callme()
-  {  
-    this.alert.success("Thank you " + this.fname + ", we will call you at " + this.phone + " in 2 hours!");
-    this.router.navigate(["/"]);
+  { 
+    if (this.fname !== "" && this.phone !== "")
+    {
+      this.alert.success("Thank you " + this.fname + ", we will call you at " + this.phone + " in 2 hours!");
+      this.router.navigate(["/"]);
+    }
+    else
+    {
+      this.alert.error("You can't leave any field blank!")
+    }
   }
 
 }
