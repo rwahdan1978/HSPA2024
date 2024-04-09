@@ -80,9 +80,6 @@ export class PropertyDetailComponent implements OnInit {
 
   ngOnInit() 
   {
-
-   
-
     this.token = sessionStorage.getItem("accessToken");
 
     const savedTabIndex = sessionStorage.getItem('lastTab');

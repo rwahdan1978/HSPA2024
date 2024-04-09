@@ -303,45 +303,6 @@
 
         </mat-tab>
 
-        <mat-tab label="Contact">
-
-          <div *ngIf="loggedinUser" class="card text-center" style="max-width: 100vw; min-height: 10vw;">
-            <div class="card-header">
-              <strong> Commission: {{property.contactCommission}} AED </strong>
-            </div>
-            <div class="card-body">
-                <p> Seller Name: {{property.contactCompany}}</p>
-                <p> Seller Name: {{property.contactName}}</p>
-                <p> Seller Contact: {{property.contactNumber}}</p>
-                <p> Seller WhatsApp: {{property.contactNumber2}}</p>
-                <p> Seller Contact: {{property.contactEmail}}</p>
-            </div>
-          </div>
-
-          <br>
-          <strong>You can fill out the form otherwise<br><br></strong>
-          <div>
-            <form *ngIf="deviveInfo.deviceType !== 'mobile'" [formGroup]="form" class="form" action="javascript:void(0)" (submit)="send()" method="POST">
-              <input formControlName="from_name" name="from_name" type="text"  placeholder="Full Name"/>
-              <input formControlName="from_email" name="from_email" type="text"  placeholder="Email Address"/>
-              <input formControlName="subject" name="subject" type="text" placeholder="{{property.projectName}} - {{this.property.name}}, {{this.property.city}}"/>
-              <textarea formControlName="message" name="message" type="text" placeholder="Enter your message"></textarea>
-              <button id="clickit" class="button1" type="submit">Submit</button>
-            </form>
-          </div>
-
-          <div>
-            <form *ngIf="deviveInfo.deviceType=== 'mobile' && deviveInfo.orientation=== 'landscape'" class="form1" [formGroup]="form1" action="javascript:void(0)" (submit)="send()" method="POST">
-              <input style="size: 1px;" formControlName="from_name1" name="from_name" type="text"  placeholder="Full Name"/>
-              <input formControlName="from_email" name="from_email1" type="text"  placeholder="Email Address"/>
-              <input formControlName="subject1" name="subject" type="text" placeholder="{{property.ProjectName}} - {{this.property.Name}}"/>
-              <textarea formControlName="message1" name="message" type="text" placeholder="Enter your message"></textarea>
-              <button id="clickit2" class="button2" type="submit">Submit</button>
-            </form>
-          </div>
-          
-        </mat-tab>
-
       </mat-tab-group>
       
     </div>

@@ -14,6 +14,8 @@ import { Router } from "@angular/router";
 const KEY = 'time'
 const DEFAULT = 900
 
+declare let bundle: any; //declare bundle.
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -39,6 +41,9 @@ export class AppComponent implements OnInit
 
   ngOnInit(): void
   {
+
+    bundle();
+
     this.token = sessionStorage.getItem("accessToken");
 
     if (sessionStorage.getItem("accessToken") != null)

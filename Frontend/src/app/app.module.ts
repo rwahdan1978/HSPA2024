@@ -17,7 +17,6 @@ import { CommonModule } from "@angular/common";
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { CountdownModule } from 'ngx-countdown';
-
 import { AppComponent } from './app.component';
 import { PropertycardComponent } from './property/property-card/property-card..component';
 import { PropertyListComponent } from './property/property-list/property-list.component';
@@ -35,6 +34,7 @@ import { SortPipe } from './Pipes/sort.pipe';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { NgxPaginationModule } from 'ngx-pagination'; 
 import {MatTabsModule} from '@angular/material/tabs';
+
 // import { HttpErrorInterceptorService } from './services/httperor-interceptor.service';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { PhotoEditorComponent } from './property/photo-editor/photo-editor.component';
@@ -44,7 +44,6 @@ import { MatDialogModule  } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HttpErrorInterceptorService } from './services/httperor-interceptor.service';
-import { timer } from 'rxjs';
 // import { TokenInterceptor } from '../../src/app/services/token.interceptor'
 
 
@@ -85,6 +84,8 @@ const dialogMock = {
    ],
   
   imports: [
+    BrowserModule, 
+    BrowserAnimationsModule,
     BrowserModule, 
     CountdownModule,
     MatDialogModule,

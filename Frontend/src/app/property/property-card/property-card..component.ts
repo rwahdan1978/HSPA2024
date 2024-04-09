@@ -4,7 +4,7 @@ import { IPropertyBase } from 'src/app/model/ipropertybase';
 import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { Router } from '@angular/router';
-import { timer } from 'rxjs';
+
 
 @Component({
 
@@ -30,8 +30,6 @@ export class PropertycardComponent implements OnInit
                 private router: Router) { }
 
     ngOnInit() {
-
-     
 
       this.token = sessionStorage.getItem("accessToken");
       
