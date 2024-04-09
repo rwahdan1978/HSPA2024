@@ -1,3 +1,4 @@
+<!-- eslint-disable @angular-eslint/template/alt-text -->
 <!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <!-- (mousemove) = "onUserAction()"-->
 <!-- eslint-disable @angular-eslint/template/eqeqeq -->
@@ -11,6 +12,9 @@
     <h3 id="timer" *ngIf="token != null" style="color: blue;">Session timeout after (approximately):
     <countdown [config]="config" (event)="handleEvent($event)"></countdown>
     </h3>
+    <h3 id="timer" *ngIf="token == null" style="color: red;">No Session</h3>
     <!-- <h3>Session Time: {{display}}</h3> -->
-    <router-outlet></router-outlet>
-</div>
+        <router-outlet></router-outlet>
+    </div>
+
+    <!-- <img class="pos" src="https://res.cloudinary.com/hspa2024/image/upload/v1712683558/newsletter.png"/> -->

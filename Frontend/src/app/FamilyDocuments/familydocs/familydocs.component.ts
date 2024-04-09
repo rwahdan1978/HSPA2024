@@ -59,6 +59,7 @@ export class FamilydocsComponent implements OnInit {
 
         this.foldersName = Object.keys(test2.folders)
         .map(function (index) {
+          if (test2.folders[index].name !== "properties2023")
             return test2.folders[index].name;
         });
 

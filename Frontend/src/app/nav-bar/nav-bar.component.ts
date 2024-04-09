@@ -63,6 +63,5 @@ export class NavBarComponent implements OnInit {
     this.router.navigateByUrl('user/login', { skipLocationChange: true }).then(() => {
       this.router.navigate(["user/login"])});
       window.location.reload();
-      this.alertify.warning("You are logged out!")
   }
 }

@@ -42,8 +42,6 @@ export class AppComponent implements OnInit
   ngOnInit(): void
   {
 
-    bundle();
-
     this.token = sessionStorage.getItem("accessToken");
 
     if (sessionStorage.getItem("accessToken") != null)
@@ -95,6 +93,8 @@ export class AppComponent implements OnInit
       }); 
 
     }
+
+    bundle();
     
   }
 

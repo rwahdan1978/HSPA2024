@@ -24,20 +24,20 @@
         
     </div>
     
-    <div *ngIf="token !== null" class="row">
+    <div *ngFor="let item of foldersName" class="row">
 
-        <table class="center" style="width: 50%;">
+        <table *ngIf="item != null" class="center" style="width: 50%;">
 
             <tr>
-              <th>Image</th>
+              <th>Folder Name</th>
               <th>Delete</th>
             </tr>
 
             <tr *ngFor="let item of foldersName">
-              <td><img _ngcontent-ng-c346306970=""
+              <td *ngIf="item != null"><img _ngcontent-ng-c346306970="" *ngIf="item != null"
                 src="https://res.cloudinary.com/hspa2024/image/upload/v1710794987/folder_fnjqpb.png" style="width: 5%;">
-              <button id="thebutton" (click)="testIt(item)">{{item}} &nbsp;</button></td>
-              <td><button (click)="deleteFolder(item)"><i class="far fa-trash-o"></i></button></td>
+              <button *ngIf="item != null" id="thebutton" (click)="testIt(item)">{{item}} &nbsp;</button></td>
+              <td><button *ngIf="item != null" (click)="deleteFolder(item)"><i class="far fa-trash-o"></i></button></td>
             </tr>
 
         </table>
@@ -48,17 +48,17 @@
 
     <br>
 
-    <div *ngIf="token !== null" class="row">
+    <div *ngFor="let photo of allPhotos" class="row">
         <br>
 
-        <table class="center" style="width: 50%;">
+        <table *ngIf="photo != null" class="center" style="width: 50%;">
 
             <tr>
               <th>Image</th>
               <th>Actionss</th>
             </tr>
             <br>
-            <tr *ngFor="let photo of allPhotos">
+            <tr >
                 <td style="padding-bottom: 1em;"><img _ngcontent-ng-c346306970=""
                     src="https://res.cloudinary.com/hspa2024/image/upload/c_thumb,h_500,w_800/{{photo.publicId}}.png"
                     alt="{{photo.publicId}}" style="width: 25%;"
@@ -78,8 +78,9 @@
             
         </table>
 
+        <hr>
+    </div>
     <div *ngIf="this.thefolder != null" ng2FileDrop [uploader]="uploader" multiple class="card bg-faded p-3 text-center">
         <i class="fa fa-upload fa-2x"></i>
         Drop photo here!
     </div>
-</div>

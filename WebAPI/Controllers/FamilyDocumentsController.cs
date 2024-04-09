@@ -1,5 +1,6 @@
 using AutoMapper;
 using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Data;
@@ -72,6 +73,23 @@ namespace WebAPI.Controllers
             new Cloudinary(cloudinaryUrl: "cloudinary://334819583972299:M6mwunz9g3seqhMcP_CGV0HCNvc@hspa2024");
             var test = cloudinary.CreateFolder(folder).JsonObj.ToString();
             return test;
+        }
+
+
+        //move image from one folder to another!
+        [HttpPost("move_image/{oldPID}/{newPID}")]
+        public string MoveImage(string oldPID, string newPID)
+        {
+            var cloudinary = 
+            new Cloudinary(cloudinaryUrl: "cloudinary://334819583972299:M6mwunz9g3seqhMcP_CGV0HCNvc@hspa2024");
+
+            RenameParams renameParams = new RenameParams(oldPID, newPID)
+            {
+                FromPublicId = oldPID,
+                ToPublicId = newPID
+            };
+            var renameResult = cloudinary.Rename(renameParams).JsonObj.ToString();
+            return renameResult;
         }
 
         [HttpDelete("deletefolders/{folder}")]
