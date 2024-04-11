@@ -51,7 +51,7 @@ export class CallbackComponent implements OnInit {
         let response = await emailjs.send("service_ytxrv42","template_6j13ark",{
           to_name: "Admin",
           from_name: this.fname,
-          from_email: "user@gmail.com",
+          from_email: "ramiwahdan1978@gmail.com",
           subject:  this.property.projectName + "    " + this.property.name + "," + this.property.city,
           message: "Please call me back at " + this.phone,
           });
