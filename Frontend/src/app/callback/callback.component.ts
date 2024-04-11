@@ -18,6 +18,7 @@ export class CallbackComponent implements OnInit {
   property: any = new Property();
   phone = "";
   fname = "";
+  email = "";
   propType:any;
   public propertyId: number;
 
@@ -48,10 +49,12 @@ export class CallbackComponent implements OnInit {
     if (this.fname !== "" && this.phone !== "")
     {
         emailjs.init("IclaYU2yrPjG2MHfm");
+        
         let response = await emailjs.send("service_ytxrv42","template_6j13ark",{
           to_name: "Admin",
-          from_name: this.fname,
-          from_email: "ramiwahdan1978@gmail.com",
+          user_name: this.fname,
+          contact_number: this.phone,
+          user_email: this.email,
           subject:  this.property.projectName + "    " + this.property.name + "," + this.property.city,
           message: "Please call me back at " + this.phone,
           });
