@@ -4,6 +4,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AlertifyService } from '../services/alertify.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Property } from '../model/property';
+import emailjs from '@emailjs/browser';
 
 @Component({
   selector: 'app-callback',
@@ -42,13 +43,26 @@ export class CallbackComponent implements OnInit {
 
   }
 
-  callme()
+  async callme()
   { 
     if (this.fname !== "" && this.phone !== "")
     {
-      this.alert.success("Thank you " + this.fname + ", we will call you at " + this.phone + " in 2 hours!");
-      this.router.navigate(["/"]);
-      this.ngOnInit();
+        emailjs.init("IclaYU2yrPjG2MHfm");
+        let response = await emailjs.send("service_ytxrv42","template_6j13ark",{
+          to_name: "Admin",
+          from_name: this.fname,
+          from_email: "user@gmail.com",
+          subject:  this.property.projectName + "    " + this.property.name + "," + this.property.city,
+          message: "Please call me back at " + this.phone,
+          });
+  
+          this.alert.success("Thank you " + this.fname + ", we will call you in 2 working days!");
+  
+          setTimeout(()=>
+          {
+            this.router.navigate(["/"]);
+            this.ngOnInit();    
+          }, 2000);
     }
     else
     {

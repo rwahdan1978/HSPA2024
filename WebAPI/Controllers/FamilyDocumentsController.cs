@@ -85,8 +85,8 @@ namespace WebAPI.Controllers
 
             RenameParams renameParams = new RenameParams(oldPID, newPID)
             {
-                FromPublicId = oldPID,
-                ToPublicId = newPID
+                FromPublicId = oldPID.Split('/', 1)[0],
+                ToPublicId = newPID.Split('/', 1)[0]
             };
             var renameResult = cloudinary.Rename(renameParams).JsonObj.ToString();
             return renameResult;
