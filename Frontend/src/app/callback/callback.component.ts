@@ -19,6 +19,7 @@ export class CallbackComponent implements OnInit {
   phone = "";
   fname = "";
   email = "";
+  reason = "";
   propType:any;
   public propertyId: number;
 
@@ -46,8 +47,9 @@ export class CallbackComponent implements OnInit {
 
   async callme()
   { 
-    if (this.fname !== "" && this.phone !== "")
+    if (this.fname !== "" && this.phone !== "" && this.email !=="")
     {
+        this.reason = this.property.projectName + "    " + this.property.name + "," + this.property.city;
         emailjs.init("IclaYU2yrPjG2MHfm");
         
         let response = await emailjs.send("service_ytxrv42","template_6j13ark",{
@@ -55,7 +57,7 @@ export class CallbackComponent implements OnInit {
           user_name: this.fname,
           contact_number: this.phone,
           user_email: this.email,
-          subject:  this.property.projectName + "    " + this.property.name + "," + this.property.city,
+          subject: this.reason,
           message: "Please call me back at " + this.phone,
           });
   
@@ -65,7 +67,7 @@ export class CallbackComponent implements OnInit {
           {
             this.router.navigate(["/"]);
             this.ngOnInit();    
-          }, 2000);
+          }, 1000);
     }
     else
     {

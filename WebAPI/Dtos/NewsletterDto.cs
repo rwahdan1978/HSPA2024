@@ -1,16 +1,9 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Internal;
 
-namespace WebAPI.Models
+namespace WebAPI.Dtos
 {
-    public class Newsletter
+    public class NewsletterDto
     {
-        [Required]
-        public int Id { get; set; }
         [Required]
         public string FullName { get; set; }
         [Required]

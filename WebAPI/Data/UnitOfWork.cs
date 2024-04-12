@@ -14,6 +14,9 @@ namespace WebAPI.Data
         public ICityRepository CityRepository => 
             new CityRepository(dc);
 
+        public IMessageRepository messageRepository => 
+            new MessageRepository(dc);
+
         public IUserRepository userRepository => 
             new UserRepository(dc);
 
