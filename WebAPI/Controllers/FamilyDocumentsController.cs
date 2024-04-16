@@ -75,23 +75,6 @@ namespace WebAPI.Controllers
             return test;
         }
 
-
-        //move image from one folder to another!
-        [HttpPost("move_image/{oldPID}/{newPID}")]
-        public string MoveImage(string oldPID, string newPID)
-        {
-            var cloudinary = 
-            new Cloudinary(cloudinaryUrl: "cloudinary://334819583972299:M6mwunz9g3seqhMcP_CGV0HCNvc@hspa2024");
-
-            RenameParams renameParams = new RenameParams(oldPID, newPID)
-            {
-                FromPublicId = oldPID.Split('/', 1)[0],
-                ToPublicId = newPID.Split('/', 1)[0]
-            };
-            var renameResult = cloudinary.Rename(renameParams).JsonObj.ToString();
-            return renameResult;
-        }
-
         [HttpDelete("deletefolders/{folder}")]
         public string DeleteFolder(string folder)
         {
@@ -147,7 +130,30 @@ namespace WebAPI.Controllers
 
             if (await uow.SaveAsync()) return Ok();
 
-            return Ok();
+            return Ok(photo.PublicId);
         }
+
+        //move image from one folder to another!
+        // [HttpPost("move_image/{FromPublicId}/{ToPublicId}")]
+        // public string MoveImage(string FromPublicId, string ToPublicId)
+
+        // {           
+
+        //     var cloudinary = new Cloudinary(cloudinaryUrl: "cloudinary://334819583972299:M6mwunz9g3seqhMcP_CGV0HCNvc@hspa2024");
+        //     RenameParams renameParams = new RenameParams(FromPublicId, ToPublicId)           
+
+        //     {               
+
+        //     FromPublicId = FromPublicId.ToString(),               
+
+        //     ToPublicId = ToPublicId.ToString()
+
+        //     };
+        //     var renameResult = cloudinary.Rename(renameParams).JsonObj.ToString();
+
+        //     return renameResult;
+
+        // }
+
     }
 }

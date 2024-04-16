@@ -10,13 +10,11 @@ namespace WebAPI.Controllers
 {
     public class MessageController : BaseController
     {
-        private readonly DataContext dc;
         private readonly IunitOfWork uow;
         private readonly IMapper mapper;
 
-        public MessageController(DataContext dc, IunitOfWork uow, IMapper mapper)
+        public MessageController(IunitOfWork uow, IMapper mapper)
         {
-            this.dc = dc;
             this.uow = uow;
             this.mapper = mapper;
         }
@@ -32,7 +30,25 @@ namespace WebAPI.Controllers
 
             uow.messageRepository.AddMessage(callRequest);
             await uow.SaveAsync();
-            return StatusCode(201);
+            return Ok(callRequest);
         }
+
+        [HttpPut("update/{id}")]
+        [Authorize]
+        
+        public async Task<IActionResult> UpdateNewsLetterSubscription(NewsletterDto newsletterDto, int id)
+        {
+            if (id != newsletterDto.id)
+                return BadRequest("Update is not allowed!");
+             var messageFromDb = await uow.messageRepository.FindMessage(id);
+
+             if (messageFromDb == null)
+                return BadRequest("Update is not allowed!");
+
+            mapper.Map(newsletterDto,messageFromDb);
+            await uow.SaveAsync();
+            return Ok(messageFromDb);
+
+        }  
     }
 }

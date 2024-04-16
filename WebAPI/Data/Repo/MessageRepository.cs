@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WebAPI.Interfaces;
 using WebAPI.Models;
 
@@ -19,6 +15,11 @@ namespace WebAPI.Data.Repo
         public void AddMessage(Newsletter newsletter)
         {
             dc.Newsletters.Add(newsletter);
+        }
+
+        public async Task<Newsletter> FindMessage(int id)
+        {
+            return await dc.Newsletters.FindAsync(id);
         }
     }
 }

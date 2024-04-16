@@ -46,6 +46,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HttpErrorInterceptorService } from './services/httperor-interceptor.service';
 // import { TokenInterceptor } from '../../src/app/services/token.interceptor'
 import { CallbackComponent } from './callback/callback.component';
+import { SubscriptionComponent } from './Subscription/Subscription.component';
 
 
   const appRoutes: Routes = [
@@ -58,6 +59,7 @@ import { CallbackComponent } from './callback/callback.component';
   {path: 'user/login', component: UserLoginComponent},
   {path: 'user/register', component: UserRegisterComponent},
   {path: 'callback/:id', component: CallbackComponent, resolve: {prp2: PropertyDetailResolverService}},
+  {path: 'subscrption', component: SubscriptionComponent},
   {path: '**', component: PropertyListComponent}
   
 ]
@@ -69,7 +71,7 @@ const dialogMock = {
 
 @NgModule({
   
-  declarations: [		
+  declarations: [			
     AppComponent,
     PropertycardComponent,
     PropertyListComponent,
@@ -83,7 +85,9 @@ const dialogMock = {
       
       SortPipe,
       PhotoEditorComponent,
-      CallbackComponent
+      CallbackComponent,
+      SubscriptionComponent,
+      SubscriptionComponent
    ],
   
   imports: [

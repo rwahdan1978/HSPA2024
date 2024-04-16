@@ -51,17 +51,6 @@ export class HousingService
     return this.http.post(this.baseUrl + "/property/add", property, httpOptions);
   }
 
-  // getNewToken()
-  // {
-  // const httpOptions = {
-  //   headers: new HttpHeaders({
-  //     Authorization: 'Bearer ' + sessionStorage.getItem("token")
-  //   })
-  // };
-
-  // return this.http.post(this.baseUrl + "/account/refreshtoken/", httpOptions);
-  // }
-
   addFolder(folder: string) 
   {
     const httpOptions = {

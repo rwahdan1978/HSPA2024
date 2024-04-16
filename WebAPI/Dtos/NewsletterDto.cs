@@ -5,6 +5,8 @@ namespace WebAPI.Dtos
     public class NewsletterDto
     {
         [Required]
+        public int id { get; set; }
+        [Required]
         public string FullName { get; set; }
         [Required]
         public string Email { get; set; }
