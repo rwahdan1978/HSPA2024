@@ -134,26 +134,48 @@ namespace WebAPI.Controllers
         }
 
         //move image from one folder to another!
-        // [HttpPost("move_image/{FromPublicId}/{ToPublicId}")]
-        // public string MoveImage(string FromPublicId, string ToPublicId)
+        [HttpPost("move_image/{fromPublicId}/{toPublicId}")]
+        public async Task<IActionResult> MoveImage(string fromPublicId, string toPublicId)
 
-        // {           
+        {
+            var photo = await uow.familyRepository.GetPhotoByIdAsync(fromPublicId);
+            var thedate = DateTime.Now.ToString("dd_MM_yyyy__HH_mm_ss");
+            Random rnd = new Random();
+            int num = rnd.Next();
 
-        //     var cloudinary = new Cloudinary(cloudinaryUrl: "cloudinary://334819583972299:M6mwunz9g3seqhMcP_CGV0HCNvc@hspa2024");
-        //     RenameParams renameParams = new RenameParams(FromPublicId, ToPublicId)           
+            //remove the current record of image here in DB
+            
+            await uow.familyRepository.DeletePhoto(photo.ImageId);
+            await uow.SaveAsync();
 
-        //     {               
+            var cloudinary = new Cloudinary(cloudinaryUrl: "cloudinary://334819583972299:M6mwunz9g3seqhMcP_CGV0HCNvc@hspa2024");
+            RenameParams renameParams = new RenameParams(fromPublicId, toPublicId)           
+            {               
+                FromPublicId = fromPublicId,               
+                ToPublicId = toPublicId
+            };
+            
+            cloudinary.Rename(renameParams);
 
-        //     FromPublicId = FromPublicId.ToString(),               
+            //add the new record of image here in DB
+            // need to split imageURL to get folder name
+            var imageURL = photo.ImageUrl;
+            var theFolder = imageURL.Split('/');
+            
+             var photo2 = new FamilyDocuments
+            { 
+                ImageUrl = imageURL,
+                PublicId = toPublicId,
+                ImageId =  thedate+"_"+ num,
+                FolderName = theFolder[0].ToString()
+            };
 
-        //     ToPublicId = ToPublicId.ToString()
+            dc.familyDocuments.Add(photo);
+            await uow.SaveAsync();    
 
-        //     };
-        //     var renameResult = cloudinary.Rename(renameParams).JsonObj.ToString();
+            return Ok(201);
 
-        //     return renameResult;
-
-        // }
+        }
 
     }
 }

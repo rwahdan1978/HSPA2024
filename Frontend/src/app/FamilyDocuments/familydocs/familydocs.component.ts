@@ -115,6 +115,12 @@ export class FamilydocsComponent implements OnInit {
 
   }
 
+  moveImage(publicId: string)
+  {
+    console.log(publicId);
+    console.log(localStorage.getItem("theFolder"));
+  }
+
   createFolder()
   {
 

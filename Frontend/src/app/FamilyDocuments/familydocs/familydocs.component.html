@@ -26,7 +26,7 @@
     
     <div class="row">
 
-        <table class="center" style="width: 50%;">
+        <table class="center" style="width: 60%;">
 
             <tr>
               <th>Folder Name</th>
@@ -51,7 +51,7 @@
     <div class="row">
         <br>
 
-        <table class="center" style="width: 50%;">
+        <table class="center" style="width: 60%;">
 
             <tr>
               <th>Image</th>
@@ -61,18 +61,24 @@
             <tr *ngFor="let photo of allPhotos">
                 <td *ngIf="photo != null" style="padding-bottom: 1em;"><img _ngcontent-ng-c346306970=""
                     src="https://res.cloudinary.com/hspa2024/image/upload/c_thumb,h_500,w_800/{{photo.publicId}}.png"
-                    alt="{{photo.publicId}}" style="width: 25%;"
+                    alt="{{photo.publicId}}" style="width: 75%;"
                     class="img-thumbnail" title="{{photo.publicId}}" class="img-thumbnail">
-                <td style="padding-bottom: 1em;">
+                </td>
+                
+                <td style="padding-bottom: 1em; width: 60%;">
 
                     <button class="btn btn-sm btn-danger" title="Delete"
                     (click)="deletePhoto(photo.imageId)"><i class="fa-solid fa-trash"></i></button> 
 
-                    <a href="{{photo.imageUrl}}" download="{{photo.imageUrl}}" target="_blank" style="padding-left: 1.5px;">
-                    <button class="btn btn-sm btn-primary" title="Download"
-                    ><i class="fa-solid fa-download"></i></button>
-
+                    <a href="{{photo.imageUrl}}" download="{{photo.imageUrl}}" target="_blank" style="padding-left: 1.5px;
+                    padding-right: 1.5px;">
+                        <button class="btn btn-sm btn-primary" title="Download"
+                        ><i class="fa-solid fa-download"></i></button>
                     </a>
+
+                        <button class="btn btn-sm btn-primary" title="Move"
+                        (click)="moveImage(photo.publicId)"
+                        ><i class="fa-solid fa-file-image-o"></i></button> 
                 </td>
             </tr>
             
