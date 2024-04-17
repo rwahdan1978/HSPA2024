@@ -44,11 +44,12 @@ export class FamilydocsComponent implements OnInit {
   context:any;
   folderName2:any;
   selectedfolder:any;
+  themovefolder:any;
 
   ngOnInit() {
 
     localStorage.removeItem("photos");
-    localStorage.removeItem("theFolder")
+    localStorage.removeItem("theFolder");
    
     this.token = sessionStorage.getItem("accessToken");
 
@@ -117,8 +118,22 @@ export class FamilydocsComponent implements OnInit {
 
   moveImage(imageId: string)
   {
-    console.log(imageId);
-    console.log(localStorage.getItem("theFolder"));
+    this.alert.getFolder();
+    //this.ngOnInit();
+
+    setTimeout(() =>
+      {
+        this.themovefolder = localStorage.getItem("dialog");
+        this.housingService.moveFamilyImage(imageId,this.themovefolder).subscribe();
+      }, 10000);
+
+      setTimeout(() =>
+        {
+          this.alert.success("Image moved successfully!");
+          window.location.reload();
+        }, 15000);
+     
+
   }
 
   createFolder()

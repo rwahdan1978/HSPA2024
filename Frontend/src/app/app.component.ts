@@ -71,6 +71,7 @@ export class AppComponent implements OnInit
         {
           this.idelSubscription?.unsubscribe();
           localStorage.setItem('theflag', '2')
+          localStorage.removeItem('dialog');
           sessionStorage.removeItem('accessToken');
           localStorage.removeItem('display');
           sessionStorage.removeItem('chosenfolder');

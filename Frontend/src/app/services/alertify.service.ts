@@ -27,4 +27,15 @@ export class AlertifyService {
     alertify.error(message);
   }
 
+  public getFolder()
+  {
+    alertify.prompt( 'Move Image', 'Enter Folder Name', ''
+               , function(evt:any, value:any) { localStorage.setItem("dialog",value)}
+               , function() { alertify.error('Cancel') });
+  }
+
+
+
+  
+
 }

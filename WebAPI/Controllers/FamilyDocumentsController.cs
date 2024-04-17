@@ -153,6 +153,7 @@ namespace WebAPI.Controllers
         }
 
         //move image from one folder to another!
+        [AllowAnonymous]
         [HttpPost("move_image/{imageId}/{folderName}")]
         public async Task<IActionResult> MoveImage(string imageId, string folderName)
 

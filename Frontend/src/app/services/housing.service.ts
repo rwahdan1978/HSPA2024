@@ -166,4 +166,15 @@ export class HousingService
     return this.http.get(this.baseUrl + '/familydocuments/folders', httpOptions);
   }
 
+  moveFamilyImage(imageId: string, folderName: string)
+  {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + sessionStorage.getItem('accessToken')
+      })
+    };
+
+    return this.http.post(this.baseUrl + '/familydocuments/move_image/' + imageId + "/" + folderName, httpOptions);
+  }
+
 }
