@@ -149,7 +149,7 @@ namespace WebAPI.Controllers
 
             if (await uow.SaveAsync()) return Ok();
 
-            return Ok(photo.PublicId);
+            return Ok(201);
         }
 
         //move image from one folder to another!
@@ -160,8 +160,7 @@ namespace WebAPI.Controllers
         {
             var photo = await uow.familyRepository.GetPhotoByIdAsync(imageId);
             var fromPublicId = photo.PublicId;
-            //string[] theimagename = fromPublicId.Split('/');
-            var theimagename = "test";
+            string theimagename = fromPublicId.Split('/')[fromPublicId.Split('/').Length - 1].Split('.')[0];
             var toPublicId = folderName + "/" + theimagename;
             var theimageurl = photo.ImageUrl.Remove(photo.ImageUrl.LastIndexOf('/'));
             var theimageurl2 = theimageurl.Remove(theimageurl.LastIndexOf('/'));
@@ -169,10 +168,6 @@ namespace WebAPI.Controllers
              
             if (photo == null)
                 return BadRequest("No such photo exists");
-
-            var thedate = DateTime.Now.ToString("dd_MM_yyyy__HH_mm_ss");
-            Random rnd = new Random();
-            int num = rnd.Next();
             
             await uow.familyRepository.DeletePhoto(photo.ImageId);
             await uow.SaveAsync();
@@ -190,7 +185,7 @@ namespace WebAPI.Controllers
             { 
                 ImageUrl = ImageURL,
                 PublicId = toPublicId,
-                ImageId =  thedate+"_"+ num,
+                ImageId =  imageId,
                 FolderName = folderName
             };
 

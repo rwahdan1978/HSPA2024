@@ -229,7 +229,7 @@ export class FamilydocsComponent implements OnInit {
     this.housingService.deleteFamilyPhoto(imageId).subscribe(()=> {
       this.familyDocs = this.familyDocs.filter(p=> 
         p.imageId !== imageId);
-        window.location.reload();
+        this.alert.error("Photo deleted successfully!");
       });
 
       setTimeout(() =>
