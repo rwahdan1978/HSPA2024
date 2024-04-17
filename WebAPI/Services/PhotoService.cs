@@ -51,9 +51,8 @@ namespace WebAPI.Services
                 using var stream = photo.OpenReadStream();
                 var uploadParams = new ImageUploadParams
                 {    
-                    File = new FileDescription(photo.FileName, stream),
+                    File = new FileDescription(@photo.FileName, stream),
                     UseFilenameAsDisplayName = true,
-                    AllowedFormats = ["png","pdf","jpg"],
                     UseFilename = true,
                     PublicId = folder + "/" + photo.FileName,
                     Transformation = new Transformation()

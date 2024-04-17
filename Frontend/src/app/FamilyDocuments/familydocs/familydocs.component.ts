@@ -115,9 +115,9 @@ export class FamilydocsComponent implements OnInit {
 
   }
 
-  moveImage(publicId: string)
+  moveImage(imageId: string)
   {
-    console.log(publicId);
+    console.log(imageId);
     console.log(localStorage.getItem("theFolder"));
   }
 
@@ -141,12 +141,12 @@ export class FamilydocsComponent implements OnInit {
         
   }
 
-  deleteFolder(foldername:string)
+  deleteFolder(item:string)
   {
 
-    this.folderName2 = foldername;
+    this.folderName2 = item;
 
-    if (localStorage.getItem("photos") !== null && localStorage.getItem("theFolder") === foldername) 
+    if (localStorage.getItem("photos") !== null && localStorage.getItem("theFolder") === item) 
     {
       if (localStorage.getItem("photos") !== "have items")
       {

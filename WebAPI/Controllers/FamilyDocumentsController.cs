@@ -97,10 +97,29 @@ namespace WebAPI.Controllers
             if (result.Error != null)
                 return BadRequest(result.Error.Message);
 
+            int index = result.PublicId.IndexOf(".");
+            var toPublicId = "";
+            var ImageURL = "";
+            
+            if (index >= 0)
+            {
+                toPublicId = result.PublicId.Substring(0, index);
+                ImageURL = result.SecureUrl.AbsoluteUri.Remove(result.SecureUrl.AbsoluteUri.LastIndexOf('.'));
+            }
+            
+            var cloudinary = new Cloudinary(cloudinaryUrl: "cloudinary://334819583972299:M6mwunz9g3seqhMcP_CGV0HCNvc@hspa2024");
+            RenameParams renameParams = new RenameParams(result.PublicId, toPublicId)           
+            {               
+                FromPublicId = result.PublicId,               
+                ToPublicId = toPublicId
+            };
+
+            cloudinary.Rename(renameParams);
+
             var photo = new FamilyDocuments
             { 
-                ImageUrl = result.SecureUrl.AbsoluteUri,
-                PublicId = result.PublicId,
+                ImageUrl = ImageURL,
+                PublicId = toPublicId,
                 ImageId =  thedate+"_"+ num,
                 FolderName = folder
             };
@@ -134,16 +153,25 @@ namespace WebAPI.Controllers
         }
 
         //move image from one folder to another!
-        [HttpPost("move_image/{fromPublicId}/{toPublicId}")]
-        public async Task<IActionResult> MoveImage(string fromPublicId, string toPublicId)
+        [HttpPost("move_image/{imageId}/{folderName}")]
+        public async Task<IActionResult> MoveImage(string imageId, string folderName)
 
         {
-            var photo = await uow.familyRepository.GetPhotoByIdAsync(fromPublicId);
+            var photo = await uow.familyRepository.GetPhotoByIdAsync(imageId);
+            var fromPublicId = photo.PublicId;
+            //string[] theimagename = fromPublicId.Split('/');
+            var theimagename = "test";
+            var toPublicId = folderName + "/" + theimagename;
+            var theimageurl = photo.ImageUrl.Remove(photo.ImageUrl.LastIndexOf('/'));
+            var theimageurl2 = theimageurl.Remove(theimageurl.LastIndexOf('/'));
+            var ImageURL = theimageurl2 + "/" + "" + folderName + "/" + theimagename;
+             
+            if (photo == null)
+                return BadRequest("No such photo exists");
+
             var thedate = DateTime.Now.ToString("dd_MM_yyyy__HH_mm_ss");
             Random rnd = new Random();
             int num = rnd.Next();
-
-            //remove the current record of image here in DB
             
             await uow.familyRepository.DeletePhoto(photo.ImageId);
             await uow.SaveAsync();
@@ -157,20 +185,15 @@ namespace WebAPI.Controllers
             
             cloudinary.Rename(renameParams);
 
-            //add the new record of image here in DB
-            // need to split imageURL to get folder name
-            var imageURL = photo.ImageUrl;
-            var theFolder = imageURL.Split('/');
-            
              var photo2 = new FamilyDocuments
             { 
-                ImageUrl = imageURL,
+                ImageUrl = ImageURL,
                 PublicId = toPublicId,
                 ImageId =  thedate+"_"+ num,
-                FolderName = theFolder[0].ToString()
+                FolderName = folderName
             };
 
-            dc.familyDocuments.Add(photo);
+            dc.familyDocuments.Add(photo2);
             await uow.SaveAsync();    
 
             return Ok(201);
