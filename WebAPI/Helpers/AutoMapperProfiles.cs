@@ -10,7 +10,10 @@ namespace WebAPI.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<City, CityDto>().ReverseMap();
+
             CreateMap<Newsletter, NewsletterDto>().ReverseMap();
+
+            CreateMap<Newsletter, NewsletterUpdateSubDto>().ReverseMap();
 
             CreateMap<FamilyDocuments,photoListDto >().ReverseMap();
 

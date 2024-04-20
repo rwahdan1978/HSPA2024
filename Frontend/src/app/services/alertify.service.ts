@@ -29,13 +29,18 @@ export class AlertifyService {
 
   public getFolder()
   {
-    alertify.prompt( 'Move Image', 'Enter Folder Name', ''
+    alertify.prompt( 'Move Image', 'Enter Folder Name'  
                , function(evt:any, value:any) { localStorage.setItem("dialog",value)}
                , function() { alertify.error('Cancel') });
   }
 
-
-
-  
+  public getSubscriber()
+  {
+    alertify.prompt( 'Subscribe', 'Enter your email address', ''
+               , function(evt:any, value:any) { localStorage.setItem("email",value);
+                alertify.success("Thank you, please check your email!");
+               }
+               , function() { alertify.error('Cancel') });
+  }
 
 }

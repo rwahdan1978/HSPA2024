@@ -50,9 +50,11 @@ export class CallbackComponent implements OnInit {
     if (this.fname !== "" && this.phone !== "" && this.email !=="")
     {
         this.reason = this.property.projectName + "    " + this.property.name + "," + this.property.city;
-        emailjs.init("IclaYU2yrPjG2MHfm");
         
-        let response = await emailjs.send("service_ytxrv42","template_6j13ark",{
+        //this is emailjs public key!
+        emailjs.init("mh3EOs4Jy3aEXCESu");
+        
+        let response = await emailjs.send("service_aw38095","template_ulk83wm",{
           to_name: "Admin",
           user_name: this.fname,
           contact_number: this.phone,

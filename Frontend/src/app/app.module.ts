@@ -34,8 +34,9 @@ import { SortPipe } from './Pipes/sort.pipe';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { NgxPaginationModule } from 'ngx-pagination'; 
 import {MatTabsModule} from '@angular/material/tabs';
+import { MatIconModule } from '@angular/material/icon'
 
-// import { HttpErrorInterceptorService } from './services/httperor-interceptor.service';
+
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { PhotoEditorComponent } from './property/photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
@@ -44,7 +45,6 @@ import { MatDialogModule  } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HttpErrorInterceptorService } from './services/httperor-interceptor.service';
-// import { TokenInterceptor } from '../../src/app/services/token.interceptor'
 import { CallbackComponent } from './callback/callback.component';
 import { SubscriptionComponent } from './Subscription/Subscription.component';
 
@@ -99,6 +99,7 @@ const dialogMock = {
     MatInputModule,
     MatFormFieldModule,
     MatDialogModule,
+    MatIconModule,
     CommonModule,
     NgxGalleryModule,
     NgxFileDropModule,

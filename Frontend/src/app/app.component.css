@@ -7,3 +7,15 @@
     left: 35%;
     margin-top:0%;
 }
+
+.mat-icon {
+    position: fixed;
+    bottom: 0; 
+    right: 0;
+    font-size: 45px;
+    padding-right: 100px;
+    padding-bottom: 50px;
+    color: red;
+    
+    
+  }

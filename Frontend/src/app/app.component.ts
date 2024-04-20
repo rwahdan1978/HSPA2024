@@ -10,6 +10,8 @@ import { AuthService } from "./services/authService";
 import { CountdownConfig, CountdownEvent } from 'ngx-countdown';
 import { ServiceService } from "./services/service.service";
 import { Router } from "@angular/router";
+import emailjs from '@emailjs/browser';
+import { HousingService } from "./services/housing.service";
 
 const KEY = 'time'
 const DEFAULT = 900
@@ -26,12 +28,14 @@ export class AppComponent implements OnInit
 {
 
   token:any;
+  theEmail:any;
   //notify 1 not to display in localstorage and 0 to display!
   config: CountdownConfig = {leftTime: DEFAULT,format: 'm:ss', notify: 0}
 
   constructor(private alertify: AlertifyService,
               private auth: AuthService, private tokenAuth: ServiceService,
-              private router:Router) {}
+              private router:Router, private alert: AlertifyService,
+              private housingService: HousingService) {}
 
   title = 'my-first-app'; 
   myToken = this.auth.getToken();
@@ -42,6 +46,7 @@ export class AppComponent implements OnInit
   ngOnInit(): void
   {
 
+    localStorage.removeItem("email");
     this.token = sessionStorage.getItem("accessToken");
 
     if (sessionStorage.getItem("accessToken") != null)
@@ -97,6 +102,30 @@ export class AppComponent implements OnInit
 
     bundle();
     
+  }
+
+  showMenu()
+  {
+    this.alert.getSubscriber();
+
+        //this will save the email to subscribers list in db
+        setTimeout(async() =>
+          {
+
+            this.housingService.subscribeEmail(localStorage.getItem("email")).subscribe();
+
+            //this is emailjs public key!
+            emailjs.init("mh3EOs4Jy3aEXCESu");
+              
+              let response = await emailjs.send("service_aw38095","template_ulk83wm",{
+                to_name: "Admin",
+                user_name: "New Subscriber",
+                user_email: localStorage.getItem("email"),
+                subject: "Subscription",
+                message: "New subscription!",
+                });
+
+          }, 30000);
   }
 
   handleEvent(ev: CountdownEvent) {

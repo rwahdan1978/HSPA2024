@@ -12,7 +12,6 @@ import { AlertifyService } from 'src/app/services/alertify.service';
 import { HousingService } from 'src/app/services/housing.service';
 import { environment } from 'src/environments/environment';
 
-
 @Component({
   selector: 'app-familydocs',
   templateUrl: './familydocs.component.html',
@@ -45,6 +44,7 @@ export class FamilydocsComponent implements OnInit {
   folderName2:any;
   selectedfolder:any;
   themovefolder:any;
+  theEmail:any;
 
   ngOnInit() {
 
@@ -119,7 +119,6 @@ export class FamilydocsComponent implements OnInit {
   moveImage(imageId: string)
   {
     this.alert.getFolder();
-    //this.ngOnInit();
 
     setTimeout(() =>
       {
@@ -132,8 +131,6 @@ export class FamilydocsComponent implements OnInit {
           this.alert.success("Image moved successfully!");
           window.location.reload();
         }, 15000);
-     
-
   }
 
   createFolder()

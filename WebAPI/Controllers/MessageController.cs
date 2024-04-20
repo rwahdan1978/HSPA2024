@@ -1,7 +1,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.Data;
 using WebAPI.Dtos;
 using WebAPI.Interfaces;
 using WebAPI.Models;
@@ -20,32 +19,35 @@ namespace WebAPI.Controllers
         }
 
         //this is working in API, need to do it in frontend!
-        // Message/save/
+
+        //for subscribe
+        // message/save
         [HttpPost("save")]
-        [Authorize]
+        [AllowAnonymous]
         
         public async Task<IActionResult> SaveNewsLetterSubscription(NewsletterDto newsletterDto)
         {
             var callRequest = mapper.Map<Newsletter>(newsletterDto);
-
             uow.messageRepository.AddMessage(callRequest);
             await uow.SaveAsync();
-            return Ok(callRequest);
+            return StatusCode(201);
         }
 
+        //for un-subscribe
+        // message/update/11
         [HttpPut("update/{id}")]
-        [Authorize]
+        [AllowAnonymous]
         
-        public async Task<IActionResult> UpdateNewsLetterSubscription(NewsletterDto newsletterDto, int id)
+        public async Task<IActionResult> UpdateNewsLetterSubscription(NewsletterUpdateSubDto newsletterUpdateSubDto, int id)
         {
-            if (id != newsletterDto.id)
+            if (id != newsletterUpdateSubDto.id)
                 return BadRequest("Update is not allowed!");
              var messageFromDb = await uow.messageRepository.FindMessage(id);
 
              if (messageFromDb == null)
                 return BadRequest("Update is not allowed!");
 
-            mapper.Map(newsletterDto,messageFromDb);
+            mapper.Map(newsletterUpdateSubDto,messageFromDb);
             await uow.SaveAsync();
             return Ok(messageFromDb);
 

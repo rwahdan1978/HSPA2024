@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Property } from '../model/property';
 import { environment } from '../../environments/environment';
 import { Ikeyvaluepair } from '../model/ikeyvaluepair';
+import { defaultEquals } from '@angular/core/primitives/signals';
 
 @Injectable({
   providedIn: 'root'
@@ -175,6 +176,29 @@ export class HousingService
     };
 
     return this.http.post(this.baseUrl + '/familydocuments/move_image/' + imageId + "/" + folderName, httpOptions);
+  }
+
+  subscribeEmail(email: string)
+  {
+
+    const theEmail = {'Email': email};
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json' 
+      })
+    };
+    return this.http.post(this.baseUrl + '/message/save', theEmail, httpOptions);
+  }
+
+  unsubscribe(id: number)
+  {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + sessionStorage.getItem('accessToken')
+      })
+    };
+    return this.http.post(this.baseUrl + '/message/save' + id, httpOptions);
   }
 
 }
