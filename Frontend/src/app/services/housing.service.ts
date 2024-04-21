@@ -191,14 +191,22 @@ export class HousingService
     return this.http.post(this.baseUrl + '/message/save', theEmail, httpOptions);
   }
 
+  getNewsletterId(email: string)
+  {
+    return this.http.get(this.baseUrl + '/message/getID/' + email);
+  }
+
   unsubscribe(id: number)
   {
+
+    const theSub = [{"id":id},{'subscribed': false}];
+
     const httpOptions = {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + sessionStorage.getItem('accessToken')
       })
     };
-    return this.http.post(this.baseUrl + '/message/save' + id, httpOptions);
+    return this.http.put(this.baseUrl + '/message/update/' + id, theSub, httpOptions);
   }
 
 }

@@ -79,6 +79,7 @@ export class PropertyListComponent implements OnInit{
         this.localStorage.setItem("theflag","2");
         this.sessionStorage.removeItem("chosenfolder");
         this.localStorage.removeItem('dialog');
+        this.localStorage.removeItem("unsub");
     });
 
       this.deviveInfo = this.DDS.getDeviceInfo();

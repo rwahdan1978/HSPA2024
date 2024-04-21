@@ -17,7 +17,7 @@ import { CommonModule } from "@angular/common";
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { CountdownModule } from 'ngx-countdown';
-import { AppComponent } from './app.component';
+import { AppComponent } from "./app.component";
 import { PropertycardComponent } from './property/property-card/property-card..component';
 import { PropertyListComponent } from './property/property-list/property-list.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';

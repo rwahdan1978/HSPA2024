@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -29,6 +30,8 @@ export class AppComponent implements OnInit
 
   token:any;
   theEmail:any;
+  properties:any;
+
   //notify 1 not to display in localstorage and 0 to display!
   config: CountdownConfig = {leftTime: DEFAULT,format: 'm:ss', notify: 0}
 
@@ -104,7 +107,7 @@ export class AppComponent implements OnInit
     
   }
 
-  showMenu()
+  subscribe()
   {
     this.alert.getSubscriber();
 
@@ -113,7 +116,7 @@ export class AppComponent implements OnInit
           {
 
             this.housingService.subscribeEmail(localStorage.getItem("email")).subscribe();
-
+            
             //this is emailjs public key!
             emailjs.init("mh3EOs4Jy3aEXCESu");
               
@@ -126,6 +129,23 @@ export class AppComponent implements OnInit
                 });
 
           }, 30000);
+  }
+
+  unsubscribe()
+  {
+    this.alert.cancelSubscription();
+    
+    setTimeout(() =>
+    { 
+      const email = localStorage.getItem("unsub");
+      this.housingService.getNewsletterId(email).subscribe(data =>
+      {
+        let theID = JSON.stringify(data, ["id"]);
+        let theID2 = JSON.parse(theID);
+        this.housingService.unsubscribe(theID2.id).subscribe();
+        });
+    }, 20000);
+    
   }
 
   handleEvent(ev: CountdownEvent) {

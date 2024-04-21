@@ -43,4 +43,23 @@ export class AlertifyService {
                , function() { alertify.error('Cancel') });
   }
 
+  public cancelSubscription()
+  {
+
+    alertify.prompt( 'Un-Subscribe', 'Enter your email address', ''
+               , function(evt:any, value:any) { localStorage.setItem("unsub",value);
+                alertify.success("Sorry to see you leave...See you soon");
+               }
+               , function() { alertify.error('Cancel') });
+
+    //   alertify.confirm("Unsubscribe","Are you sure you want to cancel the subscription?",
+    // function(){
+    //   localStorage.setItem("unsub","Yes");
+    // },
+    // function(){
+    //   localStorage.setItem("unsub","No");
+    //   alertify.error('Unsubscription process has been Canceled!');
+    // });
+  }
+
 }

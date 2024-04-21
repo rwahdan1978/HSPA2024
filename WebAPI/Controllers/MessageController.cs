@@ -1,6 +1,8 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using WebAPI.Data;
 using WebAPI.Dtos;
 using WebAPI.Interfaces;
 using WebAPI.Models;
@@ -11,16 +13,16 @@ namespace WebAPI.Controllers
     {
         private readonly IunitOfWork uow;
         private readonly IMapper mapper;
+        private readonly DataContext dc;
 
-        public MessageController(IunitOfWork uow, IMapper mapper)
+        public MessageController(IunitOfWork uow, IMapper mapper, DataContext dc)
         {
             this.uow = uow;
             this.mapper = mapper;
+            this.dc = dc;
         }
 
-        //this is working in API, need to do it in frontend!
-
-        //for subscribe
+        //for subscribe - done
         // message/save
         [HttpPost("save")]
         [AllowAnonymous]
@@ -52,5 +54,16 @@ namespace WebAPI.Controllers
             return Ok(messageFromDb);
 
         }  
+
+        [HttpGet("getID/{email}")]
+        [AllowAnonymous]
+        public async Task<Newsletter> SubscriberId(string email)
+        {
+            var properties = await dc.Newsletters
+            .Where(p => p.Email == email)
+            .FirstOrDefaultAsync();
+
+            return properties;
+        }
     }
 }

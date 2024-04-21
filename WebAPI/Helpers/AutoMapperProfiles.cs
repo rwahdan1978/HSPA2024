@@ -14,6 +14,8 @@ namespace WebAPI.Helpers
             CreateMap<Newsletter, NewsletterDto>().ReverseMap();
 
             CreateMap<Newsletter, NewsletterUpdateSubDto>().ReverseMap();
+            
+            CreateMap<Newsletter, NewsletterGetId>().ReverseMap();
 
             CreateMap<FamilyDocuments,photoListDto >().ReverseMap();
 
