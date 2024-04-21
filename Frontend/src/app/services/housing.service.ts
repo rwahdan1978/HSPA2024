@@ -180,15 +180,8 @@ export class HousingService
 
   subscribeEmail(email: string)
   {
-
     const theEmail = {'Email': email};
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json' 
-      })
-    };
-    return this.http.post(this.baseUrl + '/message/save', theEmail, httpOptions);
+    return this.http.post(this.baseUrl + '/message/save', theEmail);
   }
 
   getNewsletterId(email: string)
@@ -198,15 +191,8 @@ export class HousingService
 
   unsubscribe(id: number)
   {
-
-    const theSub = [{"id":id},{'subscribed': false}];
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + sessionStorage.getItem('accessToken')
-      })
-    };
-    return this.http.put(this.baseUrl + '/message/update/' + id, theSub, httpOptions);
+    const theSub = {"id":id,"subscribed":false};
+    return this.http.put(this.baseUrl + '/message/update/' + id, theSub);
   }
 
 }

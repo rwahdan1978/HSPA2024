@@ -3,12 +3,11 @@
 import { HttpErrorResponse, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Observable, of, throwError } from 'rxjs';
-import { catchError, concatMap, retryWhen, switchMap } from 'rxjs/operators';
+import { catchError, concatMap, retryWhen } from 'rxjs/operators';
 import { AlertifyService } from './alertify.service';
 import { ErrorCode } from 'enums/enums';
 import { AuthService } from './authService';
 import {  Router } from '@angular/router';
-import { TokenApiModel } from '../model/token.api.model';
 
 @Injectable({
     providedIn: 'root'
@@ -64,22 +63,6 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
             if(error.status===401)
             {
                 return error.statusText;
-                // const myToken = this.auth.getToken();
-                // const tokeApiModel = new TokenApiModel();
-                // tokeApiModel.accessToken = this.auth.getToken()!;
-                // tokeApiModel.refreshToken = this.auth.getRefreshToken()!;
-                // return this.auth.renewToken(tokeApiModel)
-                // .pipe(
-                // switchMap((data:TokenApiModel)=>{
-                //     this.auth.storeRefreshToken(data.refreshToken);
-                //     this.auth.storeToken(data.accessToken);
-                //     // const req = req.clone({
-                //     // setHeaders: {Authorization:"Bearer " + myToken}
-                //     // })
-                //     return error.statusText;
-                // }),
-                
-                // )
             }
 
             if (error.error.errorMessage && error.status!==0) {

@@ -142,7 +142,7 @@ export class AppComponent implements OnInit
       {
         let theID = JSON.stringify(data, ["id"]);
         let theID2 = JSON.parse(theID);
-        this.housingService.unsubscribe(theID2.id).subscribe();
+        this.housingService.unsubscribe(+theID2.id).subscribe();
         });
     }, 20000);
     

@@ -43,11 +43,11 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> UpdateNewsLetterSubscription(NewsletterUpdateSubDto newsletterUpdateSubDto, int id)
         {
             if (id != newsletterUpdateSubDto.id)
-                return BadRequest("Update is not allowed!");
+                return BadRequest("Update is not allowed!11");
              var messageFromDb = await uow.messageRepository.FindMessage(id);
 
              if (messageFromDb == null)
-                return BadRequest("Update is not allowed!");
+                return BadRequest("Update is not allowed!12");
 
             mapper.Map(newsletterUpdateSubDto,messageFromDb);
             await uow.SaveAsync();
