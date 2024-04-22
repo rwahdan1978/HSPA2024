@@ -114,21 +114,44 @@ export class AppComponent implements OnInit
         //this will save the email to subscribers list in db
         setTimeout(async() =>
           {
+            const email = localStorage.getItem("email");
+            this.housingService.getNewsletterId(email).subscribe(async data =>
+            {
+              let theID = JSON.stringify(data, ["id"]);
+              let theID2 = JSON.parse(theID);
+              let thesub = JSON.stringify(data, ["subscribed"]);
+              let thesub2 = JSON.parse(thesub);
 
-            this.housingService.subscribeEmail(localStorage.getItem("email")).subscribe();
+              if (theID2 === null)
+              {
+                this.housingService.subscribeEmail(localStorage.getItem("email")).subscribe();
             
-            //this is emailjs public key!
-            emailjs.init("mh3EOs4Jy3aEXCESu");
+                //this is emailjs public key!
+                emailjs.init("mh3EOs4Jy3aEXCESu");
               
-              let response = await emailjs.send("service_aw38095","template_ulk83wm",{
-                to_name: "Admin",
-                user_name: "New Subscriber",
-                user_email: localStorage.getItem("email"),
-                subject: "Subscription",
-                message: "New subscription!",
-                });
+                let response = await emailjs.send("service_aw38095","template_ulk83wm",{
+                  to_name: "Admin",
+                  user_name: "New Subscriber",
+                  user_email: localStorage.getItem("email"),
+                  subject: "Subscription",
+                  message: "New subscription!",
+                  });
+                  this.alert.success("Email subscribed, check your rmail...");
+              }
+              else if (theID2 !== null && thesub2.subscribed === true)
+              {
+                this.alert.error("Email is already subscribed!");
+              }
+              else if (theID2 !== null && thesub2.subscribed === false)
+              {
+                this.housingService.resubscribe(+theID2.id).subscribe();
+                this.alert.success("Your email has been subscribed again!");
+              }
+            });
 
-          }, 30000);
+            
+
+          }, 5000);
   }
 
   unsubscribe()
@@ -142,9 +165,18 @@ export class AppComponent implements OnInit
       {
         let theID = JSON.stringify(data, ["id"]);
         let theID2 = JSON.parse(theID);
-        this.housingService.unsubscribe(+theID2.id).subscribe();
+        let thesub = JSON.stringify(data, ["subscribed"]);
+        let thesub2 = JSON.parse(thesub);
+
+        if (theID2 !== null && thesub2.subscribed === true)
+        {
+          this.housingService.unsubscribe(+theID2.id).subscribe();
+          this.alert.success("You have unsubscribed!")
+        }
+        else
+          this.alert.error("Email is already unsubscribed!");
         });
-    }, 20000);
+    }, 5000);
     
   }
 

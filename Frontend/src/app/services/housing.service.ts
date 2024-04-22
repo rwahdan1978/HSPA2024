@@ -195,4 +195,10 @@ export class HousingService
     return this.http.put(this.baseUrl + '/message/update/' + id, theSub);
   }
 
+  resubscribe(id: number)
+  {
+    const theSub = {"id":id,"subscribed":true};
+    return this.http.put(this.baseUrl + '/message/update/' + id, theSub);
+  }
+
 }

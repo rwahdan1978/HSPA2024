@@ -37,9 +37,7 @@ export class AlertifyService {
   public getSubscriber()
   {
     alertify.prompt( 'Subscribe', 'Enter your email address', ''
-               , function(evt:any, value:any) { localStorage.setItem("email",value);
-                alertify.success("Thank you, please check your email!");
-               }
+               , function(evt:any, value:any) { localStorage.setItem("email",value);}
                , function() { alertify.error('Cancel') });
   }
 
@@ -47,19 +45,8 @@ export class AlertifyService {
   {
 
     alertify.prompt( 'Un-Subscribe', 'Enter your email address', ''
-               , function(evt:any, value:any) { localStorage.setItem("unsub",value);
-                alertify.success("Sorry to see you leave...See you soon");
-               }
+               , function(evt:any, value:any) { localStorage.setItem("unsub",value);}
                , function() { alertify.error('Cancel') });
-
-    //   alertify.confirm("Unsubscribe","Are you sure you want to cancel the subscription?",
-    // function(){
-    //   localStorage.setItem("unsub","Yes");
-    // },
-    // function(){
-    //   localStorage.setItem("unsub","No");
-    //   alertify.error('Unsubscription process has been Canceled!');
-    // });
   }
 
 }
