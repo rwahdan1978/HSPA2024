@@ -125,18 +125,7 @@ export class AppComponent implements OnInit
               if (theID2 === null)
               {
                 this.housingService.subscribeEmail(localStorage.getItem("email")).subscribe();
-            
-                //this is emailjs public key!
-                emailjs.init("mh3EOs4Jy3aEXCESu");
-              
-                let response = await emailjs.send("service_aw38095","template_ulk83wm",{
-                  to_name: "Admin",
-                  user_name: "New Subscriber",
-                  user_email: localStorage.getItem("email"),
-                  subject: "Subscription",
-                  message: "New subscription!",
-                  });
-                  this.alert.success("Email subscribed, check your rmail...");
+                this.alert.success("Email subscribed, check your rmail...");
               }
               else if (theID2 !== null && thesub2.subscribed === true)
               {

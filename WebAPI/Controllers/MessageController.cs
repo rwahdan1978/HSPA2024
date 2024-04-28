@@ -24,43 +24,6 @@ namespace WebAPI.Controllers
             this.dc = dc;
         }
 
-        [HttpPost("SendEmail/{email}")]
-        [AllowAnonymous]
-        
-        public ActionResult SendEmail(string email)
-        {
-            var message = new MailMessage()
-            {
-                From = new MailAddress("ramiwahdan1978@gmail.com"),
-                Subject = "Test1",
-                IsBodyHtml = true,
-                Body = 
-                """
-                <html>
-                <body>
-                    <h2>Hi, this is a test!</h2>,
-                    <h3>Hi, this is a test2!</h3>
-                    <img src="https://res.cloudinary.com/hspa2024/image/upload/v1709295557/house_default_kfgrot.png">
-                </body>
-                </html>
-                """
-            };
-
-            message.To.Add(email.ToString());
-
-            var smtp = new SmtpClient("smtp.gmail.com")
-            {
-                Port = 587,
-                Credentials = new NetworkCredential(message.From.ToString(), "pqwq yoam bfpd pdjg"),
-                EnableSsl = true
-            };
-            
-            smtp.Send(message);
-
-            return Ok("Email Sent!");
-
-        }
-
         //for subscribe - done
         // message/save
         [HttpPost("save")]
@@ -72,10 +35,43 @@ namespace WebAPI.Controllers
             uow.messageRepository.AddMessage(callRequest);
             await uow.SaveAsync();
 
+            var message = new MailMessage()
+            {
+                From = new MailAddress("ramiwahdan1978@gmail.com"),
+                Subject = "New Subscription",
+                IsBodyHtml = true,
+            };
+
+            // if you need to include attachments
+           // message.Attachments.Add(new Attachment("C:/Users/ramit/OneDrive/Desktop/projects-list.pdf"));
+
+            message.To.Add(callRequest.Email.ToString());
+
+            var theUser = message.From.User;
+
+            message.Body = 
+                $"""
+                <html>
+                    <body>
+                        <h2>Hi, {theUser}</h2>,
+                        <p>
+                            Thank you very much for your subscription, From now on you will get updated from our
+                            newsletter. 
+                        </p>
+                    </body>
+                </html>
+                """;
+
+            var smtp = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(message.From.ToString(), "pqwq yoam bfpd pdjg"),
+                EnableSsl = true
+            };
+            
+            smtp.Send(message);
             return StatusCode(201);
         }
-
-
 
         //for un-subscribe
         // message/update/11
@@ -85,14 +81,94 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> UpdateNewsLetterSubscription(NewsletterUpdateSubDto newsletterUpdateSubDto, int id)
         {
             if (id != newsletterUpdateSubDto.id)
-                return BadRequest("Update is not allowed!11");
-             var messageFromDb = await uow.messageRepository.FindMessage(id);
+                return BadRequest("Update is not allowed!");
+            var messageFromDb = await uow.messageRepository.FindMessage(id);
 
-             if (messageFromDb == null)
-                return BadRequest("Update is not allowed!12");
+            if (messageFromDb == null)
+                return BadRequest("Update is not allowed!");
 
-            mapper.Map(newsletterUpdateSubDto,messageFromDb);
+            var resub = mapper.Map(newsletterUpdateSubDto,messageFromDb);
             await uow.SaveAsync();
+
+            if (resub.Subscribed.ToString() == "True")
+            {
+                //email to sub
+                var message = new MailMessage()
+            {
+                From = new MailAddress("ramiwahdan1978@gmail.com"),
+                Subject = "Rectivate Subscription",
+                IsBodyHtml = true,
+            };
+
+            // if you need to include attachments
+           // message.Attachments.Add(new Attachment("C:/Users/ramit/OneDrive/Desktop/projects-list.pdf"));
+
+            message.To.Add(resub.Email.ToString());
+
+            var theUser = message.From.User;
+
+            message.Body = 
+                $"""
+                <html>
+                    <body>
+                        <h2>Hi, {theUser}</h2>,
+                        <p>
+                            Thank you very much for re-activating your subscription, From now on you will get updated from our
+                            newsletter. 
+                        </p>
+                    </body>
+                </html>
+                """;
+
+            var smtp = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(message.From.ToString(), "pqwq yoam bfpd pdjg"),
+                EnableSsl = true
+            };
+            
+            smtp.Send(message);
+            }
+            else
+            {
+                //email to unsub
+                var message = new MailMessage()
+            {
+                From = new MailAddress("ramiwahdan1978@gmail.com"),
+                Subject = "Cancellation of Subscription",
+                IsBodyHtml = true,
+            };
+
+            // if you need to include attachments
+           // message.Attachments.Add(new Attachment("C:/Users/ramit/OneDrive/Desktop/projects-list.pdf"));
+
+            message.To.Add(resub.Email.ToString());
+
+            var theUser = message.From.User;
+
+            message.Body = 
+                $"""
+                <html>
+                    <body>
+                        <h2>Hi, {theUser}</h2>,
+                        <p>
+                            Sorry for unsubscribing, From now on you will not get updates from our
+                            newsletter. 
+                        </p>
+                    </body>
+                </html>
+                """;
+
+            var smtp = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(message.From.ToString(), "pqwq yoam bfpd pdjg"),
+                EnableSsl = true
+            };
+            
+            smtp.Send(message);
+            }
+
             return Ok(messageFromDb);
 
         }  
