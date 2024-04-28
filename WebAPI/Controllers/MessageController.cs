@@ -73,6 +73,52 @@ namespace WebAPI.Controllers
             return StatusCode(201);
         }
 
+        [HttpPost("call")]
+        [AllowAnonymous]
+        
+        public async Task<IActionResult> RequestCall(NewsletterDto newsletterDto)
+        {
+            var callRequest = mapper.Map<Newsletter>(newsletterDto);
+            uow.messageRepository.AddMessage(callRequest);
+            await uow.SaveAsync();
+
+            var message = new MailMessage()
+            {
+                From = new MailAddress("ramiwahdan1978@gmail.com"),
+                Subject = "Call Back Request",
+                IsBodyHtml = true,
+            };
+
+            // if you need to include attachments
+           // message.Attachments.Add(new Attachment("C:/Users/ramit/OneDrive/Desktop/projects-list.pdf"));
+
+            message.To.Add(callRequest.Email.ToString());
+
+            var theUser = message.From.User;
+
+            message.Body = 
+                $"""
+                <html>
+                    <body>
+                        <h2>Hi, {theUser}</h2>,
+                        <p>
+                            Thank you very much for your call, we will call you within 2 working days!
+                        </p>
+                    </body>
+                </html>
+                """;
+
+            var smtp = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(message.From.ToString(), "pqwq yoam bfpd pdjg"),
+                EnableSsl = true
+            };
+            
+            smtp.Send(message);
+            return StatusCode(201);
+        }
+
         //for un-subscribe
         // message/update/11
         [HttpPut("update/{id}")]

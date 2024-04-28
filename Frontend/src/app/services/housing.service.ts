@@ -180,8 +180,14 @@ export class HousingService
 
   subscribeEmail(email: string)
   {
-    const theEmail = {'Email': email};
+    const theEmail = {'Email': email,"subscribed":true};
     return this.http.post(this.baseUrl + '/message/save', theEmail);
+  }
+
+  requestcall(email: string)
+  {
+    const theSub = {"email":email,"subscribed":false};
+    return this.http.post(this.baseUrl + '/message/call', theSub);
   }
 
   getNewsletterId(email: string)

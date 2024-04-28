@@ -4,7 +4,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AlertifyService } from '../services/alertify.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Property } from '../model/property';
-import emailjs from '@emailjs/browser';
+import { HousingService } from '../services/housing.service';
 
 @Component({
   selector: 'app-callback',
@@ -24,7 +24,7 @@ export class CallbackComponent implements OnInit {
   public propertyId: number;
 
   constructor(private alert: AlertifyService, private router: Router,
-              private route: ActivatedRoute){}
+              private route: ActivatedRoute, private housing: HousingService){}
 
   ngOnInit() {
     this.propertyId = +this.route.snapshot.params['id'];
@@ -45,25 +45,13 @@ export class CallbackComponent implements OnInit {
 
   }
 
-  async callme()
+  callme(email:string)
   { 
     if (this.fname !== "" && this.phone !== "" && this.email !=="")
     {
-        this.reason = this.property.projectName + "    " + this.property.name + "," + this.property.city;
-        
-        //this is emailjs public key!
-        emailjs.init("mh3EOs4Jy3aEXCESu");
-        
-        let response = await emailjs.send("service_aw38095","template_ulk83wm",{
-          to_name: "Admin",
-          user_name: this.fname,
-          contact_number: this.phone,
-          user_email: this.email,
-          subject: this.reason,
-          message: "Please call me back at " + this.phone,
-          });
+        this.housing.requestcall(email).subscribe();
   
-          this.alert.success("Thank you " + this.fname + ", we will call you in 2 working days!");
+        this.alert.success("Thank you " + this.fname + ", we will call you in 2 working days!");
   
           setTimeout(()=>
           {
