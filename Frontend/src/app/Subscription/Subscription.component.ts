@@ -11,7 +11,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./Subscription.component.css']
 })
 export class SubscriptionComponent implements OnInit {
+
   pname:any;
+  filename:any;
+  filename1:any;
 
   constructor(private alertify:AlertifyService, private router: Router) { }
 

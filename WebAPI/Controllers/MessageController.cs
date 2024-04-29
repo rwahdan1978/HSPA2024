@@ -47,7 +47,8 @@ namespace WebAPI.Controllers
 
             message.To.Add(callRequest.Email.ToString());
 
-            var theUser = message.From.User;
+            var theUser1 = message.To.ToString();
+            var theUser = theUser1.Split('@')[0];
 
             message.Body = 
                 $"""
@@ -65,7 +66,7 @@ namespace WebAPI.Controllers
             var smtp = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
-                Credentials = new NetworkCredential(message.From.ToString(), "pqwq yoam bfpd pdjg"),
+                Credentials = new NetworkCredential(message.From.ToString(), "lhgv qcgv kjex tmkh"),
                 EnableSsl = true
             };
             
@@ -94,7 +95,8 @@ namespace WebAPI.Controllers
 
             message.To.Add(callRequest.Email.ToString());
 
-            var theUser = message.From.User;
+            var theUser1 = message.To.ToString();
+            var theUser = theUser1.Split('@')[0];
 
             message.Body = 
                 $"""
@@ -111,7 +113,7 @@ namespace WebAPI.Controllers
             var smtp = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
-                Credentials = new NetworkCredential(message.From.ToString(), "pqwq yoam bfpd pdjg"),
+                Credentials = new NetworkCredential(message.From.ToString(), "lhgv qcgv kjex tmkh"),
                 EnableSsl = true
             };
             
@@ -151,7 +153,8 @@ namespace WebAPI.Controllers
 
             message.To.Add(resub.Email.ToString());
 
-            var theUser = message.From.User;
+            var theUser1 = message.To.ToString();
+            var theUser = theUser1.Split('@')[0];
 
             message.Body = 
                 $"""
@@ -169,7 +172,7 @@ namespace WebAPI.Controllers
             var smtp = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
-                Credentials = new NetworkCredential(message.From.ToString(), "pqwq yoam bfpd pdjg"),
+                Credentials = new NetworkCredential(message.From.ToString(), "lhgv qcgv kjex tmkh"),
                 EnableSsl = true
             };
             
@@ -190,7 +193,8 @@ namespace WebAPI.Controllers
 
             message.To.Add(resub.Email.ToString());
 
-            var theUser = message.From.User;
+            var theUser1 = message.To.ToString();
+            var theUser = theUser1.Split('@')[0];
 
             message.Body = 
                 $"""
@@ -208,7 +212,7 @@ namespace WebAPI.Controllers
             var smtp = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
-                Credentials = new NetworkCredential(message.From.ToString(), "pqwq yoam bfpd pdjg"),
+                Credentials = new NetworkCredential(message.From.ToString(), "lhgv qcgv kjex tmkh"),
                 EnableSsl = true
             };
             

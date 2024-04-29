@@ -51,14 +51,18 @@
               <form id="stripe-login">
 
                 <div class="field padding-bottom--24">
-                  <label for="fname">Publication Name</label>
-                  <input type="text" name="fname" id="fname" [(ngModel)]="pname">
+                  <label for="pname">Publication Name</label>
+                  <input type="text" name="pname" id="pname" [(ngModel)]="pname">
+                </div>
+
+                <div class="field padding-bottom--24">
+                  <input type="file" id="myFile" [(ngModel)]="filename">
                 </div>
 
                 <div class="field padding-bottom--24">
                   <input (click)="publishNews()" type="submit" name="submit" value="Continue">
                 </div>
-                
+
               </form>
             </div>
           </div>
