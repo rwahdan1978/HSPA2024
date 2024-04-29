@@ -131,12 +131,6 @@ const dialogMock = {
       multi: true
     },
 
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: TokenInterceptor,
-    //   multi: true
-    // },
-
     DatePipe,
     {provide: LocationStrategy, useClass: HashLocationStrategy},
 
