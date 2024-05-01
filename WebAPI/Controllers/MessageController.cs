@@ -91,7 +91,7 @@ namespace WebAPI.Controllers
             };
 
             // if you need to include attachments
-           // message.Attachments.Add(new Attachment("C:/Users/ramit/OneDrive/Desktop/projects-list.pdf"));
+            // message.Attachments.Add(new Attachment(""));
 
             message.To.Add(callRequest.Email.ToString());
 

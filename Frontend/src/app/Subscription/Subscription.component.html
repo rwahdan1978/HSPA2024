@@ -56,7 +56,13 @@
                 </div>
 
                 <div class="field padding-bottom--24">
-                  <input type="file" id="myFile" [(ngModel)]="filename">
+                  <label for="desc">Description</label>
+                  <textarea name="desc" cols="46" rows="5" [(ngModel)]="desc"></textarea>
+                </div>
+
+                <div class="field padding-bottom--24">
+                  <label for="myFile">Image Path</label>
+                  <input type="text" id="myFile" [(ngModel)]="filename">
                 </div>
 
                 <div class="field padding-bottom--24">
